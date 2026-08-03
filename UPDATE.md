@@ -24,11 +24,27 @@ publiceer niets, commit niets, en meld enkel dat de vakantie voorbij is.
 
 ### 1. Haal verse meetdata op
 
-```bash
-curl -s "https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Europe%2FParis&forecast_days=16"
+Probeer eerst `curl` vanuit Bash:
 
-curl -s "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=45.09289&longitude=-0.54756&hourly=pm10,pm2_5,european_aqi,ozone&timezone=Europe%2FParis&past_days=7&forecast_days=5"
+```bash
+curl -s --max-time 25 "https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Europe%2FParis&forecast_days=16"
+
+curl -s --max-time 25 "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=45.09289&longitude=-0.54756&hourly=pm10,pm2_5,european_aqi,ozone&timezone=Europe%2FParis&past_days=7&forecast_days=5"
 ```
+
+> **Let op — dit faalde bij de testrun van 3 augustus.** De cloud-sandbox blokkeert
+> uitgaand verkeer vanuit Bash naar `api.open-meteo.com`. Krijg je een timeout of een
+> leeg antwoord, ga dan **niet** verder met verouderde cijfers, maar val terug op
+> **WebFetch** met exact dezelfde URL. WebFetch loopt langs een andere route en werkt
+> wel. Vraag in de prompt om de dagreeksen letterlijk terug te geven, bijvoorbeeld:
+> *"Give me the complete `daily` arrays as JSON: time, temperature_2m_max,
+> temperature_2m_min, precipitation_sum, precipitation_probability_max,
+> wind_speed_10m_max, wind_gusts_10m_max, wind_direction_10m_dominant. Return raw
+> numbers, all 16 days, no commentary."*
+>
+> Lukt ook dat niet, laat `DATA.days` en `DATA.air` dan ongemoeid en **zeg
+> uitdrukkelijk in de statusregel én in je samenvatting dat de meetcijfers van een
+> eerdere datum zijn.** Nooit stilzwijgend oude cijfers als nieuw presenteren.
 
 Voor luchtkwaliteit: neem per dag het **maximum** van elke uurreeks.
 
@@ -101,13 +117,19 @@ Gebruik de Artifact-tool met **exact** deze parameters:
 De `url` is verplicht — zonder die parameter maak je een nieuwe link aan en dan raakt Tim
 het dashboard kwijt dat hij op zijn gsm heeft staan.
 
-### 6. Commit terug
+### 6. Commit terug (mag mislukken)
 
 ```bash
 git add -A
 git commit -m "Dagelijkse update: <datum>"
 git push
 ```
+
+Bij de testrun van 3 augustus lukte de `push` niet — de cloud-sessie heeft de repo
+alleen-lezen. **Dat is niet erg en geen reden om iets over te doen:** de gepubliceerde
+artifact is de echte uitkomst, en jij bouwt elke dag opnieuw op vanaf deze template
+met verse research. Faalt de push, meld dat dan in één zin in je samenvatting en stop.
+Ga niet forceren en probeer geen andere remote.
 
 ## Toon
 
