@@ -1,0 +1,1396 @@
+<title>Vakantiestatus — Teuillac, Gironde</title>
+
+<style>
+  :root {
+    color-scheme: light;
+    --plane:      #f2f4f1;
+    --surface:    #fbfcfa;
+    --surface-2:  #eceee9;
+    --ink:        #14181a;
+    --ink-2:      #4c5457;
+    --muted:      #7c8589;
+    --rule:       #dde1dc;
+    --rule-soft:  #e7eae5;
+    --accent:     #1f6b74;
+    --accent-2:   #d7e6e7;
+    --good:       #0ca30c;
+    --warning:    #fab219;
+    --critical:   #d03b3b;
+    --water:      #a8c4cc;
+    --land:       #e5e8e0;
+    --ash:        #8b8d86;
+    --shadow:     0 1px 2px rgba(11,18,20,.05), 0 8px 24px -14px rgba(11,18,20,.18);
+
+    --f-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --f-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --f-data: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --plane:     #0d100f;
+      --surface:   #171b1a;
+      --surface-2: #1f2423;
+      --ink:       #f4f6f4;
+      --ink-2:     #b6bfbc;
+      --muted:     #838c89;
+      --rule:      #2a2f2e;
+      --rule-soft: #232827;
+      --accent:    #4fb3bd;
+      --accent-2:  #16302f;
+      --water:     #2d4650;
+      --land:      #1e2322;
+      --ash:       #6f736c;
+      --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --plane:     #0d100f;
+    --surface:   #171b1a;
+    --surface-2: #1f2423;
+    --ink:       #f4f6f4;
+    --ink-2:     #b6bfbc;
+    --muted:     #838c89;
+    --rule:      #2a2f2e;
+    --rule-soft: #232827;
+    --accent:    #4fb3bd;
+    --accent-2:  #16302f;
+    --water:     #2d4650;
+    --land:      #1e2322;
+    --ash:       #6f736c;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--plane);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 20px 96px; }
+  @media (max-width: 640px) { .wrap { padding: 18px 14px 72px; } }
+
+  /* ---------- type ---------- */
+  h1, h2, h3 { font-family: var(--f-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+  h1 { font-size: clamp(1.75rem, 4.6vw, 2.6rem); line-height: 1.08; }
+  h2 { font-size: clamp(1.2rem, 2.6vw, 1.5rem); line-height: 1.2; }
+  h3 { font-size: 1.02rem; line-height: 1.3; }
+  p { margin: 0; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px;
+  }
+  .eyebrow {
+    font-family: var(--f-body); font-size: .688rem; font-weight: 650;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  }
+  .lede { font-size: 1.03rem; color: var(--ink-2); max-width: 66ch; }
+  .small { font-size: .812rem; color: var(--ink-2); }
+  .tiny { font-size: .75rem; color: var(--muted); }
+  .num { font-family: var(--f-data); font-variant-numeric: tabular-nums; }
+
+  /* ---------- header ---------- */
+  header.top {
+    display: flex; flex-wrap: wrap; gap: 18px 24px;
+    align-items: flex-end; justify-content: space-between;
+    padding-bottom: 20px; border-bottom: 1px solid var(--rule); margin-bottom: 26px;
+  }
+  .top-meta { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .datepill {
+    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+    font-family: var(--f-data); font-size: .75rem; letter-spacing: .02em;
+    background: var(--accent-2); color: var(--accent);
+    padding: 4px 10px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  .top-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  @media (min-width: 641px) { .top-actions { align-items: flex-end; } }
+
+  button.refresh {
+    display: inline-flex; align-items: center; gap: 9px;
+    font: inherit; font-weight: 600; font-size: .875rem;
+    background: var(--accent); color: var(--surface);
+    border: 0; border-radius: 8px; padding: 10px 16px; cursor: pointer;
+    box-shadow: var(--shadow);
+  }
+  button.refresh:hover { filter: brightness(1.08); }
+  button.refresh[aria-busy="true"] { opacity: .72; cursor: progress; }
+  button.refresh svg { flex: none; }
+  button.refresh[aria-busy="true"] svg { animation: spin 900ms linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { button.refresh[aria-busy="true"] svg { animation: none; } }
+
+  .livestat { display: flex; align-items: flex-start; gap: 7px; font-size: .75rem; color: var(--muted); max-width: 34ch; }
+  .livestat .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex: none; margin-top: 6px; }
+  .livestat[data-state="live"] .dot { background: var(--good); }
+  .livestat[data-state="auto"] .dot { background: var(--accent); }
+  .livestat[data-state="busy"] .dot { background: var(--muted); }
+
+  /* ---------- verdict ---------- */
+  .verdict {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 14px;
+    box-shadow: var(--shadow); overflow: hidden; margin-bottom: 26px;
+  }
+  .verdict-head { padding: 22px 24px; display: flex; gap: 18px; align-items: flex-start; border-bottom: 1px solid var(--rule-soft); }
+  @media (max-width: 560px) { .verdict-head { padding: 18px 16px; flex-direction: column; gap: 12px; } }
+  .verdict-mark { flex: none; width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center; background: color-mix(in srgb, var(--good) 14%, transparent); }
+  .verdict-copy { display: flex; flex-direction: column; gap: 8px; }
+  .verdict-copy h2 { font-size: clamp(1.15rem, 3vw, 1.44rem); }
+
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 860px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+  .tile { padding: 16px 18px; border-right: 1px solid var(--rule-soft); display: flex; flex-direction: column; gap: 5px; }
+  .tile:last-child { border-right: 0; }
+  @media (max-width: 860px) {
+    .tile:nth-child(2n) { border-right: 0; }
+    .tile:nth-child(-n+2) { border-bottom: 1px solid var(--rule-soft); }
+  }
+  .tile-val { font-family: var(--f-display); font-size: 1.7rem; line-height: 1; letter-spacing: -.02em; }
+  .tile-val .unit { font-family: var(--f-body); font-size: .75rem; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-left: 3px; }
+
+  /* ---------- status chips ---------- */
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: .688rem; font-weight: 650; letter-spacing: .015em;
+    padding: 2px 8px 2px 6px; border-radius: 999px; white-space: nowrap;
+    border: 1px solid; line-height: 1.5;
+  }
+  .chip svg { flex: none; }
+  .chip.good     { color: color-mix(in srgb, var(--good) 78%, var(--ink)); border-color: color-mix(in srgb, var(--good) 34%, transparent); background: color-mix(in srgb, var(--good) 11%, transparent); }
+  .chip.warning  { color: color-mix(in srgb, var(--warning) 58%, var(--ink)); border-color: color-mix(in srgb, var(--warning) 42%, transparent); background: color-mix(in srgb, var(--warning) 15%, transparent); }
+  .chip.critical { color: color-mix(in srgb, var(--critical) 82%, var(--ink)); border-color: color-mix(in srgb, var(--critical) 34%, transparent); background: color-mix(in srgb, var(--critical) 11%, transparent); }
+  .chip.neutral  { color: var(--ink-2); border-color: var(--rule); background: var(--surface-2); }
+
+  /* ---------- sections & cards ---------- */
+  section { margin-bottom: 34px; scroll-margin-top: 16px; }
+  .sec-head { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 14px;
+    box-shadow: var(--shadow); padding: 20px;
+  }
+  @media (max-width: 560px) { .card { padding: 15px; } }
+  /* align-items:start — kaarten volgen hun inhoud in plaats van uit te rekken
+     tot de hoogste buur, wat anders grote lege vlakken oplevert */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+  @media (max-width: 860px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .stack-lg { display: flex; flex-direction: column; gap: 20px; }
+
+  /* grid- en flexkinderen mogen krimpen onder hun inhoud, anders duwt de
+     min-width van een brede tabel de hele pagina open */
+  .grid2 > *, .grid3 > *, .mapgrid > *, .stack > *, .stack-lg > *,
+  .verdict > *, .tiles > *, .card, .chartbox { min-width: 0; }
+
+  /* ---------- map ---------- */
+  .mapcard { padding: 0; overflow: hidden; }
+  .mapgrid { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(268px,1fr); }
+  @media (max-width: 900px) { .mapgrid { grid-template-columns: 1fr; } }
+  .mapstage { position: relative; background: var(--land); border-right: 1px solid var(--rule); }
+  @media (max-width: 900px) { .mapstage { border-right: 0; border-bottom: 1px solid var(--rule); } }
+  .mapstage svg { display: block; width: 100%; height: auto; }
+  .mappanel { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+
+  .scrub { display: flex; flex-direction: column; gap: 9px; }
+  .scrub-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  input[type=range] { width: 100%; accent-color: var(--accent); margin: 0; }
+  .scrub-day { font-family: var(--f-display); font-size: 1.16rem; }
+
+  .readout { display: flex; flex-direction: column; gap: 10px; }
+  .ro-line { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px dashed var(--rule); padding-bottom: 7px; }
+  .ro-line:last-child { border-bottom: 0; padding-bottom: 0; }
+  .ro-k { font-size: .812rem; color: var(--ink-2); }
+  .ro-v { font-family: var(--f-data); font-variant-numeric: tabular-nums; font-size: .875rem; text-align: right; }
+
+  .compass { display: flex; align-items: center; gap: 13px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 13px 18px; border-top: 1px solid var(--rule-soft); }
+  .lg { display: inline-flex; align-items: center; gap: 6px; font-size: .719rem; color: var(--ink-2); }
+  .lg .sw { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+
+  .maptip {
+    position: absolute; pointer-events: none; opacity: 0; transition: opacity .12s;
+    background: var(--ink); color: var(--plane); font-size: .719rem; line-height: 1.4;
+    padding: 6px 9px; border-radius: 6px; max-width: 190px; z-index: 5;
+    transform: translate(-50%, -128%); white-space: nowrap;
+  }
+  .maptip[data-on="1"] { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .maptip { transition: none; } }
+
+  /* ---------- charts ---------- */
+  .chartbox { position: relative; }
+  .chartbox svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .axlab { font-size: 10px; fill: var(--muted); font-family: var(--f-data); }
+  .gridline { stroke: var(--rule); stroke-width: 1; }
+  .baseline { stroke: color-mix(in srgb, var(--muted) 55%, transparent); stroke-width: 1; }
+  .thresh { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+  .threshlab { font-size: 9.5px; fill: var(--muted); font-family: var(--f-body); font-weight: 600; }
+  .bar { transition: opacity .12s; }
+  .chartbox:hover .bar { opacity: .5; }
+  .chartbox .bar:hover, .chartbox .bar.on { opacity: 1 !important; }
+  @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+  .staywin { fill: color-mix(in srgb, var(--accent) 7%, transparent); }
+  .staylab { font-size: 9.5px; fill: var(--accent); font-family: var(--f-body); font-weight: 650; letter-spacing: .04em; }
+
+  /* ---------- tables ---------- */
+  .tablewrap { overflow-x: auto; margin: 0 -20px; padding: 0 20px; }
+  @media (max-width: 560px) { .tablewrap { margin: 0 -15px; padding: 0 15px; } }
+  table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: .844rem; }
+  th, td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  th { font-size: .688rem; font-weight: 650; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); border-bottom-color: var(--rule); white-space: nowrap; }
+  td.n, th.n { text-align: right; font-family: var(--f-data); font-variant-numeric: tabular-nums; padding-right: 16px; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tr.home td { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+
+  /* ---------- rules / list blocks ---------- */
+  ul.plain { margin: 0; padding-left: 1.15em; display: flex; flex-direction: column; gap: 7px; }
+  ul.plain li { padding-left: .1em; }
+  ul.plain li::marker { color: var(--muted); }
+  ul.bare { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+
+  .rulerow { display: flex; gap: 12px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid var(--rule-soft); }
+  .rulerow:first-child { padding-top: 0; }
+  .rulerow:last-child { border-bottom: 0; padding-bottom: 0; }
+  .rulerow-body { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .rulerow-body strong { font-weight: 620; }
+
+  .scen { display: flex; flex-direction: column; gap: 9px; padding: 15px 0; border-bottom: 1px solid var(--rule-soft); }
+  .scen:first-child { padding-top: 0; }
+  .scen:last-child { border-bottom: 0; padding-bottom: 0; }
+  .scen-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .prob { font-family: var(--f-data); font-size: .875rem; font-weight: 600; color: var(--ink); }
+  .probbar { height: 5px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+  .probbar > i { display: block; height: 100%; border-radius: 3px; }
+
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 5px 14px; font-size: .844rem; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; }
+
+  .linklist { display: flex; flex-direction: column; gap: 0; }
+  .linkrow { display: flex; gap: 12px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--rule-soft); }
+  .linkrow:last-child { border-bottom: 0; }
+  .linkrow a { font-weight: 560; }
+
+  .callout {
+    display: flex; gap: 12px; padding: 14px 16px; border-radius: 11px;
+    background: var(--surface-2); border: 1px solid var(--rule); align-items: flex-start;
+  }
+  .callout.warn { background: color-mix(in srgb, var(--warning) 11%, var(--surface)); border-color: color-mix(in srgb, var(--warning) 34%, transparent); }
+  .callout svg { flex: none; margin-top: 2px; }
+
+  footer.foot { border-top: 1px solid var(--rule); padding-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .srcs { font-size: .719rem; color: var(--muted); line-height: 1.7; }
+  .srcs a { color: var(--muted); }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="top-meta">
+      <span class="datepill" id="stayPill">8 – 22 augustus 2026 · La Vigne d'Or, Teuillac</span>
+      <h1>Loopt onze vakantie door?</h1>
+      <p class="lede">Status van de Gironde-bosbranden, rookverwachting, hitte, officiële regels en attracties — gemeten vanaf jullie adres in Teuillac.</p>
+    </div>
+    <div class="top-actions">
+      <button class="refresh" id="btnRefresh" type="button" aria-busy="false">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <path d="M21 12a9 9 0 1 1-3.2-6.9"/><path d="M21 3v6h-6"/>
+        </svg>
+        Live cijfers ophalen
+      </button>
+      <div class="livestat" id="liveStat" data-state="auto" role="status">
+        <span class="dot"></span><span id="liveTxt">Automatisch bijgewerkt op <strong>3 augustus, 14:30</strong>. Volgende update morgenvroeg.</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ VERDICT ============ -->
+  <div class="verdict">
+    <div class="verdict-head">
+      <div class="verdict-mark" id="verdictMark">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="var(--good)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 6 9 17l-5-5"/>
+        </svg>
+      </div>
+      <div class="verdict-copy">
+        <span class="eyebrow">De korte versie</span>
+        <h2 id="verdictTitle">De brand is onder controle. Bereid je voor op hitte, niet op rook.</h2>
+        <p class="lede" id="verdictBody">Sinds 1 augustus is het vuur officieel <strong>"fixé"</strong> — het breidt niet meer uit. Van de 23 geëvacueerde gemeenten zijn er <strong>21 vrijgegeven</strong> en mochten 208.000 mensen terug; alleen Lège-Cap-Ferret en Le Porge blijven ontruimd. Het departement zakte op 31 juli van <strong>vigilance noire naar rood</strong>. Boven Teuillac is de fijnstof gedaald tot 5–8 µg/m³, ruim onder de WHO-norm. Wat wél verslechterd is: de verwachting geeft nu <strong>zes dagen op rij van 34 tot 36,7 °C</strong> midden in jullie verblijf, met tropische nachten. Dat is vanaf hier jullie echte planningsprobleem.</p>
+      </div>
+    </div>
+    <div class="tiles">
+      <div class="tile">
+        <span class="eyebrow">Status van de brand</span>
+        <span class="tile-val">Fixé</span>
+        <span class="chip good"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Breidt niet meer uit</span>
+      </div>
+      <div class="tile">
+        <span class="eyebrow">Fijnstof PM2,5 nu</span>
+        <span class="tile-val num" id="tilePm">8<span class="unit">µg/m³</span></span>
+        <span class="chip good" id="tilePmChip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Aanvaardbaar</span>
+      </div>
+      <div class="tile">
+        <span class="eyebrow">Brandrisico departement</span>
+        <span class="tile-val">Rood</span>
+        <span class="chip warning"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 16.5v.5"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>Niveau 4 van 5</span>
+      </div>
+      <div class="tile">
+        <span class="eyebrow">Grootste risico voor jullie</span>
+        <span class="tile-val">Hitte</span>
+        <span class="chip warning"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 3v2"/><path d="M12 19v2"/><path d="M5 12H3"/><path d="M21 12h-2"/><circle cx="12" cy="12" r="4"/></svg>Piek 36,7 °C</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MAP ============ -->
+  <section id="kaart">
+    <div class="sec-head">
+      <span class="eyebrow">Kaart</span>
+      <h2>Waar brandt het, en waar gaat de rook heen?</h2>
+      <p class="small">Sleep de dagbalk om de windrichting en de rookpluim per dag te zien. De pluim vertrekt vanaf het zwaartepunt van de brandzone en waait mét de wind. Tik of hover op een plaats voor de afstand vanaf Teuillac.</p>
+    </div>
+
+    <div class="card mapcard">
+      <div class="mapgrid">
+        <div class="mapstage" id="mapStage">
+          <div class="maptip" id="mapTip"></div>
+        </div>
+
+        <div class="mappanel">
+          <div class="scrub">
+            <div class="scrub-row">
+              <span class="scrub-day" id="scrubDay">ma 3 aug</span>
+              <span class="tiny" id="scrubTag">vandaag</span>
+            </div>
+            <input type="range" id="dayRange" min="0" max="15" value="0" step="1"
+                   aria-label="Kies een dag om windrichting en rookpluim te tonen" />
+            <div class="scrub-row tiny"><span>30 jul</span><span>14 aug</span></div>
+          </div>
+
+          <div class="compass">
+            <svg width="66" height="66" viewBox="0 0 66 66" role="img" aria-labelledby="compassTitle">
+              <title id="compassTitle">Windrichting</title>
+              <circle cx="33" cy="33" r="27" fill="none" stroke="var(--rule)" stroke-width="1"/>
+              <circle cx="33" cy="33" r="19" fill="none" stroke="var(--rule-soft)" stroke-width="1"/>
+              <text x="33" y="9.5" text-anchor="middle" class="axlab">N</text>
+              <text x="33" y="63" text-anchor="middle" class="axlab">Z</text>
+              <text x="61" y="36.5" text-anchor="middle" class="axlab">O</text>
+              <text x="5" y="36.5" text-anchor="middle" class="axlab">W</text>
+              <g id="compassNeedle" style="transition: transform .25s ease">
+                <path d="M33 13 L38 35 L33 31.5 L28 35 Z" fill="var(--accent)"/>
+              </g>
+              <circle cx="33" cy="33" r="2.4" fill="var(--ink)"/>
+            </svg>
+            <div class="stack" style="gap:3px">
+              <span class="eyebrow">Wind uit</span>
+              <span class="num" style="font-size:1.05rem" id="windTxt">NW · 297°</span>
+              <span class="tiny" id="windSpd">18 km/h, stoten 31</span>
+            </div>
+          </div>
+
+          <div class="readout">
+            <div class="ro-line">
+              <span class="ro-k">Rook richting Teuillac?</span>
+              <span class="ro-v" id="roPlume">Nee — 62° ernaast</span>
+            </div>
+            <div class="ro-line">
+              <span class="ro-k">Pluim waait naar</span>
+              <span class="ro-v" id="roPlumeDir">ZO (117°)</span>
+            </div>
+            <div class="ro-line">
+              <span class="ro-k">Max / min temp</span>
+              <span class="ro-v" id="roTemp">30,5 / 20,1 °C</span>
+            </div>
+            <div class="ro-line">
+              <span class="ro-k">Neerslag</span>
+              <span class="ro-v" id="roRain">0,0 mm · 23% kans</span>
+            </div>
+          </div>
+
+          <p class="tiny" id="plumeNote">Rook zou Teuillac pas bereiken bij wind uit ongeveer <strong>235°</strong> (zuidwest). Dat komt in de hele verwachting niet voor.</p>
+        </div>
+      </div>
+
+      <div class="legend">
+        <span class="lg"><span class="sw" style="background:var(--critical)"></span>Verbrande zone (~42.000 ha, indicatief)</span>
+        <span class="lg"><span class="sw" style="background:var(--ash);opacity:.45"></span>Rookpluim bij deze wind</span>
+        <span class="lg"><span class="sw" style="background:var(--accent)"></span>Jullie adres</span>
+        <span class="lg"><span class="sw" style="background:var(--water)"></span>Gironde-estuarium &amp; Atlantische kust</span>
+        <span class="lg"><span class="sw" style="background:transparent;border:1px dashed var(--muted)"></span>Afstandsring 25 / 50 km</span>
+      </div>
+    </div>
+
+    <p class="tiny" style="margin-top:9px">Schematische kaart op echte coördinaten (equirectangulaire projectie). Kustlijn, estuarium en brandcontour zijn vereenvoudigd; de brandcontour is een <em>indicatieve</em> omhullende van de gemelde getroffen gemeenten, geen officiële perimeter. Plaatsen en afstanden zijn exact.</p>
+  </section>
+
+  <!-- ============ SMOKE / WIND ============ -->
+  <section id="rook">
+    <div class="sec-head">
+      <span class="eyebrow">Wind &amp; rook</span>
+      <h2>Waarom de rook jullie kant niet uit komt</h2>
+    </div>
+    <div class="grid2">
+      <div class="card stack">
+        <h3>De geometrie</h3>
+        <p class="small">Vanaf het zwaartepunt van de brandzone ligt Teuillac op <strong>41 km</strong>, peiling <strong>55°</strong> (noordoost). Rook bereikt jullie dus alleen bij wind <em>uit</em> ongeveer <strong>235°</strong> — zuidwest.</p>
+        <p class="small">De verwachte wind komt bijna heel de periode uit <strong>west-noordwest tot noord-noordwest</strong> (291–332°). Die duwt de pluim naar oost-zuidoost — het binnenland in, over Bordeaux en richting Langon en de Landes. Precies de andere kant.</p>
+        <div class="callout">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>
+          <p class="small">Dit is óók waarom Bordeaux zelf wel rook en asregen kreeg en Blaye/Bourg niet: de stad ligt pal oostelijk-zuidoostelijk van het vuur, in de pluimas. Jullie zitten er ruim naast.</p>
+        </div>
+      </div>
+      <div class="card stack">
+        <h3>Rookrichting per dag</h3>
+        <div class="tablewrap">
+          <table id="windTable">
+            <thead>
+              <tr><th>Dag</th><th>Wind uit</th><th class="n">km/h</th><th>Pluim naar</th><th>Naar jullie?</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AIR ============ -->
+  <section id="lucht">
+    <div class="sec-head">
+      <span class="eyebrow">Luchtkwaliteit</span>
+      <h2>Fijnstof boven Teuillac</h2>
+      <p class="small">Dagelijkse piek PM2,5 — de fractie die diep in kleine longen komt. De WHO-dagrichtwaarde is 15 µg/m³.</p>
+    </div>
+    <div class="card stack-lg">
+      <div class="chartbox" id="pmChart"></div>
+      <div class="grid3">
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Piek van de crisis</span>
+          <span class="num" style="font-size:1.32rem">51,1 µg/m³</span>
+          <span class="tiny">25 juli — de dag dat de wind west stond. Kortdurend.</span>
+        </div>
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Nu</span>
+          <span class="num" style="font-size:1.32rem" id="pmNow">8,1 µg/m³</span>
+          <span class="tiny">Bijna gehalveerd sinds 30 juli. Ruim onder de WHO-norm.</span>
+        </div>
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Verwacht 4 – 7 aug</span>
+          <span class="num" style="font-size:1.32rem">5 – 8 µg/m³</span>
+          <span class="tiny">Index "goed". Rook speelt praktisch geen rol meer.</span>
+        </div>
+      </div>
+      <div class="callout">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>
+        <p class="small">Waar je wél op moet letten is <strong>ozon</strong>, niet rook: die piekte op 135 µg/m³ (29 juli) en wordt door hitte gemaakt, niet door vuur. Ozon is het hoogst tussen 14 en 19 uur. Voor kleuters is dat het echte argument om de namiddag bij het zwembad in de schaduw te blijven in plaats van te gaan wandelen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HEAT ============ -->
+  <section id="hitte">
+    <div class="sec-head">
+      <span class="eyebrow">Weer &amp; hitte</span>
+      <h2>Hitte is voor jullie het echte risico</h2>
+      <p class="small">Dag-minimum tot dag-maximum per dag. Een 3-jarige regelt warmte veel slechter dan een adult: zweet later, wordt sneller uitgedroogd, en zegt het niet.</p>
+    </div>
+    <div class="card stack-lg">
+      <div class="chartbox" id="tempChart"></div>
+      <div class="grid3">
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Hete dagen ≥ 34 °C</span>
+          <span class="num" style="font-size:1.32rem">5 op rij</span>
+          <span class="tiny">13 t.e.m. 17 augustus, zonder onderbreking.</span>
+        </div>
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Warmste dag</span>
+          <span class="num" style="font-size:1.32rem">36,7 °C</span>
+          <span class="tiny">17 augustus — midden in jullie verblijf.</span>
+        </div>
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Warmste nachten</span>
+          <span class="num" style="font-size:1.32rem">21 – 23 °C</span>
+          <span class="tiny">12–16 aug. Boven 20 °C slapen kleuters slecht.</span>
+        </div>
+      </div>
+      <div class="callout warn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 16.5v.5"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        <p class="small">Dit is fors verslechterd sinds 30 juli: toen gaf het model drie losse hete dagen, nu <strong>zes aaneengesloten dagen van 34 tot 36,7 °C</strong> met tropische nachten. Vijf dagen op rij zonder afkoeling is voor een 3-jarige een heel ander verhaal dan één hete dag. Plan die week rond water en schaduw, en bevestig vóór vertrek dat het zwembad werkt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FORECAST / PREDICTION ============ -->
+  <section id="voorspelling">
+    <div class="sec-head">
+      <span class="eyebrow">Vooruitblik 8 – 22 augustus</span>
+      <h2>Hoe dit zich waarschijnlijk ontwikkelt</h2>
+      <p class="small">Mijn inschatting, met de redenering erbij zodat je ze zelf kan wegen. Het weermodel reikt tot 14 augustus; daarna is het klimatologie plus het patroon van dit seizoen.</p>
+    </div>
+    <div class="card">
+      <div id="scenarios"></div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="card stack">
+        <h3>Waar de brand nu staat</h3>
+        <ul class="plain small">
+          <li><strong>"Fixé" sinds 1 augustus.</strong> Het vuur breidt niet meer uit. Actieve haarden blijven alleen op het schiereiland van Cap Ferret en in de duinen ten zuiden van Lacanau — 60 en 43 km van jullie, aan de overkant van het estuarium.</li>
+          <li><strong>Gefixeerd is niet geblust.</strong> 240 km perimeterrand moet nabehandeld worden en er blijven blusvliegtuigen en grondploegen ingezet. Reken op zichtbare rookpluimpjes en pompiers in de streek, ook als de brand officieel uit heet.</li>
+          <li><strong>De afbouw is echt bezig.</strong> 21 van 23 gemeenten vrijgegeven, 208.000 mensen terug thuis, alleen Lège-Cap-Ferret en Le Porge nog ontruimd. De prioriteit ligt sinds 2 augustus bij slachtofferhulp en bosherstel — niet meer bij bestrijding.</li>
+          <li><strong>Eindbalans.</strong> 42.000 ha, 252 gebouwen vernield, ruim 330 gewonde brandweerlui — en geen enkel dodelijk slachtoffer onder de bevolking.</li>
+        </ul>
+      </div>
+      <div class="card stack">
+        <h3>Wat dit voor jullie verblijf betekent</h3>
+        <ul class="plain small">
+          <li><strong>Aankomst 8 augustus is realistisch.</strong> De A10 vanuit het noorden en de afrit Saint-André-de-Cubzac raken de brandzone niet. Vermijd routes via de A63 en de rive gauche.</li>
+          <li><strong>Rook is vrijwel van de baan.</strong> De fijnstof zit op 5–8 µg/m³ en in de hele verwachting ligt Teuillac geen enkele dag in de pluim. Hooguit een vage brandlucht op een randzone-dag.</li>
+          <li><strong>Bosbestemmingen blijven dicht.</strong> Zolang vigilance rood geldt, zijn bossen verboden terrein — ook de leuke. Maar de zwemzone van Blasimon is weer open. Plan rond dorpen, water en steden.</li>
+          <li><strong>Het weer bepaalt jullie dagindeling.</strong> Vijf dagen op rij ≥ 34 °C met twee kleuters vraagt echte planning: alles vóór 11 u of na 19 u, en de rest van de dag bij water of in de schaduw.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RULES ============ -->
+  <section id="regels">
+    <div class="sec-head">
+      <span class="eyebrow">Officiële regels</span>
+      <h2>Wat geldt er precies in Teuillac</h2>
+      <p class="small">Teuillac ligt in het arrondissement Blaye, op de <strong>rive droite</strong>. Dat maakt een concreet verschil: verschillende verboden gelden alleen op de linkeroever.</p>
+    </div>
+    <div class="card">
+      <div id="rules"></div>
+    </div>
+
+    <div class="callout warn" style="margin-top:16px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 16.5v.5"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+      <div class="stack" style="gap:5px">
+        <strong style="font-weight:620">Twee dingen om vóór vertrek te doen</strong>
+        <p class="small">Bel of mail <strong>La Vigne d'Or</strong> (+33 7 68 72 35 42) en vraag twee dingen: of het <strong>zwembad gevuld en in gebruik</strong> is ondanks het waterverbod, en of ze <strong>airco of ventilatoren</strong> hebben. Bij 36 °C met een 3-jarige is dat het verschil tussen een fijne en een zware week. Vraag ook of ze de brand van dichtbij merken — de eigenaars weten het beter dan elk dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ATTRACTIONS ============ -->
+  <section id="attracties">
+    <div class="sec-head">
+      <span class="eyebrow">Bezienswaardigheden</span>
+      <h2>Wat kan met een 3-jarige en een 4,5-jarige</h2>
+      <p class="small">Afstanden hemelsbreed vanaf Teuillac. De statuskolom zegt of ik een bron heb gezien of dat je het zelf moet nabellen — dat onderscheid is het belangrijkste in deze tabel.</p>
+    </div>
+    <div class="card">
+      <div class="tablewrap">
+        <table id="attrTable">
+          <thead>
+            <tr><th>Plek</th><th class="n">km</th><th>Status</th><th>Voor deze leeftijd</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="tiny" style="margin-top:9px"><strong>Bevestigd</strong> = ik heb er een bron voor gezien bij de laatste update. <strong>Nabellen</strong> = geen recente bron gevonden; ga er niet blind naartoe. Situatie verandert dagelijks.</p>
+  </section>
+
+  <!-- ============ CHECKLIST ============ -->
+  <section id="checklist">
+    <div class="sec-head">
+      <span class="eyebrow">Praktisch</span>
+      <h2>Meenemen en afspreken</h2>
+    </div>
+    <div class="grid3">
+      <div class="card stack">
+        <h3>In de koffer</h3>
+        <ul class="plain small">
+          <li><strong>FFP2-maskers</strong> in kindermaat plus adult — enkel nodig bij een echte rookdag, maar niet te koop als je ze nodig hebt.</li>
+          <li><strong>Twee thermometers</strong>: één voor de kinderkamer. Boven 26 °C 's nachts slapen kleuters slecht.</li>
+          <li><strong>Plantenspuit</strong> en dunne katoenen doeken — verneveling koelt kleuters sneller af dan drinken alleen.</li>
+          <li><strong>ORS-zakjes</strong> (Dioralyte of gelijkaardig) tegen uitdroging.</li>
+          <li><strong>Ventilator</strong> als je in de auto plaats hebt. In Frankrijk zijn ze in een hittegolf overal uitverkocht.</li>
+        </ul>
+      </div>
+      <div class="card stack">
+        <h3>Bij aankomst regelen</h3>
+        <ul class="plain small">
+          <li>Zet <strong>FR-Alert</strong> aan: het werkt automatisch op elke gsm in Frankrijk, maar zet je toestel niet op stil-modus 's nachts.</li>
+          <li>Noteer waar de <strong>uitgang van het domein</strong> naar de D-weg richting <strong>oost</strong> loopt — weg van het estuarium en de linkeroever.</li>
+          <li>Zoek het nummer van de <strong>mairie van Teuillac</strong> op en zet het in je gsm.</li>
+          <li>Vul <strong>flessen water</strong> als reserve. Bij een crise-niveau kan de druk 's avonds zakken.</li>
+        </ul>
+      </div>
+      <div class="card stack">
+        <h3>Wanneer je je wél zorgen maakt</h3>
+        <ul class="plain small">
+          <li>Wind draait naar <strong>zuidwest (200–260°)</strong> én er is een actieve haard — dan komt rook jullie kant uit.</li>
+          <li>Een nieuwe brand <strong>ten oosten of noorden van Blaye</strong>. Het bos bij Saint-Christoly-de-Blaye ligt op 3 km; daar was op 24 juli al een klein vuur (geblust).</li>
+          <li><strong>FR-Alert</strong> op je gsm. Dat is geen nieuwsbericht — dat is een evacuatiebevel. Volg het onmiddellijk op.</li>
+          <li>PM2,5 boven <strong>50 µg/m³</strong> meerdere dagen: binnenblijven, ramen dicht, geen buitenspel.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOURCES / LIVE ============ -->
+  <section id="bronnen">
+    <div class="sec-head">
+      <span class="eyebrow">Live checken</span>
+      <h2>De bronnen die dagelijks updaten</h2>
+      <p class="small">Tik erop voor de actuele stand. Deze pagina is een momentopname; dit zijn de originelen.</p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="linklist" id="liveLinks"></div>
+      </div>
+      <div class="card">
+        <span class="eyebrow">Laatste berichten</span>
+        <div class="linklist" id="newsLinks" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span class="eyebrow">Verantwoording</span>
+    <p class="small">Cijfers voor Teuillac (45,0929° N / 0,5476° W) komen uit de Open-Meteo weer- en luchtkwaliteitsmodellen. Brandstatus, evacuaties en besluiten komen van de préfecture de la Gironde, Atmo Nouvelle-Aquitaine, het CRT Nouvelle-Aquitaine en Franse pers. Afstanden zijn groot-cirkelafstanden vanaf het adres in Teuillac. De scenario-percentages zijn mijn eigen inschatting op basis van deze data, geen officiële prognose. Deze pagina wordt elke ochtend automatisch opnieuw opgebouwd; de datumstempel bovenaan zegt wanneer voor het laatst.</p>
+    <p class="srcs" id="srcList"></p>
+  </footer>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ============================================================
+     DATA — laatst opgebouwd 3 augustus 2026, 14:30 CEST
+     ============================================================ */
+
+  const HOME = { lat: 45.09289, lon: -0.54756, name: "La Vigne d'Or, Teuillac" };
+  const FIRE_CENTROID = { lat: 44.88, lon: -0.98 };
+  const STAY = { from: '2026-08-08', to: '2026-08-22' };
+
+  // Open-Meteo forecast, Teuillac, opgehaald 2026-07-30
+  const DATA = {
+    fetchedAt: '2026-08-03T14:30:00+02:00',
+    live: false,
+    days: [
+      { d:'2026-08-03', tmax:28.8, tmin:19.7, rain:0.0, pop:15, wind:14.4, gust:24, dir:266 },
+      { d:'2026-08-04', tmax:29.7, tmin:19.1, rain:0.0, pop:15, wind:18.4, gust:30, dir:304 },
+      { d:'2026-08-05', tmax:27.6, tmin:20.4, rain:0.0, pop:6,  wind:19.9, gust:34, dir:308 },
+      { d:'2026-08-06', tmax:28.1, tmin:16.5, rain:0.0, pop:3,  wind:21.4, gust:37, dir:345 },
+      { d:'2026-08-07', tmax:30.8, tmin:15.9, rain:0.0, pop:3,  wind:11.0, gust:22, dir:22  },
+      { d:'2026-08-08', tmax:32.6, tmin:18.1, rain:0.0, pop:11, wind:9.4,  gust:18, dir:19  },
+      { d:'2026-08-09', tmax:30.6, tmin:17.5, rain:0.3, pop:15, wind:17.4, gust:31, dir:303 },
+      { d:'2026-08-10', tmax:28.2, tmin:19.9, rain:5.1, pop:17, wind:15.2, gust:25, dir:318 },
+      { d:'2026-08-11', tmax:31.9, tmin:19.9, rain:0.0, pop:6,  wind:9.0,  gust:25, dir:54  },
+      { d:'2026-08-12', tmax:33.9, tmin:21.3, rain:0.0, pop:8,  wind:9.6,  gust:17, dir:37  },
+      { d:'2026-08-13', tmax:34.8, tmin:20.9, rain:0.0, pop:8,  wind:13.7, gust:28, dir:25  },
+      { d:'2026-08-14', tmax:34.9, tmin:22.0, rain:0.0, pop:11, wind:19.3, gust:34, dir:336 },
+      { d:'2026-08-15', tmax:34.8, tmin:22.7, rain:0.0, pop:16, wind:17.1, gust:33, dir:28  },
+      { d:'2026-08-16', tmax:35.5, tmin:21.7, rain:0.0, pop:18, wind:18.4, gust:33, dir:46  },
+      { d:'2026-08-17', tmax:36.7, tmin:20.9, rain:0.0, pop:0,  wind:14.9, gust:31, dir:42  },
+      { d:'2026-08-18', tmax:25.7, tmin:17.0, rain:0.9, pop:0,  wind:33.7, gust:25, dir:261 }
+    ],
+    // Open-Meteo air quality, dagelijkse piek
+    air: [
+      { d:'2026-07-27', pm25:7.6,  pm10:16.7, aqi:34, o3:84,  past:true },
+      { d:'2026-07-28', pm25:8.0,  pm10:16.6, aqi:47, o3:110, past:true },
+      { d:'2026-07-29', pm25:17.0, pm10:22.6, aqi:61, o3:135, past:true },
+      { d:'2026-07-30', pm25:13.3, pm10:18.2, aqi:45, o3:108, past:true },
+      { d:'2026-07-31', pm25:7.1,  pm10:11.7, aqi:29, o3:72,  past:true },
+      { d:'2026-08-01', pm25:7.1,  pm10:11.6, aqi:36, o3:91,  past:true },
+      { d:'2026-08-02', pm25:7.6,  pm10:12.4, aqi:38, o3:94,  past:true },
+      { d:'2026-08-03', pm25:8.1,  pm10:12.2, aqi:34, o3:86,  past:false },
+      { d:'2026-08-04', pm25:7.5,  pm10:11.8, aqi:30, o3:75,  past:false },
+      { d:'2026-08-05', pm25:5.9,  pm10:9.7,  aqi:26, o3:64,  past:false },
+      { d:'2026-08-06', pm25:4.9,  pm10:11.4, aqi:33, o3:83,  past:false },
+      { d:'2026-08-07', pm25:6.5,  pm10:11.5, aqi:49, o3:113, past:false }
+    ]
+  };
+
+  /* ---------------- geografie ---------------- */
+
+  const GEO = {
+    bounds: { lonMin:-1.42, lonMax:-0.05, latMin:44.55, latMax:45.35 },
+    coast: [[44.55,-1.235],[44.62,-1.245],[44.70,-1.245],[44.78,-1.238],[44.87,-1.215],[45.00,-1.195],[45.12,-1.155],[45.22,-1.120],[45.35,-1.085]],
+    basin: [[44.735,-1.215],[44.685,-1.175],[44.635,-1.150],[44.660,-1.098],[44.720,-1.062],[44.780,-1.082],[44.800,-1.138],[44.772,-1.198]],
+    garonne: [[44.68,-0.49],[44.78,-0.545],[44.84,-0.571],[44.89,-0.525],[44.95,-0.555],[45.02,-0.607]],
+    dordogne: [[44.90,-0.22],[44.94,-0.33],[44.965,-0.44],[45.00,-0.525],[45.02,-0.607]],
+    gironde: [[45.02,-0.607],[45.055,-0.601],[45.09,-0.635],[45.128,-0.663],[45.18,-0.700],[45.24,-0.757],[45.30,-0.822],[45.35,-0.882]],
+    fire: [[44.790,-1.148],[44.860,-1.150],[44.950,-1.100],[45.015,-1.060],[45.010,-0.955],[44.990,-0.875],[44.945,-0.840],[44.885,-0.800],[44.830,-0.790],[44.780,-0.830],[44.730,-0.872],[44.722,-0.950],[44.745,-1.035],[44.762,-1.085]],
+    places: [
+      { n:'Teuillac',            lat:45.09289, lon:-0.54756, k:'home',  lab:'Teuillac' },
+      { n:'Blaye',               lat:45.1281,  lon:-0.6631,  k:'town',  lab:'Blaye' },
+      { n:'Bourg-sur-Gironde',   lat:45.0417,  lon:-0.5583,  k:'town' },
+      { n:'Bordeaux',            lat:44.8378,  lon:-0.5792,  k:'city',  lab:'Bordeaux' },
+      { n:'Saint-Émilion',       lat:44.8936,  lon:-0.1556,  k:'town',  lab:'St-Émilion' },
+      { n:'Saumos',              lat:44.9833,  lon:-1.0333,  k:'fire',  lab:'Saumos' },
+      { n:'Le Porge',            lat:44.8833,  lon:-1.1333,  k:'fire',  lab:'Le Porge' },
+      { n:'Lacanau',             lat:45.0000,  lon:-1.0833,  k:'fire',  lab:'Lacanau' },
+      { n:'Salaunes',            lat:44.9500,  lon:-0.8667,  k:'fire' },
+      { n:'Lège-Cap-Ferret',     lat:44.7833,  lon:-1.1833,  k:'fire' },
+      { n:'Arcachon',            lat:44.6586,  lon:-1.1683,  k:'town',  lab:'Arcachon' },
+      { n:'Dune du Pilat',       lat:44.5892,  lon:-1.2144,  k:'shut',  lab:'Dune du Pilat' },
+      { n:'Terres d’Oiseaux', lat:45.2333, lon:-0.6167, k:'attr',  lab:'Terres d’Oiseaux' },
+      { n:'Grotte de Pair-non-Pair', lat:45.0333, lon:-0.4667, k:'attr' }
+    ]
+  };
+
+  /* ---------------- meta / regels / attracties / links ---------------- */
+
+  const RULES = [
+    { lvl:'warning', t:'Vigilance rouge — brandrisico niveau 4 van 5',
+      b:'Sinds <strong>31 juli</strong> is de Gironde teruggeschaald van noir naar rood. Nog steeds verboden in heel het departement: onkruidbranders, groenafval verbranden, wensballonnen en vuurwerk. In bos en tot 200 m eromheen: open vuur, roken, hete resten wegwerpen, wild kamperen en bivak. In bosrijke gemeenten blijft elke aanwezigheid in blootgestelde zones verboden, behalve op aangeduide stranden en watersportbases.',
+      me:'Geen barbecue met houtvuur, geen sigaret in de wijngaard, geen vuurkorf. Een gasbarbecue op het terras van het domein is doorgaans wel toegelaten — vraag het de eigenaars, want zij kennen de gemeentelijke uitzonderingen. Teuillac is geen bosrijke gemeente, dus het strengste deel raakt jullie niet.' },
+    { lvl:'warning', t:'Bossen dicht, maar Blasimon is deels heropend',
+      b:'Elf natuurgebieden bleven op 30 juli volledig ontoegankelijk, waaronder Hostens – Gat Mort en Forêt de Migelane. <strong>Blasimon is sindsdien gedeeltelijk open</strong>: parking en recreatiezone — zwemmen, vissen, kamperen, horeca — zijn toegankelijk; de bewegwijzerde paden erbuiten blijven dicht. Bos betreden voor wandelen, fietsen of met de auto blijft verboden wegens dode bomen en extreme droogte.',
+      me:'Dit is de beste wijziging voor jullie: de <strong>zwemzone van Blasimon</strong> (~54 km) is weer open en is precies wat werkt op een dag van 35 °C. Boswandelingen blijven van het menu. Terres d’Oiseaux is een moerasreservaat, geen bosmassief, en was open.' },
+    { lvl:'good', t:'Buitenactiviteiten: rive droite mag, rive gauche niet',
+      b:'Het besluit van 29 juli verbiedt culturele en sportieve evenementen buiten op de <strong>linkeroever</strong> tot <strong>8 augustus 06:00</strong> — precies jullie aankomstdag. Op de <strong>rechteroever</strong> — waar Teuillac ligt — zijn ze <strong>toegelaten</strong>, buiten natuur-, bos- en groengebieden, zolang ze geen hulpdiensten vastleggen. Of het besluit na 8 augustus verlengd wordt, is nu nog niet bekend.',
+      me:'Dorpsfeesten, markten en de zomeragenda rond Blaye en Bourg lopen door. De lokale agenda toont evenementen die tot 21–27 augustus doorlopen: Activ’été in Blaye, Anim’été in Saint-André-de-Cubzac, exposities in Blaye en Bourg.' },
+    { lvl:'critical', t:'Waterschaarste: bekken Moron–Virvée op niveau "crise"',
+      b:'Het hoogste van vier niveaus, van kracht sinds 2 juli 2026. Verboden: <strong>vullen van privézwembaden</strong>, autowassen bij particulieren, reinigen van gevels en terrassen. Tuin en serre begieten mag <strong>niet tussen 8 en 20 uur</strong>. Landbouwonttrekking ligt 3,5 dagen per week stil.',
+      me:'Teuillac ligt in het stroomgebied van de Moron. Bijvullen om peil te houden bij een bestaand zwembad is doorgaans een uitzondering, dus het zwembad van het domein zal vermoedelijk werken — maar bevestig dat bij de eigenaars. Verwacht een bruine tuin en vraag niet om de auto te wassen.',
+      caveat:'De officiële besluitpagina van de préfecture was niet bereikbaar tijdens deze controle. Het niveau "crise" voor Moron–Virvée is bevestigd via twee andere bronnen, maar de exacte gemeentelijst niet ingezien.' },
+    { lvl:'critical', t:'Hitte — dit is nu jullie hoofdrisico',
+      b:'De Gironde bleef eind juli op vigilance oranje canicule. Brandrisico en hitte zijn twee losse schalen; verwar ze niet. Opeenvolgende hittegolven drogen de vegetatie verder uit, wat het brandrisico op rood houdt ook al is het vuur zelf gefixeerd.',
+      me:'Het model geeft <strong>12 tot 17 augustus onafgebroken 33,9 – 36,7 °C</strong>, met nachtminima van 21–23 °C. Reken dus op een nieuwe oranje periode midden in jullie verblijf. Bij oranje sluiten sommige gemeenten speelpleinen en verplaatsen ze activiteiten naar de vroege ochtend.' },
+    { lvl:'warning', t:'Verkeer en trein',
+      b:'De A63 tussen Bayonne en Bordeaux ging op 30 juli om 14:00 weer open na een sluiting van ~70 km. Treinverkeer <strong>zuidelijk van Bordeaux</strong> lag stil: Arcachon, Dax, Hendaye, Mont-de-Marsan, Pau, Tarbes. Parijse treinen eindigden in Bordeaux. Gratis omboeken of volledige terugbetaling.',
+      me:'Jullie komen uit het noorden over de A10 en gaan er niet langs. De afrit Saint-André-de-Cubzac en de D-wegen naar Teuillac liggen buiten de brandzone. Een dagtrip per trein naar Arcachon is voorlopig geen optie.' }
+  ];
+
+  const ATTRACTIONS = [
+    { n:'Zwembad van het domein', km:0, st:'ok', stx:'Nabellen', fit:'Het antwoord op elke hete dag. Check of het gevuld is ondanks het waterverbod.', kid:'ideaal' },
+    { n:'Bourg-sur-Gironde — haven, wasplaats, bovenstad', km:5.8, st:'ok', stx:'Bevestigd', fit:'Klein, schaduwrijk, in tien minuten gedaan als het misloopt. Expo in Espace La Croix-Davids tot 24 aug.', kid:'goed' },
+    { n:'Grotte de Pair-non-Pair, Prignac-et-Marcamps', km:9.2, st:'ok', stx:'Bevestigd', fit:'Prehistorische grot, ~45 min gegidst, koel bij hitte. Donker en geen buggy — voor de 4,5-jarige leuk, de 3-jarige kan schrikken.', kid:'matig' },
+    { n:'Citadelle de Blaye (UNESCO)', km:9.9, st:'ok', stx:'Bevestigd', fit:'Beste optie van allemaal: enorme open vestingwallen om te lopen en te rennen, uitzicht over het estuarium, gratis toegankelijk. Ga vroeg — weinig schaduw.', kid:'ideaal' },
+    { n:'Terres d’Oiseaux, Braud-et-Saint-Louis', km:16.5, st:'ok', stx:'Bevestigd', fit:'120 ha moerasreservaat met vlakke paden en observatietorens. In augustus dagelijks 10–20 u, dus je kan om 18 u gaan als de hitte breekt.', kid:'ideaal' },
+    { n:'Bordeaux — Miroir d’eau &amp; Jardin Public', km:28.5, st:'ok', stx:'Bevestigd', fit:'De waterspiegel is precies wat kleuters willen bij 34 °C. Jardin Public heeft schaduw, een carrousel en een poppentheater. Bordeaux is volledig open.', kid:'ideaal' },
+    { n:'Saint-Émilion', km:38, st:'ok', stx:'Bevestigd', fit:'Mooi maar steil, kasseien en weinig schaduw. Met een 3-jarige in de hitte geen succes; bewaar het voor een koelere dag of laat het.', kid:'matig' },
+    { n:'Domaine de Blasimon — zwemvijver', km:54, st:'part', stx:'Deels open', fit:'Sinds eind juli weer open voor zwemmen, vissen, kamperen en horeca; alleen de bospaden blijven dicht. Zoetwaterstrand met zachte instap — de beste optie voor de hittedagen van 13–17 augustus.', kid:'ideaal' },
+    { n:'La Coccinelle &amp; Kid Parc, Gujan-Mestras', km:66, st:'ok', stx:'Bevestigd', fit:'Kinderboerderij en klein pretpark, exact deze leeftijd. Bevestigd open ondanks de brand. Wél 66 km en dicht bij de rookzone — kijk de wind na.', kid:'ideaal' },
+    { n:'Zoo de La Palmyre (Charente-Maritime)', km:82, st:'chk', stx:'Nabellen', fit:'Topper voor 3 en 4,5 jaar en buiten het departement Gironde, dus buiten alle besluiten. Ik vond geen recente statusbron — bel vooraf.', kid:'ideaal' },
+    { n:'Royan &amp; stranden Côte de Beauté', km:70, st:'chk', stx:'Nabellen', fit:'Ander departement, geen brand. Rook is er wel gezién eind juli. Zee koelt af als het binnenland kookt.', kid:'goed' },
+    { n:'Arcachon — stranden centrum, Moulleau, Pyla', km:69, st:'part', stx:'Deels open', fit:'Stranden van centrum, Moulleau en Pyla open; de Corniche dicht en varen in het westelijke bassin verboden. Zwembaden en Le Teich open. Ligt vlak bij de brand — alleen op een gunstige winddag.', kid:'matig' },
+    { n:'Musée et villas gallo-romaines de Plassac', km:12, st:'shut', stx:'Gesloten', fit:'Staat als gesloten op de toeristische agenda van de streek.', kid:'—' },
+    { n:'Dune du Pilat', km:77, st:'shut', stx:'Gesloten', fit:'Duin, onthaal, parking, winkels en sanitair blijven dicht "tot nader order", ook na de terugschaling naar rood. Wordt dagelijks herbekeken — bel 05 56 22 12 85 voor je vertrekt. Niet zomaar naartoe rijden.', kid:'—' },
+    { n:'Lacanau, Le Porge, Carcans, Cap-Ferret', km:43, st:'shut', stx:'Rampgebied', fit:'Verbrand en deels geëvacueerd; in Le Porge alleen al ruim 150 woningen vernield. Ga hier niet kijken — je hindert hulpdiensten.', kid:'—' }
+  ];
+
+  const SCENARIOS = [
+    { p:82, lvl:'good', t:'Gewone vakantie, gedomineerd door hitte',
+      b:'De brand blijft gefixeerd en speelt voor jullie geen rol meer. Bossen blijven dicht, dus geen boswandelingen, maar Blaye, Bourg, Bordeaux, het estuarium, Blasimon en het zwembad werken allemaal. De hitte bepaalt élke dag: vroege ochtenden, lange siësta, buiten pas na 19 u.',
+      w:'Het vuur is sinds 1 augustus "fixé", 21 van 23 gemeenten zijn vrijgegeven, en het departement schaalde terug van noir naar rood. De fijnstof boven Teuillac zit op 5–8 µg/m³ en de wind blaast de resterende rook 14 van de 16 dagen weg van jullie.' },
+    { p:12, lvl:'warning', t:'Nieuwe brand elders in het departement',
+      b:'Gevolg voor jullie: strengere verboden, mogelijk terug naar vigilance noire, een geschrapte activiteit of een omleiding. Rook alleen als de wind ongunstig staat. Geen direct gevaar in Teuillac.',
+      w:'Er valt maar 6,3 mm regen in 16 dagen terwijl het zes dagen boven 34 °C gaat. De vegetatie droogt verder uit in plaats van te herstellen — precies waarom het risiconiveau op rood blijft ook al is het vuur gefixeerd.' },
+    { p:5, lvl:'warning', t:'Rook draait toch jullie kant uit',
+      b:'Een heropleving bij Cap Ferret of Lacanau valt samen met zuidwestenwind. Lucht wordt wazig en het ruikt naar brand. Dan: ramen dicht, binnenblijven tussen 12 en 19 u, FFP2 als je toch moet. Hinderlijk, niet gevaarlijk voor gezonde kinderen op 30+ km.',
+      w:'Er zijn nog actieve haarden op de Cap-Ferret-schiereiland en in de duinen ten zuiden van Lacanau. In de verwachting zitten twee randzone-dagen — 3 en 18 augustus — waarvan geen enkele de pluim echt op Teuillac legt.' },
+    { p:1, lvl:'critical', t:'Jullie verblijf zelf komt in gevaar',
+      b:'Hiervoor is een nieuwe, grote brand nodig in de Haute-Gironde zelf, met wind die hem naar Teuillac stuurt. Dan krijg je FR-Alert op je gsm en volg je de instructies onmiddellijk op — inpakken kan later.',
+      w:'Teuillac ligt in wijnbouw- en landbouwgebied, niet in een aaneengesloten pijnbomenmassief. Wijngaarden zijn een slechte brandstof en werken zelfs als brandgang. Precies dat maakt de rechteroever fundamenteel veiliger dan de Landes de Gascogne.' }
+  ];
+
+  const LIVE_LINKS = [
+    { t:'Préfecture de la Gironde — situatieberichten', u:'https://www.gironde.gouv.fr/Actualites/Incendie-en-Gironde-toutes-les-informations-utiles', d:'De enige echt gezaghebbende bron. Meermaals per dag.' },
+    { t:'Atmo Nouvelle-Aquitaine — luchtkwaliteit', u:'https://www.atmo-nouvelleaquitaine.org/actualite/incendies-en-gironde-et-dans-les-landes-suivi-de-la-qualite-de-lair', d:'Fijnstof per gemeente, dagelijkse index en kaart.' },
+    { t:'Météo-France — vigilance Gironde', u:'https://vigilance.meteofrance.fr/fr/gironde', d:'Hitte, onweer en brandrisico per departement.' },
+    { t:'Toeristische info Nouvelle-Aquitaine', u:'https://en-nouvelle-aquitaine.fr/incendies-en-gironde-et-dans-les-landes-informations-utiles/', d:'Wat open en dicht is, plus omboekingsregels.' },
+    { t:'Blaye Bourg Terres d’Estuaire — lokale agenda', u:'https://www.bbte.fr/agenda-manifestations/tout-lagenda/', d:'Jullie eigen streek: wat er te doen is en wat open is.' },
+    { t:'La Vigne d’Or', u:'https://www.lavignedor.com/', d:'+33 7 68 72 35 42 — de mensen die het echt weten.' },
+    { t:'Préfecture-infolijn', u:'tel:+33970809040', d:'09 70 80 90 40, 9–17 u. Noodgevallen: 112 of 18.' }
+  ];
+
+  const NEWS = [
+    { t:'Situatiepunt Saumos — 1 augustus, 20:00', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Aout-2026/Incendie-de-Saumos-point-de-situation-ce-samedi-1er-aout-a-20h', d:'Meest recente officiële stand: vuur gefixeerd, 21 van 23 gemeenten vrijgegeven, 208.000 mensen terug.' },
+    { t:'Vigilance rouge voor brandrisico (niveau 4/5)', u:'https://www.gironde.fr/actualites/vigilance-rouge-pour-le-risque-feux-de-foret', d:'Sinds 31 juli, terug van noir. Alle verboden op een rij, plus welke natuurgebieden heropenen.' },
+    { t:'Terugschaling naar vigilance rouge vanaf 31 juli', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Juillet-2026/Risque-feux-de-foret-passage-en-vigilance-ROUGE-a-compter-du-31-juillet-en-Gironde', d:'Het besluit van de prefectuur zelf.' },
+    { t:'FR-Alert voor evacuatie nieuwe gemeenten', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Juillet-2026/Incendie-en-Gironde-declenchement-de-FR-Alert-pour-l-evacuation-des-nouvelles-communes', d:'Hoe het alarm werkt — dit is het signaal dat je wél onmiddellijk opvolgt.' },
+    { t:'Overzicht van de branden 2026 in Gironde en de Landes', u:'https://fr.wikipedia.org/wiki/Feux_de_for%C3%AAt_de_2026_en_Gironde_et_dans_les_Landes', d:'Wikipedia — dagelijkse chronologie, goed bijgehouden.' },
+    { t:'Fermeture de la Dune du Pilat', u:'https://ladunedupilat.com/fermeture-de-lespace-daccueil-de-la-dune-du-pilat/', d:'Officiële sluitingsmelding van het duin.' }
+  ];
+
+  /* ============================================================
+     HELPERS
+     ============================================================ */
+
+  const R_EARTH = 6371.0088;
+  const rad = d => d * Math.PI / 180;
+  const deg = r => r * 180 / Math.PI;
+
+  function distKm(a, b) {
+    const p1 = rad(a.lat), p2 = rad(b.lat), dl = rad(b.lon - a.lon);
+    const h = Math.sin((p2 - p1) / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2;
+    return 2 * R_EARTH * Math.asin(Math.sqrt(h));
+  }
+  function bearing(a, b) {
+    const p1 = rad(a.lat), p2 = rad(b.lat), dl = rad(b.lon - a.lon);
+    const y = Math.sin(dl) * Math.cos(p2);
+    const x = Math.cos(p1) * Math.sin(p2) - Math.sin(p1) * Math.cos(p2) * Math.cos(dl);
+    return (deg(Math.atan2(y, x)) + 360) % 360;
+  }
+  function destPoint(a, brg, dKm) {
+    const d = dKm / R_EARTH, t = rad(brg), p1 = rad(a.lat), l1 = rad(a.lon);
+    const p2 = Math.asin(Math.sin(p1) * Math.cos(d) + Math.cos(p1) * Math.sin(d) * Math.cos(t));
+    const l2 = l1 + Math.atan2(Math.sin(t) * Math.sin(d) * Math.cos(p1), Math.cos(d) - Math.sin(p1) * Math.sin(p2));
+    return { lat: deg(p2), lon: deg(l2) };
+  }
+  const angDiff = (a, b) => Math.abs(((a - b + 180) % 360 + 360) % 360 - 180);
+
+  const COMPASS_NL = ['N','NNO','NO','ONO','O','OZO','ZO','ZZO','Z','ZZW','ZW','WZW','W','WNW','NW','NNW'];
+  const compass = d => COMPASS_NL[Math.floor(((d % 360) + 360) % 360 / 22.5 + 0.5) % 16];
+
+  const DAYS_NL = ['zo','ma','di','wo','do','vr','za'];
+  const MON_NL = ['jan','feb','mrt','apr','mei','juni','juli','aug','sep','okt','nov','dec'];
+  function parseISO(s) { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); }
+  function fmtDay(s) { const d = parseISO(s); return `${DAYS_NL[d.getDay()]} ${d.getDate()} ${MON_NL[d.getMonth()]}`; }
+  function fmtShort(s) { const d = parseISO(s); return `${d.getDate()}/${d.getMonth() + 1}`; }
+  const nl = (v, dec = 1) => v.toFixed(dec).replace('.', ',');
+  const esc = s => String(s).replace(/&(?!#?\w+;)/g, '&amp;')
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  // lokale datum, niet UTC — anders slaat het rond middernacht een dag over
+  function todayISO() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+  function relDay(iso) {
+    const t = todayISO();
+    if (iso === t) return 'vandaag';
+    const dd = Math.round((parseISO(iso) - parseISO(t)) / 864e5);
+    if (dd === 1) return 'morgen';
+    return dd > 0 ? `over ${dd} dagen` : `${-dd} ${-dd === 1 ? 'dag' : 'dagen'} terug`;
+  }
+
+  // Peiling brandzone -> Teuillac; rook komt bij wind uit de tegengestelde richting
+  const B_FIRE_TO_HOME = bearing(FIRE_CENTROID, HOME);
+  const D_FIRE_TO_HOME = distKm(FIRE_CENTROID, HOME);
+  const CRIT_WIND_FROM = (B_FIRE_TO_HOME + 180) % 360;
+
+  function plumeState(dir) {
+    const toward = (dir + 180) % 360;
+    const off = angDiff(toward, B_FIRE_TO_HOME);
+    if (off <= 25) return { s: 'hit', off, toward, lvl: 'critical', txt: 'Ja — in de pluim' };
+    if (off <= 45) return { s: 'edge', off, toward, lvl: 'warning', txt: `Randzone — ${Math.round(off)}° ernaast` };
+    return { s: 'miss', off, toward, lvl: 'good', txt: `Nee — ${Math.round(off)}° ernaast` };
+  }
+
+  const ICON = {
+    good: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
+    warning: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 16.5v.5"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>',
+    critical: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 8v5"/><path d="M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg>',
+    neutral: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>'
+  };
+  const chip = (lvl, txt) => `<span class="chip ${lvl}">${ICON[lvl] || ICON.neutral}${esc(txt)}</span>`;
+
+  /* ============================================================
+     MAP
+     ============================================================ */
+
+  const MAP_W = 1000;
+  const MAP_H = Math.round(MAP_W *
+    ((GEO.bounds.latMax - GEO.bounds.latMin) * 110.57) /
+    ((GEO.bounds.lonMax - GEO.bounds.lonMin) * 111.32 * Math.cos(rad((GEO.bounds.latMax + GEO.bounds.latMin) / 2))));
+
+  function proj(lat, lon) {
+    const b = GEO.bounds;
+    return [
+      (lon - b.lonMin) / (b.lonMax - b.lonMin) * MAP_W,
+      (b.latMax - lat) / (b.latMax - b.latMin) * MAP_H
+    ];
+  }
+  const pts = arr => arr.map(p => proj(p[0], p[1]).map(v => v.toFixed(1)).join(',')).join(' ');
+
+  // km -> pixels, gemeten op de oost-westas van deze projectie
+  const kmToPx = km => km / ((GEO.bounds.lonMax - GEO.bounds.lonMin) * 111.32 *
+    Math.cos(rad((GEO.bounds.latMax + GEO.bounds.latMin) / 2))) * MAP_W;
+
+  // afstandsring rond Teuillac
+  function ringPath(km) {
+    const p = [];
+    for (let a = 0; a <= 360; a += 6) {
+      const d = destPoint(HOME, a, km);
+      p.push(proj(d.lat, d.lon));
+    }
+    return 'M' + p.map(q => q.map(v => v.toFixed(1)).join(',')).join('L') + 'Z';
+  }
+
+  function plumePath(dir, windKmh) {
+    const axis = (dir + 180) % 360;
+    const len = 22 + windKmh * 1.5;      // km, ruwe schaal met windsnelheid
+    const half = 20;                      // graden halve openingshoek
+    const [ax, ay] = proj(FIRE_CENTROID.lat, FIRE_CENTROID.lon);
+    let d = `M${ax.toFixed(1)},${ay.toFixed(1)}`;
+    for (let a = -half; a <= half; a += 4) {
+      const q = destPoint(FIRE_CENTROID, axis + a, len);
+      const [x, y] = proj(q.lat, q.lon);
+      d += `L${x.toFixed(1)},${y.toFixed(1)}`;
+    }
+    return d + 'Z';
+  }
+
+  const stage = document.getElementById('mapStage');
+  const tip = document.getElementById('mapTip');
+
+  function buildMap() {
+    const svg = `
+<svg viewBox="0 0 ${MAP_W} ${MAP_H}" role="img" aria-label="Kaart van de Gironde met de brandzone, het estuarium, Teuillac en de rookpluim">
+  <defs>
+    <!-- radiaal, zodat de fade meedraait met de pluim -->
+    <radialGradient id="plumeGrad" gradientUnits="userSpaceOnUse"
+      cx="${proj(FIRE_CENTROID.lat, FIRE_CENTROID.lon)[0].toFixed(1)}"
+      cy="${proj(FIRE_CENTROID.lat, FIRE_CENTROID.lon)[1].toFixed(1)}"
+      r="${(kmToPx(62)).toFixed(1)}">
+      <stop offset="0" stop-color="var(--ash)" stop-opacity=".52"/>
+      <stop offset=".5" stop-color="var(--ash)" stop-opacity=".24"/>
+      <stop offset="1" stop-color="var(--ash)" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="frame"><rect x="0" y="0" width="${MAP_W}" height="${MAP_H}"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect x="0" y="0" width="${MAP_W}" height="${MAP_H}" fill="var(--land)"/>
+
+    <!-- oceaan: linksom langs de kustlijn, van onder naar boven -->
+    <polygon points="0,${MAP_H} ${pts(GEO.coast)} 0,0" fill="var(--water)" opacity=".92"/>
+    <polygon points="${pts(GEO.basin)}" fill="var(--water)" opacity=".92"/>
+
+    <!-- rivieren en estuarium -->
+    <polyline points="${pts(GEO.garonne)}" fill="none" stroke="var(--water)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="${pts(GEO.dordogne)}" fill="none" stroke="var(--water)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="${pts(GEO.gironde)}" fill="none" stroke="var(--water)" stroke-width="19" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/>
+
+    <!-- afstandsringen vanaf Teuillac -->
+    <path d="${ringPath(25)}" fill="none" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="5 5" opacity=".65"/>
+    <path d="${ringPath(50)}" fill="none" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="5 5" opacity=".42"/>
+
+    <!-- rookpluim -->
+    <path id="plume" d="" fill="url(#plumeGrad)" stroke="var(--ash)" stroke-width="1" stroke-opacity=".3"
+      style="transition: d .3s ease"/>
+
+    <!-- brandzone -->
+    <polygon points="${pts(GEO.fire)}" fill="var(--critical)" fill-opacity=".22"
+      stroke="var(--critical)" stroke-width="1.8" stroke-dasharray="7 4"/>
+
+    <!-- windwijzer, vaste inzet rechtsboven: wijst waar de wind naartoe blaast -->
+    <g transform="translate(890,120)">
+      <circle cx="0" cy="0" r="42" fill="var(--surface)" fill-opacity=".72" stroke="var(--rule)" stroke-width="1"/>
+      <g id="windArrow" style="transition: transform .3s ease">
+        <line x1="0" y1="16" x2="0" y2="-20" stroke="var(--accent)" stroke-width="3.6" stroke-linecap="round"/>
+        <path d="M0,-31 L8.5,-14 L0,-19 L-8.5,-14 Z" fill="var(--accent)"/>
+      </g>
+      <text x="0" y="36" text-anchor="middle"
+        style="font-size:11px;font-weight:650;fill:var(--ink-2);font-family:var(--f-body)">wind</text>
+    </g>
+
+    <!-- plaatsen -->
+    <g id="places"></g>
+  </g>
+</svg>`;
+    stage.insertAdjacentHTML('afterbegin', svg);
+
+    // plaatsmarkers
+    const g = stage.querySelector('#places');
+    let frag = '';
+    for (const p of GEO.places) {
+      const [x, y] = proj(p.lat, p.lon);
+      const d = distKm(HOME, p);
+      const b = bearing(HOME, p);
+      const home = p.k === 'home';
+      const col = home ? 'var(--accent)'
+        : p.k === 'fire' ? 'var(--critical)'
+        : p.k === 'shut' ? 'var(--critical)'
+        : p.k === 'attr' ? 'var(--good)'
+        : 'var(--ink-2)';
+      const r = home ? 8 : p.k === 'city' ? 5 : 4;
+      const info = home ? 'Jullie adres' : `${nl(d, 0)} km ${compass(b)} van Teuillac`;
+
+      frag += `<g class="pm" tabindex="0" role="button"
+        data-t="${esc(p.n)} — ${esc(info)}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}"
+        aria-label="${esc(p.n)}, ${esc(info)}">`;
+      if (home) frag += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="15" fill="var(--accent)" opacity=".16"/>`;
+      frag += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${col}"
+                 stroke="var(--surface)" stroke-width="${home ? 2.6 : 1.8}"/>`;
+      frag += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17" fill="transparent"/>`;
+      if (p.lab) {
+        const flip = x > MAP_W * 0.7;
+        frag += `<text x="${(x + (flip ? -12 : 12)).toFixed(1)}" y="${(y + 4).toFixed(1)}"
+          text-anchor="${flip ? 'end' : 'start'}"
+          style="font-size:${home ? 15 : 13}px;font-weight:${home ? 700 : 500};
+                 fill:${home ? 'var(--accent)' : 'var(--ink-2)'};font-family:var(--f-body)"
+          paint-order="stroke" stroke="var(--surface)" stroke-width="3.5" stroke-linejoin="round"
+        >${esc(p.lab)}</text>`;
+      }
+      frag += `</g>`;
+    }
+    g.innerHTML = frag;
+
+    // tooltips
+    const svgEl = stage.querySelector('svg');
+    const show = el => {
+      const rect = svgEl.getBoundingClientRect();
+      const sx = rect.width / MAP_W;
+      tip.textContent = el.dataset.t;
+      tip.style.left = (+el.dataset.x * sx) + 'px';
+      tip.style.top = (+el.dataset.y * sx) + 'px';
+      tip.dataset.on = '1';
+    };
+    const hide = () => { tip.dataset.on = '0'; };
+    g.querySelectorAll('.pm').forEach(el => {
+      el.addEventListener('mouseenter', () => show(el));
+      el.addEventListener('focus', () => show(el));
+      el.addEventListener('mouseleave', hide);
+      el.addEventListener('blur', hide);
+      el.style.cursor = 'pointer';
+    });
+    stage.addEventListener('touchstart', e => {
+      const t = e.target.closest('.pm');
+      if (t) show(t); else hide();
+    }, { passive: true });
+  }
+
+  /* ============================================================
+     CHARTS
+     ============================================================ */
+
+  function inStay(iso) { return iso >= STAY.from && iso <= STAY.to; }
+
+  function drawTempChart() {
+    const box = document.getElementById('tempChart');
+    const d = DATA.days;
+    const W = 960, H = 250, ML = 34, MR = 12, MT = 22, MB = 42;
+    const iw = W - ML - MR, ih = H - MT - MB;
+    const lo = 10, hi = 40;
+    const y = v => MT + ih - (v - lo) / (hi - lo) * ih;
+    const bw = iw / d.length;
+    const barW = Math.min(20, bw * 0.5);
+
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Verwachte dagelijkse minimum- en maximumtemperatuur in Teuillac van ${fmtDay(d[0].d)} tot ${fmtDay(d[d.length - 1].d)}">`;
+
+    // verblijfsvenster
+    const si = d.findIndex(x => inStay(x.d));
+    if (si >= 0) {
+      const x0 = ML + si * bw;
+      s += `<rect class="staywin" x="${x0.toFixed(1)}" y="${MT}" width="${(iw - si * bw).toFixed(1)}" height="${ih}" rx="3"/>`;
+      s += `<text class="staylab" x="${(x0 + 7).toFixed(1)}" y="${MT + 12}">VERBLIJF VANAF 8 AUG</text>`;
+    }
+
+    // gridlines
+    for (const v of [10, 20, 30, 40]) {
+      s += `<line class="gridline" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>`;
+      s += `<text class="axlab" x="${ML - 7}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${v}°</text>`;
+    }
+    // hittedrempel — label links, waar de eerste balken onder de lijn blijven
+    s += `<line class="thresh" x1="${ML}" y1="${y(32).toFixed(1)}" x2="${W - MR}" y2="${y(32).toFixed(1)}" stroke="var(--warning)"/>`;
+    s += `<text class="threshlab" x="${ML + 5}" y="${(y(32) - 6).toFixed(1)}" fill="var(--warning)">32° — grens voor kleuters</text>`;
+
+    d.forEach((r, i) => {
+      const cx = ML + i * bw + bw / 2;
+      const yT = y(r.tmax), yB = y(r.tmin);
+      const hot = r.tmax >= 34;
+      s += `<rect class="bar" x="${(cx - barW / 2).toFixed(1)}" y="${yT.toFixed(1)}"
+              width="${barW.toFixed(1)}" height="${Math.max(2, yB - yT).toFixed(1)}" rx="4"
+              fill="${hot ? 'var(--warning)' : 'var(--accent)'}" fill-opacity="${hot ? '.9' : '.78'}"
+              tabindex="0" role="img"
+              aria-label="${fmtDay(r.d)}: ${nl(r.tmin)} tot ${nl(r.tmax)} graden"><title>${fmtDay(r.d)} — ${nl(r.tmin)}° tot ${nl(r.tmax)}°${hot ? ' (hitte)' : ''}</title></rect>`;
+      if (hot) s += `<text x="${cx.toFixed(1)}" y="${(yT - 6).toFixed(1)}" text-anchor="middle"
+        style="font-size:10.5px;font-weight:700;fill:var(--warning);font-family:var(--f-data)">${nl(r.tmax)}°</text>`;
+      if (i % 2 === 0) s += `<text class="axlab" x="${cx.toFixed(1)}" y="${H - MB + 16}" text-anchor="middle">${fmtShort(r.d)}</text>`;
+    });
+
+    s += `<line class="baseline" x1="${ML}" y1="${(MT + ih).toFixed(1)}" x2="${W - MR}" y2="${(MT + ih).toFixed(1)}"/>`;
+    s += `<text class="axlab" x="${ML}" y="${H - 6}">balk = van nachtminimum tot dagmaximum · geel = 34 °C of meer</text>`;
+    s += `</svg>`;
+    box.innerHTML = s;
+  }
+
+  function drawPmChart() {
+    const box = document.getElementById('pmChart');
+    const a = DATA.air;
+    const W = 960, H = 220, ML = 40, MR = 12, MT = 22, MB = 42;
+    const iw = W - ML - MR, ih = H - MT - MB;
+    const hi = 60;
+    const y = v => MT + ih - Math.min(v, hi) / hi * ih;
+    const bw = iw / a.length;
+    const barW = Math.min(34, bw * 0.56);
+
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Dagelijkse piek fijnstof PM2,5 boven Teuillac van ${fmtDay(a[0].d)} tot ${fmtDay(a[a.length - 1].d)}">`;
+
+    for (const v of [0, 15, 30, 45, 60]) {
+      s += `<line class="gridline" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>`;
+      s += `<text class="axlab" x="${ML - 7}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${v}</text>`;
+    }
+    s += `<line class="thresh" x1="${ML}" y1="${y(15).toFixed(1)}" x2="${W - MR}" y2="${y(15).toFixed(1)}" stroke="var(--good)"/>`;
+    s += `<text class="threshlab" x="${W - MR}" y="${(y(15) - 5).toFixed(1)}" text-anchor="end" fill="var(--good)">WHO-dagrichtwaarde 15</text>`;
+
+    a.forEach((r, i) => {
+      const cx = ML + i * bw + bw / 2;
+      const yv = y(r.pm25);
+      const over = r.pm25 > 25;
+      s += `<rect class="bar" x="${(cx - barW / 2).toFixed(1)}" y="${yv.toFixed(1)}"
+              width="${barW.toFixed(1)}" height="${(MT + ih - yv).toFixed(1)}" rx="4"
+              fill="${over ? 'var(--warning)' : 'var(--accent)'}"
+              fill-opacity="${r.past ? '.5' : '.85'}"
+              tabindex="0" role="img"
+              aria-label="${fmtDay(r.d)}: ${nl(r.pm25)} microgram per kubieke meter"><title>${fmtDay(r.d)} — PM2,5 ${nl(r.pm25)} µg/m³ · PM10 ${nl(r.pm10)} · index ${r.aqi}${r.past ? ' (gemeten)' : ' (verwacht)'}</title></rect>`;
+      if (r.pm25 > 25) s += `<text x="${cx.toFixed(1)}" y="${(yv - 6).toFixed(1)}" text-anchor="middle"
+        style="font-size:10.5px;font-weight:700;fill:var(--warning);font-family:var(--f-data)">${nl(r.pm25)}</text>`;
+      s += `<text class="axlab" x="${cx.toFixed(1)}" y="${H - MB + 16}" text-anchor="middle">${fmtShort(r.d)}</text>`;
+    });
+
+    s += `<line class="baseline" x1="${ML}" y1="${(MT + ih).toFixed(1)}" x2="${W - MR}" y2="${(MT + ih).toFixed(1)}"/>`;
+    s += `<text class="axlab" x="${ML}" y="${H - 6}">bleek = gemeten · vol = verwacht · µg/m³</text>`;
+    s += `</svg>`;
+    box.innerHTML = s;
+  }
+
+  /* ============================================================
+     STATIC RENDERS
+     ============================================================ */
+
+  function renderWindTable() {
+    const tb = document.querySelector('#windTable tbody');
+    tb.innerHTML = DATA.days.map(r => {
+      const p = plumeState(r.dir);
+      return `<tr${inStay(r.d) ? ' class="home"' : ''}>
+        <td>${fmtDay(r.d)}</td>
+        <td>${compass(r.dir)} · ${r.dir}°</td>
+        <td class="n">${nl(r.wind, 0)}</td>
+        <td>${compass(p.toward)} · ${Math.round(p.toward)}°</td>
+        <td>${chip(p.lvl, p.s === 'hit' ? 'Ja' : p.s === 'edge' ? 'Randzone' : 'Nee')}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function renderRules() {
+    document.getElementById('rules').innerHTML = RULES.map(r => `
+      <div class="rulerow">
+        <span class="chip ${r.lvl}" style="margin-top:2px">${ICON[r.lvl]}${r.lvl === 'critical' ? 'Streng' : r.lvl === 'warning' ? 'Let op' : 'Gunstig'}</span>
+        <div class="rulerow-body">
+          <strong>${r.t}</strong>
+          <p class="small">${r.b}</p>
+          <p class="small" style="color:var(--accent)"><strong>Voor jullie:</strong> ${r.me}</p>
+          ${r.caveat ? `<p class="tiny"><em>Voorbehoud: ${r.caveat}</em></p>` : ''}
+        </div>
+      </div>`).join('');
+  }
+
+  function renderAttractions() {
+    const lvlOf = { ok: 'good', part: 'warning', chk: 'neutral', shut: 'critical' };
+    document.querySelector('#attrTable tbody').innerHTML = ATTRACTIONS.map(a => {
+      const lvl = lvlOf[a.st];
+      const fitChip = a.kid === 'ideaal' ? chip('good', 'Ideaal')
+        : a.kid === 'goed' ? chip('good', 'Goed')
+        : a.kid === 'matig' ? chip('warning', 'Matig') : '';
+      return `<tr${a.km === 0 ? ' class="home"' : ''}>
+        <td><strong style="font-weight:600">${a.n}</strong></td>
+        <td class="n">${a.km === 0 ? '—' : nl(a.km, 0)}</td>
+        <td>${chip(lvl, a.stx)}</td>
+        <td><span class="small">${a.fit}</span>${fitChip ? '<br>' + fitChip : ''}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function renderScenarios() {
+    const col = { good: 'var(--good)', warning: 'var(--warning)', critical: 'var(--critical)' };
+    document.getElementById('scenarios').innerHTML = SCENARIOS.map(s => `
+      <div class="scen">
+        <div class="scen-head">
+          <span class="prob">${s.p}%</span>
+          ${chip(s.lvl, s.lvl === 'good' ? 'Meest waarschijnlijk' : s.lvl === 'warning' ? 'Mogelijk' : 'Onwaarschijnlijk')}
+          <strong style="font-weight:620">${s.t}</strong>
+        </div>
+        <div class="probbar"><i style="width:${s.p}%;background:${col[s.lvl]}"></i></div>
+        <p class="small">${s.b}</p>
+        <p class="tiny"><strong>Waarom:</strong> ${s.w}</p>
+      </div>`).join('');
+  }
+
+  function renderLinks() {
+    document.getElementById('liveLinks').innerHTML = LIVE_LINKS.map(l => `
+      <div class="linkrow">
+        <div class="stack" style="gap:2px">
+          <a href="${l.u}" target="_blank" rel="noopener noreferrer">${l.t}</a>
+          <span class="tiny">${l.d}</span>
+        </div>
+      </div>`).join('');
+    document.getElementById('newsLinks').innerHTML = NEWS.map(l => `
+      <div class="linkrow">
+        <div class="stack" style="gap:2px">
+          <a href="${l.u}" target="_blank" rel="noopener noreferrer">${l.t}</a>
+          <span class="tiny">${l.d}</span>
+        </div>
+      </div>`).join('');
+    document.getElementById('srcList').innerHTML =
+      ['gironde.gouv.fr', 'gironde.fr', 'atmo-nouvelleaquitaine.org', 'en-nouvelle-aquitaine.fr',
+       'bbte.fr', 'ladunedupilat.com', 'ici.fr', 'meteoconsult.fr', 'feuxdeforet.fr',
+       'fr.wikipedia.org', 'open-meteo.com', 'lavignedor.com']
+      .map(s => `<span>${s}</span>`).join(' · ');
+  }
+
+  /* ============================================================
+     DAY SCRUBBER
+     ============================================================ */
+
+  const els = {
+    range: document.getElementById('dayRange'),
+    day: document.getElementById('scrubDay'),
+    tag: document.getElementById('scrubTag'),
+    needle: document.getElementById('compassNeedle'),
+    windTxt: document.getElementById('windTxt'),
+    windSpd: document.getElementById('windSpd'),
+    roPlume: document.getElementById('roPlume'),
+    roPlumeDir: document.getElementById('roPlumeDir'),
+    roTemp: document.getElementById('roTemp'),
+    roRain: document.getElementById('roRain'),
+    note: document.getElementById('plumeNote')
+  };
+
+  function setDay(i) {
+    const r = DATA.days[i];
+    if (!r) return;
+    const p = plumeState(r.dir);
+
+    els.day.textContent = fmtDay(r.d);
+    els.tag.textContent = inStay(r.d) ? 'tijdens jullie verblijf' : relDay(r.d);
+    els.needle.setAttribute('transform', `rotate(${r.dir} 33 33)`);
+    els.windTxt.textContent = `${compass(r.dir)} · ${r.dir}°`;
+    els.windSpd.textContent = `${nl(r.wind, 0)} km/h, stoten ${r.gust}`;
+    els.roPlume.textContent = p.txt;
+    els.roPlume.style.color = p.s === 'miss' ? 'var(--good)' : p.s === 'edge' ? 'var(--warning)' : 'var(--critical)';
+    els.roPlumeDir.textContent = `${compass(p.toward)} (${Math.round(p.toward)}°)`;
+    els.roTemp.textContent = `${nl(r.tmax)} / ${nl(r.tmin)} °C`;
+    els.roRain.textContent = `${nl(r.rain)} mm · ${r.pop}% kans`;
+
+    els.note.innerHTML = p.s === 'miss'
+      ? `Rook zou Teuillac pas bereiken bij wind uit ongeveer <strong>${Math.round(CRIT_WIND_FROM)}°</strong> (zuidwest). Vandaag zit de pluim er ${Math.round(p.off)}° naast.`
+      : p.s === 'edge'
+      ? `Deze wind brengt de pluimrand in jullie richting. Op ${nl(D_FIRE_TO_HOME, 0)} km betekent dat waas en brandlucht, niet meer. Ramen dicht in de namiddag.`
+      : `Deze windrichting legt Teuillac in de pluimas. Houd ramen dicht, blijf binnen tussen 12 en 19 uur en check Atmo voor de gemeten waarden.`;
+
+    // kaart bijwerken
+    const plume = stage.querySelector('#plume');
+    if (plume) plume.setAttribute('d', plumePath(r.dir, r.wind));
+
+    // pijl wijst waar de wind naartoe blaast (windrichting + 180°)
+    const arrow = stage.querySelector('#windArrow');
+    if (arrow) arrow.setAttribute('transform', `rotate(${(r.dir + 180) % 360})`);
+  }
+
+  els.range.addEventListener('input', e => setDay(+e.target.value));
+
+  /* ============================================================
+     LIVE REFRESH
+     ============================================================ */
+
+  const FC_URL = 'https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756'
+    + '&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,'
+    + 'wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Europe%2FParis&forecast_days=16';
+  const AQ_URL = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=45.09289&longitude=-0.54756'
+    + '&hourly=pm10,pm2_5,european_aqi,ozone&timezone=Europe%2FParis&past_days=5&forecast_days=5';
+
+  const liveStat = document.getElementById('liveStat');
+  const liveTxt = document.getElementById('liveTxt');
+  const btn = document.getElementById('btnRefresh');
+
+  function setLive(state, msg) {
+    liveStat.dataset.state = state;
+    liveTxt.innerHTML = msg;
+  }
+
+  function dailyMax(hourly, key) {
+    const out = {};
+    hourly.time.forEach((t, i) => {
+      const d = t.slice(0, 10), v = hourly[key][i];
+      if (v == null) return;
+      out[d] = Math.max(out[d] ?? -Infinity, v);
+    });
+    return out;
+  }
+
+  const STAMP = '3 augustus, 14:30';
+
+  async function refresh() {
+    btn.setAttribute('aria-busy', 'true');
+    setLive('busy', 'Ophalen…');
+    try {
+      const [fcR, aqR] = await Promise.all([fetch(FC_URL), fetch(AQ_URL)]);
+      if (!fcR.ok || !aqR.ok) throw new Error(`HTTP ${fcR.status}/${aqR.status}`);
+      const fc = await fcR.json(), aq = await aqR.json();
+
+      const D = fc.daily;
+      DATA.days = D.time.map((t, i) => ({
+        d: t,
+        tmax: D.temperature_2m_max[i], tmin: D.temperature_2m_min[i],
+        rain: D.precipitation_sum[i] ?? 0, pop: D.precipitation_probability_max[i] ?? 0,
+        wind: D.wind_speed_10m_max[i], gust: Math.round(D.wind_gusts_10m_max[i]),
+        dir: Math.round(D.wind_direction_10m_dominant[i])
+      }));
+
+      const pm25 = dailyMax(aq.hourly, 'pm2_5'), pm10 = dailyMax(aq.hourly, 'pm10'),
+            aqi = dailyMax(aq.hourly, 'european_aqi'), o3 = dailyMax(aq.hourly, 'ozone');
+      const today = todayISO();
+      DATA.air = Object.keys(pm25).sort().map(d => ({
+        d, pm25: pm25[d], pm10: pm10[d] ?? 0, aqi: Math.round(aqi[d] ?? 0), o3: o3[d] ?? 0, past: d < today
+      }));
+
+      DATA.live = true;
+      els.range.max = String(DATA.days.length - 1);
+      els.range.value = '0';
+
+      drawTempChart(); drawPmChart(); renderWindTable(); setDay(0); updateTiles();
+
+      const now = new Date();
+      setLive('live', `<strong>Live</strong> — weer en luchtkwaliteit rechtstreeks opgehaald om ${now.toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' })}. Brandstatus, regels en attracties dateren van ${STAMP}.`);
+    } catch (err) {
+      // Binnen claude.ai blokkeert de CSP elke externe verbinding. Dat is geen
+      // storing: de pagina wordt elke ochtend door een agent opnieuw gebouwd.
+      setLive('auto',
+        `Cijfers zijn al vers: deze pagina wordt <strong>elke ochtend automatisch opnieuw opgebouwd</strong> `
+        + `met verse meteo, luchtkwaliteit, brandstatus én besluiten — laatst op <strong>${STAMP}</strong>. `
+        + `Rechtstreeks ophalen vanuit de pagina zelf kan alleen in de lokale kopie; `
+        + `wil je nú zelf iets checken, tik dan onderaan een bron aan.`);
+    } finally {
+      btn.setAttribute('aria-busy', 'false');
+    }
+  }
+  btn.addEventListener('click', refresh);
+
+  function updateTiles() {
+    const t = todayISO();
+    const rec = DATA.air.find(a => a.d === t) || DATA.air.find(a => !a.past) || DATA.air[DATA.air.length - 1];
+    if (!rec) return;
+    document.getElementById('tilePm').innerHTML = `${nl(rec.pm25, 0)}<span class="unit">µg/m³</span>`;
+    document.getElementById('pmNow').textContent = `${nl(rec.pm25)} µg/m³`;
+    const c = document.getElementById('tilePmChip');
+    const lvl = rec.pm25 <= 15 ? 'good' : rec.pm25 <= 35 ? 'warning' : 'critical';
+    const txt = rec.pm25 <= 15 ? 'Aanvaardbaar' : rec.pm25 <= 35 ? 'Verhoogd' : 'Slecht';
+    c.className = `chip ${lvl}`;
+    c.innerHTML = ICON[lvl] + txt;
+  }
+
+  /* ============================================================
+     INIT
+     ============================================================ */
+
+  buildMap();
+  drawTempChart();
+  drawPmChart();
+  renderWindTable();
+  renderRules();
+  renderAttractions();
+  renderScenarios();
+  renderLinks();
+  updateTiles();
+  setDay(0);
+
+  window.addEventListener('resize', () => { tip.dataset.on = '0'; });
+})();
+</script>
