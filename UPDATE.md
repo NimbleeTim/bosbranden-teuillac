@@ -48,6 +48,15 @@ curl -s --max-time 25 "https://air-quality-api.open-meteo.com/v1/air-quality?lat
 
 Voor luchtkwaliteit: neem per dag het **maximum** van elke uurreeks.
 
+Haal daarnaast de **uurdata** op — die voedt de dagindeling en de fietsvensters:
+
+```bash
+curl -s --max-time 25 "https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756&hourly=temperature_2m,apparent_temperature,precipitation,precipitation_probability,wind_speed_10m,wind_gusts_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,sunrise,sunset,weather_code&timezone=Europe%2FParis&forecast_days=16"
+```
+
+Gebruik **deze ene call** voor zowel `DATA.days` als `PLAN`, zodat dag- en uurcijfers
+uit dezelfde modelrun komen. Velden kunnen `null` zijn in de laatste dagen — vang dat af.
+
 ### 2. Zoek de actuele situatie op
 
 Gebruik WebSearch/WebFetch. Controleer minstens:
@@ -81,6 +90,25 @@ Alles wat verandert zit in het `<script>`-blok, behalve de lopende tekst.
   Gebruik `chk` + "Nabellen" als je géén recente bron vond. Verzin geen open-status.
 - **`NEWS`** — vervang door de meest recente berichten met werkende URL's.
 - De verdict-tekst (`id="verdictBody"`) en de tegels erin, als het verhaal wezenlijk wijzigde.
+
+- **`PLAN`** — één record per dag, voedt de dagindeling en het uurdetail. Velden:
+  `d`, `sr`/`ss` (uur van zonop/onder), `kind`, `code` (weertype in het Nederlands),
+  `bike`, en de uurreeksen `th` (temperatuur), `wh` (wind), `rh` (regen), elk 24 lang.
+
+  `kind` bepaal je zo, in deze volgorde: `binnen` als regen ≥ 3 mm of weather_code in
+  61/63/65/80/81/82/95/96/99; anders `water` bij tmax ≥ 32; `warm` bij ≥ 28;
+  `fris` bij < 24; anders `uitstap`.
+
+  `bike` is het beste aaneengesloten blok van **minstens twee uur** tussen
+  zonsopgang + 1 u en zonsondergang − 1 u. Score per uur: start op 100, en
+  onberijdbaar (`null`) bij regen ≥ 0,3 mm, buienkans ≥ 55 % of stoten ≥ 55 km/h.
+  Aftrek: `(15 − t) × 5` onder 15 °C, `(t − 23) × 6,5` boven 23 °C,
+  `(gevoelstemp − 30) × 4` boven 30, `(wind − 12) × 3` boven 12 km/h,
+  `(stoten − 32) × 1,8` boven 32, en `buienkans × 0,35`.
+  Kies het venster met de hoogste **`gemiddelde score + min(lengte, 5) × 1,2`**.
+  Vergelijk altijd absoluut tegen het beste tot dan toe — vergelijk je met de vórige
+  kandidaat, dan zakt de keuze stap voor stap weg naar een lang, matig venster.
+  Dat was een echte bug op 4 augustus.
 
 **Het toonvenster mag je niet weghalen.** De grafieken, de windtabel en de dagbalk
 tonen bewust alleen dagen vanaf vandaag tot en met 22 augustus (`windowed()` in het
