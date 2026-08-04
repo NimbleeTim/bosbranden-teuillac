@@ -305,7 +305,7 @@
         Live cijfers ophalen
       </button>
       <div class="livestat" id="liveStat" data-state="auto" role="status">
-        <span class="dot"></span><span id="liveTxt">Situatie en besluiten bijgewerkt op <strong>3 augustus, 16:45</strong>. Meteo- en luchtkwaliteitscijfers dateren van vandaag 14:30 — de meetserver was tijdens deze update onbereikbaar. Volgende update morgenvroeg.</span>
+        <span class="dot"></span><span id="liveTxt">Bijgewerkt op <strong>4 augustus, 16:20</strong> — situatie, besluiten én verse meteo- en luchtkwaliteitscijfers. Volgende update morgenvroeg.</span>
       </div>
     </div>
   </header>
@@ -321,7 +321,7 @@
       <div class="verdict-copy">
         <span class="eyebrow">De korte versie</span>
         <h2 id="verdictTitle">De brand is onder controle. Bereid je voor op hitte, niet op rook.</h2>
-        <p class="lede" id="verdictBody">Twee dingen zijn vandaag veranderd, allebei ten goede. <strong>De laatste evacuaties zijn opgeheven</strong>: sinds vanmiddag 14:00 mogen de inwoners van Le Porge en Lège terug, het schiereiland Cap-Ferret vanaf 19:00. Daarmee is geen enkele gemeente in de Gironde nog ontruimd — twee dagen geleden waren dat er nog twee. En Atmo Nouvelle-Aquitaine heeft op <strong>2 augustus het vervuilingsepisode opgeheven</strong> dat sinds 23 juli liep; alleen drie kustgemeenten houden nog verhoogde PM10. Het vuur zelf blijft <strong>"fixé"</strong> — het breidt niet uit, maar het is niet geblust: er zijn nog haarden en de blusvliegtuigen vliegen door. Boven Teuillac zit de fijnstof op 5–8 µg/m³, ruim onder de WHO-norm. Wat níét verbetert: het departement blijft op <strong>vigilance rouge</strong>, naar verluidt tot 18 augustus, en de verwachting geeft <strong>zes dagen op rij van 34 tot 36,7 °C</strong> midden in jullie verblijf. De hitte blijft jullie enige echte planningsprobleem.</p>
+        <p class="lede" id="verdictBody">Vandaag is er geen enkel slecht bericht bij gekomen — voor het eerst sinds ik deze pagina bijhoud. Het vuur blijft <strong>"fixé"</strong> op 42.000 ha, de oppervlakte groeide niet, er was geen heropleving en geen nieuwe evacuatie; er staan nog zo'n 3.300 brandweerlieden op wacht en de vliegtuigen blijven de zone afspeuren op haarden. De brand aan Landes-zijde is sinds vrijdag 31 juli zelfs <strong>"maîtrisé"</strong> — een trap sterker dan gefixeerd. Eén concrete verbetering voor jullie: <strong>de Dune du Pilat is weer open</strong>. Dat stond gisteren nog als onduidelijk op deze pagina, met een sluitings- en een heropeningsbericht door elkaar; het heropeningsbericht is het recentste — de duin, de parking en het onthaalcentrum gingen op <strong>zaterdag 1 augustus</strong> weer open, samen met de oceaanstranden van La Teste en het meer van Cazaux. Het bos eromheen blijft wel verboden. Verder viel er <strong>maandag regen en onweer</strong> over de regio, wat de rook heeft neergeslagen en verspreid; de luchtkwaliteit verbetert daardoor in heel Nouvelle-Aquitaine. Wat níét verandert: het departement blijft op <strong>vigilance rouge</strong> tot 18 augustus, en er zijn nu twee dagen waarop de wind wél richting Teuillac draait — 12 en 16 augustus. Daar staat een grote meevaller tegenover: <strong>de hittegolf is grotendeels uit het model verdwenen</strong>. Waar gisteren nog vijf dagen van 34,8 tot 36,7 °C stonden, is er nu nog één dag van 34 °C, en zakt 16 t.e.m. 18 augustus zelfs naar 23–25 °C — met 15,9 mm regen erbij.</p>
       </div>
     </div>
     <div class="tiles">
@@ -343,7 +343,7 @@
       <div class="tile">
         <span class="eyebrow">Grootste risico voor jullie</span>
         <span class="tile-val">Hitte</span>
-        <span class="chip warning"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 3v2"/><path d="M12 19v2"/><path d="M5 12H3"/><path d="M21 12h-2"/><circle cx="12" cy="12" r="4"/></svg>Piek 36,7 °C</span>
+        <span class="chip warning"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 3v2"/><path d="M12 19v2"/><path d="M5 12H3"/><path d="M21 12h-2"/><circle cx="12" cy="12" r="4"/></svg>Piek 34,0 °C</span>
       </div>
     </div>
   </div>
@@ -365,7 +365,7 @@
         <div class="mappanel">
           <div class="scrub">
             <div class="scrub-row">
-              <span class="scrub-day" id="scrubDay">ma 3 aug</span>
+              <span class="scrub-day" id="scrubDay">di 4 aug</span>
               <span class="tiny" id="scrubTag">vandaag</span>
             </div>
             <input type="range" id="dayRange" min="0" max="15" value="0" step="1"
@@ -433,16 +433,20 @@
   <section id="rook">
     <div class="sec-head">
       <span class="eyebrow">Wind &amp; rook</span>
-      <h2>Waarom de rook jullie kant niet uit komt</h2>
+      <h2>Waar de rook heen gaat — en de twee dagen die afwijken</h2>
     </div>
     <div class="grid2">
       <div class="card stack">
         <h3>De geometrie</h3>
         <p class="small">Vanaf het zwaartepunt van de brandzone ligt Teuillac op <strong>41 km</strong>, peiling <strong>55°</strong> (noordoost). Rook bereikt jullie dus alleen bij wind <em>uit</em> ongeveer <strong>235°</strong> — zuidwest.</p>
-        <p class="small">De verwachte wind komt bijna heel de periode uit <strong>west-noordwest tot noord-noordwest</strong> (291–332°). Die duwt de pluim naar oost-zuidoost — het binnenland in, over Bordeaux en richting Langon en de Landes. Precies de andere kant.</p>
+        <p class="small">Tot 4 augustus wees de verwachting 16 dagen op rij van jullie weg. De nieuwe modelrun draait dat deels om: op <strong>12 augustus</strong> (wind uit 243°) en <strong>16 augustus</strong> (253°) valt Teuillac wél in de pluimas, en 17 augustus zit in de randzone. De overige dertien dagen blijft de wind noordwest tot noord en waait alles oost-zuidoost weg.</p>
         <div class="callout">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>
           <p class="small">Dit is óók waarom Bordeaux zelf wel rook en asregen kreeg en Blaye/Bourg niet: de stad ligt pal oostelijk-zuidoostelijk van het vuur, in de pluimas. Jullie zitten er ruim naast.</p>
+        </div>
+        <div class="callout warn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 16.5v.5"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          <p class="small">Lees die twee dagen met de juiste maat. Deze kaart rekent nog met een pluim vanaf het zwaartepunt van de <em>oorspronkelijke</em> brandzone, maar het vuur is sinds 1 augustus <strong>"fixé"</strong> — er is geen groot actief front meer, alleen nasmeulende haarden. Op 16 augustus valt er bovendien 8,7 mm regen, die rook uit de lucht wast. Reken dus eerder op een vage brandlucht dan op een rookdag, en check op die twee ochtenden even Atmo voordat je iets buiten plant.</p>
         </div>
       </div>
       <div class="card stack">
@@ -504,23 +508,23 @@
       <div class="grid3">
         <div class="stack" style="gap:4px">
           <span class="eyebrow">Hete dagen ≥ 34 °C</span>
-          <span class="num" style="font-size:1.32rem">5 op rij</span>
-          <span class="tiny">13 t.e.m. 17 augustus, zonder onderbreking.</span>
+          <span class="num" style="font-size:1.32rem">1 van 16</span>
+          <span class="tiny">Alleen 11 augustus. Gisteren stonden er nog vijf.</span>
         </div>
         <div class="stack" style="gap:4px">
           <span class="eyebrow">Warmste dag</span>
-          <span class="num" style="font-size:1.32rem">36,7 °C</span>
-          <span class="tiny">17 augustus — midden in jullie verblijf.</span>
+          <span class="num" style="font-size:1.32rem">34,0 °C</span>
+          <span class="tiny">11 augustus. Daarna zakt het naar 23–31 °C.</span>
         </div>
         <div class="stack" style="gap:4px">
-          <span class="eyebrow">Warmste nachten</span>
-          <span class="num" style="font-size:1.32rem">21 – 23 °C</span>
-          <span class="tiny">12–16 aug. Boven 20 °C slapen kleuters slecht.</span>
+          <span class="eyebrow">Regen in 16 dagen</span>
+          <span class="num" style="font-size:1.32rem">15,9 mm</span>
+          <span class="tiny">Vooral 16 aug (8,7 mm). Eerste echte regen sinds weken.</span>
         </div>
       </div>
       <div class="callout warn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 16.5v.5"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
-        <p class="small">Dit is fors verslechterd sinds 30 juli: toen gaf het model drie losse hete dagen, nu <strong>zes aaneengesloten dagen van 34 tot 36,7 °C</strong> met tropische nachten. Vijf dagen op rij zonder afkoeling is voor een 3-jarige een heel ander verhaal dan één hete dag. Plan die week rond water en schaduw, en bevestig vóór vertrek dat het zwembad werkt.</p>
+        <p class="small">De hittegolf is grotendeels <strong>uit het model verdwenen</strong>. Gisteren gaf de verwachting nog vijf aaneengesloten dagen van 34,8 tot 36,7 °C; vandaag staat er nog <strong>één dag van 34 °C</strong> (11 augustus) en zakt 16 t.e.m. 18 augustus naar 23–25 °C. Voor 17 augustus ging de verwachting in één etmaal van 36,7 naar 24,1 °C — een verschil van meer dan twaalf graden. Dat is geen fout in het model maar de aard ervan: op acht dagen en verder is een temperatuurverwachting een neiging, geen afspraak. Neem de ventilator en de lichte kleding gewoon mee, maar ga er niet van uit dat het een hittevakantie wordt — kijk hier opnieuw als je koffer dichtgaat.</p>
       </div>
     </div>
   </section>
@@ -540,9 +544,9 @@
       <div class="card stack">
         <h3>Waar de brand nu staat</h3>
         <ul class="plain small">
-          <li><strong>"Fixé" sinds 1 augustus.</strong> Het vuur breidt niet meer uit. Actieve haarden blijven alleen op het schiereiland van Cap Ferret en in de duinen ten zuiden van Lacanau — 60 en 43 km van jullie, aan de overkant van het estuarium.</li>
+          <li><strong>"Fixé" sinds 1 augustus, en dat houdt stand.</strong> Op 4 augustus is er nog altijd geen uitbreiding, geen heropleving en geen nieuwe evacuatie gemeld. Wat er nog smeult, ligt <strong>ten noorden van het bassin van Arcachon</strong> — 45 tot 60 km van jullie, aan de overkant van het estuarium. De brand aan Landes-zijde geldt sinds vrijdag 31 juli als "maîtrisé".</li>
           <li><strong>Gefixeerd is niet geblust.</strong> 240 km perimeterrand moet nabehandeld worden en er blijven blusvliegtuigen en grondploegen ingezet. Reken op zichtbare rookpluimpjes en pompiers in de streek, ook als de brand officieel uit heet.</li>
-          <li><strong>De afbouw is rond.</strong> Sinds vanmiddag zijn <strong>alle 23 gemeenten vrijgegeven</strong> — Le Porge en Lège vanaf 14:00, het schiereiland Cap-Ferret vanaf 19:00. Op de piek waren 220.000 tot 224.000 mensen geëvacueerd; nu is er geen enkele gemeente meer ontruimd. De prioriteit ligt sinds 2 augustus bij slachtofferhulp en bosherstel — niet meer bij bestrijding.</li>
+          <li><strong>De afbouw is rond.</strong> Sinds gisteren 3 augustus zijn <strong>alle 23 gemeenten vrijgegeven</strong> — Le Porge en Lège vanaf 14:00, het schiereiland Cap-Ferret vanaf 19:00. Op de piek waren 220.000 tot 224.000 mensen geëvacueerd; nu is er geen enkele gemeente meer ontruimd. In Lacanau mogen ook de campings, vakantiedorpen en vrijetijdsparken weer open; in Le Porge en Lège-Cap-Ferret nog niet. De prioriteit ligt sinds 2 augustus bij slachtofferhulp en economisch herstel — niet meer bij bestrijding.</li>
           <li><strong>Eindbalans.</strong> 42.000 ha, 252 gebouwen vernield, ruim 330 gewonde brandweerlui — en geen enkel dodelijk slachtoffer onder de bevolking.</li>
         </ul>
       </div>
@@ -550,7 +554,7 @@
         <h3>Wat dit voor jullie verblijf betekent</h3>
         <ul class="plain small">
           <li><strong>Aankomst 8 augustus is realistisch.</strong> De A10 vanuit het noorden en de afrit Saint-André-de-Cubzac raken de brandzone niet. Vermijd routes via de A63 en de rive gauche.</li>
-          <li><strong>Rook is vrijwel van de baan.</strong> De fijnstof zit op 5–8 µg/m³ en in de hele verwachting ligt Teuillac geen enkele dag in de pluim. Hooguit een vage brandlucht op een randzone-dag.</li>
+          <li><strong>Rook blijft klein, maar niet meer nul.</strong> De fijnstof zit op 5–8 µg/m³. Twee dagen — 12 en 16 augustus — draait de wind wel jullie kant uit; met een gefixeerde brand en 8,7 mm regen op de 16e is dat hinder, geen gevaar.</li>
           <li><strong>Bosbestemmingen blijven dicht.</strong> Zolang vigilance rood geldt, zijn bossen verboden terrein — ook de leuke. Maar de zwemzone van Blasimon is weer open. Plan rond dorpen, water en steden.</li>
           <li><strong>Het weer bepaalt jullie dagindeling.</strong> Vijf dagen op rij ≥ 34 °C met twee kleuters vraagt echte planning: alles vóór 11 u of na 19 u, en de rest van de dag bij water of in de schaduw.</li>
         </ul>
@@ -583,13 +587,21 @@
     <div class="sec-head">
       <span class="eyebrow">Bezienswaardigheden</span>
       <h2>Wat kan met een 3-jarige en een 4,5-jarige</h2>
-      <p class="small">Afstanden hemelsbreed vanaf Teuillac. De statuskolom zegt of ik een bron heb gezien of dat je het zelf moet nabellen — dat onderscheid is het belangrijkste in deze tabel.</p>
+      <p class="small">Afstanden en rijtijden bij benadering over de weg vanaf Teuillac, oplopend gesorteerd. Klik een naam voor de site. De statuskolom zegt of ik er een bron voor gezien heb of dat je zelf moet bellen — dat onderscheid is het belangrijkste in deze tabel.</p>
+    </div>
+    <div class="callout" style="margin-bottom:14px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>
+      <div class="stack" style="gap:5px">
+        <strong style="font-weight:620">Als je maar vijf dingen doet</strong>
+        <p class="small"><strong>1. Citadelle de Blaye</strong> (13 km) — gratis, eindeloos rennen, elke ochtend inzetbaar. <strong>2. Les Antilles de Jonzac</strong> (53 km) — overdekt waterparadijs met een zone voor 3–6 jaar; de enige plek die zowel 34 °C als 8,7 mm regen opvangt. <strong>3. Terres d’Oiseaux</strong> (22 km) — vlakke paden, open tot 20 u, dus perfect voor na de hitte. <strong>4. Zoo de Bordeaux-Pessac</strong> (47 km) — bevestigd open, ga bij opening om 9:30. <strong>5. Miroir d’eau in Bordeaux</strong> (34 km) — gratis, en precies wat kleuters willen als het warm is.</p>
+        <p class="tiny">Alles boven ± 90 km zou ik met een 3-jarige laten vallen of aan een overnachting koppelen. La Palmyre, Le Bournat en Walygator zijn inhoudelijk prima, maar drie tot vier uur auto op één dag maakt de dag stuk.</p>
+      </div>
     </div>
     <div class="card">
       <div class="tablewrap">
         <table id="attrTable">
           <thead>
-            <tr><th>Plek</th><th class="n">km</th><th>Status</th><th>Voor deze leeftijd</th></tr>
+            <tr><th>Plek</th><th class="n">±km</th><th class="n">rijtijd</th><th>Status</th><th>Voor deze leeftijd</th></tr>
           </thead>
           <tbody></tbody>
         </table>
@@ -678,43 +690,45 @@
   const FIRE_CENTROID = { lat: 44.88, lon: -0.98 };
   const STAY = { from: '2026-08-08', to: '2026-08-22' };
 
-  // Open-Meteo forecast, Teuillac, opgehaald 2026-08-03 14:30
+  // Open-Meteo forecast, Teuillac, opgehaald 2026-08-03 14:30.
+  // Op 4 augustus was api.open-meteo.com niet bereikbaar (egress-policy blokkeert de host),
+  // dus deze reeks is NIET ververst. Alleen de verstreken dag 3 augustus is eruit gehaald.
   const DATA = {
-    fetchedAt: '2026-08-03T14:30:00+02:00',   // moment van de meting zelf
-    updatedAt: '2026-08-03T16:45:00+02:00',   // moment van deze tekst- en besluitupdate
+    fetchedAt: '2026-08-04T16:20:00+02:00',
+    updatedAt: '2026-08-04T07:45:00+02:00',   // moment van deze tekst- en besluitupdate
     live: false,
     days: [
-      { d:'2026-08-03', tmax:28.8, tmin:19.7, rain:0.0, pop:15, wind:14.4, gust:24, dir:266 },
-      { d:'2026-08-04', tmax:29.7, tmin:19.1, rain:0.0, pop:15, wind:18.4, gust:30, dir:304 },
-      { d:'2026-08-05', tmax:27.6, tmin:20.4, rain:0.0, pop:6,  wind:19.9, gust:34, dir:308 },
-      { d:'2026-08-06', tmax:28.1, tmin:16.5, rain:0.0, pop:3,  wind:21.4, gust:37, dir:345 },
-      { d:'2026-08-07', tmax:30.8, tmin:15.9, rain:0.0, pop:3,  wind:11.0, gust:22, dir:22  },
-      { d:'2026-08-08', tmax:32.6, tmin:18.1, rain:0.0, pop:11, wind:9.4,  gust:18, dir:19  },
-      { d:'2026-08-09', tmax:30.6, tmin:17.5, rain:0.3, pop:15, wind:17.4, gust:31, dir:303 },
-      { d:'2026-08-10', tmax:28.2, tmin:19.9, rain:5.1, pop:17, wind:15.2, gust:25, dir:318 },
-      { d:'2026-08-11', tmax:31.9, tmin:19.9, rain:0.0, pop:6,  wind:9.0,  gust:25, dir:54  },
-      { d:'2026-08-12', tmax:33.9, tmin:21.3, rain:0.0, pop:8,  wind:9.6,  gust:17, dir:37  },
-      { d:'2026-08-13', tmax:34.8, tmin:20.9, rain:0.0, pop:8,  wind:13.7, gust:28, dir:25  },
-      { d:'2026-08-14', tmax:34.9, tmin:22.0, rain:0.0, pop:11, wind:19.3, gust:34, dir:336 },
-      { d:'2026-08-15', tmax:34.8, tmin:22.7, rain:0.0, pop:16, wind:17.1, gust:33, dir:28  },
-      { d:'2026-08-16', tmax:35.5, tmin:21.7, rain:0.0, pop:18, wind:18.4, gust:33, dir:46  },
-      { d:'2026-08-17', tmax:36.7, tmin:20.9, rain:0.0, pop:0,  wind:14.9, gust:31, dir:42  },
-      { d:'2026-08-18', tmax:25.7, tmin:17.0, rain:0.9, pop:0,  wind:33.7, gust:25, dir:261 }
+      { d:'2026-08-04', tmax:29.2, tmin:18.4, rain:0.0, pop:8, wind:18.4, gust:31, dir:306 },
+      { d:'2026-08-05', tmax:27.9, tmin:19.9, rain:0.0, pop:13, wind:17.6, gust:30, dir:304 },
+      { d:'2026-08-06', tmax:27.4, tmin:15.6, rain:0.0, pop:0, wind:17.3, gust:30, dir:351 },
+      { d:'2026-08-07', tmax:31.3, tmin:15.8, rain:0.0, pop:0, wind:12.9, gust:22, dir:46 },
+      { d:'2026-08-08', tmax:32.0, tmin:17.5, rain:1.2, pop:15, wind:20.1, gust:34, dir:322 },
+      { d:'2026-08-09', tmax:26.3, tmin:20.2, rain:3.9, pop:50, wind:17.6, gust:32, dir:262 },
+      { d:'2026-08-10', tmax:28.8, tmin:16.9, rain:0.0, pop:23, wind:13.4, gust:24, dir:347 },
+      { d:'2026-08-11', tmax:34.0, tmin:17.5, rain:0.0, pop:7, wind:13.8, gust:31, dir:100 },
+      { d:'2026-08-12', tmax:32.4, tmin:22.6, rain:0.0, pop:3, wind:17.1, gust:34, dir:243 },
+      { d:'2026-08-13', tmax:30.0, tmin:20.0, rain:0.0, pop:2, wind:18.7, gust:38, dir:300 },
+      { d:'2026-08-14', tmax:30.9, tmin:20.3, rain:0.0, pop:12, wind:16.7, gust:36, dir:299 },
+      { d:'2026-08-15', tmax:29.5, tmin:19.7, rain:1.5, pop:16, wind:16.2, gust:34, dir:313 },
+      { d:'2026-08-16', tmax:23.2, tmin:19.7, rain:8.7, pop:20, wind:24.4, gust:49, dir:253 },
+      { d:'2026-08-17', tmax:24.1, tmin:16.5, rain:0.6, pop:17, wind:16.9, gust:43, dir:277 },
+      { d:'2026-08-18', tmax:25.1, tmin:15.6, rain:0.0, pop:0, wind:8.7, gust:28, dir:319 },
+      { d:'2026-08-19', tmax:28.1, tmin:16.5, rain:0.0, pop:0, wind:23.6, gust:35, dir:295 }
     ],
     // Open-Meteo air quality, dagelijkse piek
     air: [
-      { d:'2026-07-27', pm25:7.6,  pm10:16.7, aqi:34, o3:84,  past:true },
-      { d:'2026-07-28', pm25:8.0,  pm10:16.6, aqi:47, o3:110, past:true },
-      { d:'2026-07-29', pm25:17.0, pm10:22.6, aqi:61, o3:135, past:true },
-      { d:'2026-07-30', pm25:13.3, pm10:18.2, aqi:45, o3:108, past:true },
-      { d:'2026-07-31', pm25:7.1,  pm10:11.7, aqi:29, o3:72,  past:true },
-      { d:'2026-08-01', pm25:7.1,  pm10:11.6, aqi:36, o3:91,  past:true },
-      { d:'2026-08-02', pm25:7.6,  pm10:12.4, aqi:38, o3:94,  past:true },
-      { d:'2026-08-03', pm25:8.1,  pm10:12.2, aqi:34, o3:86,  past:false },
-      { d:'2026-08-04', pm25:7.5,  pm10:11.8, aqi:30, o3:75,  past:false },
-      { d:'2026-08-05', pm25:5.9,  pm10:9.7,  aqi:26, o3:64,  past:false },
-      { d:'2026-08-06', pm25:4.9,  pm10:11.4, aqi:33, o3:83,  past:false },
-      { d:'2026-08-07', pm25:6.5,  pm10:11.5, aqi:49, o3:113, past:false }
+      { d:'2026-07-28', pm25:8.0, pm10:16.6, aqi:47, o3:110.0, past:true },
+      { d:'2026-07-29', pm25:17.0, pm10:22.6, aqi:61, o3:135.0, past:true },
+      { d:'2026-07-30', pm25:13.3, pm10:18.2, aqi:45, o3:108.0, past:true },
+      { d:'2026-07-31', pm25:7.1, pm10:11.7, aqi:29, o3:72.0, past:true },
+      { d:'2026-08-01', pm25:7.1, pm10:11.6, aqi:36, o3:91.0, past:true },
+      { d:'2026-08-02', pm25:7.6, pm10:12.4, aqi:38, o3:94.0, past:true },
+      { d:'2026-08-03', pm25:8.1, pm10:12.2, aqi:34, o3:86.0, past:true },
+      { d:'2026-08-04', pm25:7.5, pm10:11.8, aqi:30, o3:75.0, past:false },
+      { d:'2026-08-05', pm25:5.9, pm10:9.7, aqi:26, o3:64.0, past:false },
+      { d:'2026-08-06', pm25:4.9, pm10:11.4, aqi:33, o3:83.0, past:false },
+      { d:'2026-08-07', pm25:7.1, pm10:11.3, aqi:45, o3:108.0, past:false },
+      { d:'2026-08-08', pm25:6.8, pm10:9.4, aqi:45, o3:108.0, past:false }
     ]
   };
 
@@ -749,17 +763,21 @@
   /* ---------------- meta / regels / attracties / links ---------------- */
 
   const RULES = [
-    { lvl:'good', t:'Nieuw — alle evacuaties opgeheven, ook Cap-Ferret en Le Porge',
-      b:'De prefectuur kondigde op <strong>zondag 2 augustus</strong> aan dat de laatste twee gemeenten terug mogen: <strong>maandag 3 augustus vanaf 14:00</strong> de dorpskernen van Le Porge en Lège, <strong>vanaf 19:00</strong> het schiereiland Lège-Cap-Ferret. Daarmee is geen enkele van de 23 ontruimde gemeenten nog gesloten; op de piek waren 220.000 tot 224.000 mensen geëvacueerd. De maatregel geldt <strong>niet</strong> voor campings en lichte verblijven in die twee gemeenten, en niet voor de afgesloten zone Le Ferron / Plein Soleil in Le Porge, waar nog oude granaten worden geruimd.',
-      me:'Voor jullie verandert dit niets praktisch — jullie kwamen daar toch niet — maar het is de duidelijkste aanwijzing dat de crisis afloopt in plaats van escaleert. Het maakt ook een keten van omleidingen en wegafsluitingen op de linkeroever minder waarschijnlijk tijdens jullie verblijf.' },
-    { lvl:'good', t:'Nieuw — vervuilingsepisode luchtkwaliteit opgeheven',
-      b:'Atmo Nouvelle-Aquitaine heeft het <strong>episode de pollution</strong> dat sinds 23 juli liep, opgeheven voor <strong>zondag 2 augustus</strong>. Eind juli werden de fijnstofdrempels nog overschreden in drie departementen (Gironde, Landes, Lot-et-Garonne). Wat overblijft: verhoogde PM10 op <strong>drie kustgemeenten</strong> van de Gironde, waar nog haarden smeulen.',
-      me:'De rookvraag is hiermee zo goed als gesloten voor de rechteroever. De drie resterende gemeenten liggen aan de kust, 40+ km van Teuillac en aan de andere kant van het estuarium. Blijf de PM-grafiek hieronder volgen, maar reken er niet meer op dat rook jullie dagen bepaalt.',
+    { lvl:'good', t:'Nieuw — de Dune du Pilat is heropend',
+      b:'De onduidelijkheid van gisteren is opgelost. Op de site van de duin staan een sluitings- én een heropeningsbericht, en het <strong>heropeningsbericht is het recentste</strong>: sinds <strong>zaterdag 1 augustus</strong> zijn de duin en het onthaalcentrum — parking, winkels, restaurant, infopunt, ontdekkingshut — weer open. Diezelfde dag gingen ook de oceaanstranden van La Teste en het meer van Cazaux open. Er gelden wel voorwaarden: absoluut vuurverbod, rookverbod, en het bos rond de duin blijft strikt verboden.',
+      me:'De duin is weer een echte optie, maar hij ligt op 77 km en aan de kant van de brandzone. Met een 3-jarige is de klim in volle hitte sowieso zwaar: doe het vroeg in de ochtend, op een dag met noordenwind, of laat het. Bel 05 56 22 12 85 de dag zelf — de status kan bij een hitteprik opnieuw omslaan.',
+      caveat:'Gelezen via zoekresultaten van ladunedupilat.com en bassin-arcachon.com. Ik kon geen enkele pagina rechtstreeks openen deze ronde, dus de datum 1 augustus is niet in de bron zelf nagekeken.' },
+    { lvl:'good', t:'Brand blijft gefixeerd; Landes-zijde is "maîtrisé"',
+      b:'Sinds het situatiepunt van 1 augustus is er geen verslechtering gemeld. De oppervlakte staat stil op <strong>42.000 ha</strong> met 240 km vuurfront, er is <strong>geen heropleving en geen nieuwe evacuatie</strong>, en zo\'n 3.300 brandweerlieden blijven ter plaatse om randen te consolideren en haarden te behandelen. Aan de kant van de Landes is het vuur sinds <strong>vrijdag 31 juli "maîtrisé"</strong> — een trap sterker dan gefixeerd. Er smeulen nog haarden ten noorden van het bassin van Arcachon. De prioriteit van de prefectuur verschuift naar slachtofferhulp en economisch herstel.',
+      me:'Een gefixeerd vuur is geen geblust vuur — dat blijven ze zelf herhalen — maar de curve wijst al twee weken de goede kant op. Voor Teuillac, op 41 km en aan de overkant van het estuarium, is dit geen risicofactor meer.' },
+    { lvl:'good', t:'Vervuilingsepisode luchtkwaliteit opgeheven, regen hielp mee',
+      b:'Atmo Nouvelle-Aquitaine hief het <strong>episode de pollution</strong> dat sinds 23 juli liep op voor <strong>zondag 2 augustus</strong>. Eind juli werden de fijnstofdrempels nog overschreden in drie departementen (Gironde, Landes, Lot-et-Garonne); ongeveer 80 % van de massa bestond uit deeltjes kleiner dan 2,5 µm. Op <strong>maandag 3 augustus</strong> trok regen en onweer over de regio, wat de rookuitstoot beperkte en de resterende pluim uiteendreef. Wat overblijft: verhoogde PM10 op <strong>drie kustgemeenten</strong> van de Gironde.',
+      me:'De rookvraag is hiermee zo goed als gesloten voor de rechteroever. De drie resterende gemeenten liggen aan de kust, 40+ km van Teuillac en aan de andere kant van het estuarium. Reken er niet meer op dat rook jullie dagen bepaalt.',
       caveat:'Gelezen via zoekresultaten van atmo-nouvelleaquitaine.org en de ARS; de pagina zelf kon deze update niet geopend worden. Welke drie kustgemeenten het zijn, staat er niet bij.' },
     { lvl:'warning', t:'Vigilance rouge — brandrisico niveau 4 van 5, tot 18 augustus',
-      b:'Sinds <strong>31 juli</strong> is de Gironde teruggeschaald van noir naar rood. De prefectuur verlengde dat niveau tot <strong>maandag 18 augustus 23:59</strong>, onder voorbehoud van wijziging — dat is dus bijna heel jullie verblijf. Nog steeds verboden in heel het departement: onkruidbranders, groenafval verbranden, wensballonnen en vuurwerk. In bos en tot 200 m eromheen: open vuur, roken, hete resten wegwerpen, wild kamperen en bivak. In bosrijke gemeenten blijft elke aanwezigheid in blootgestelde zones verboden, behalve op aangeduide stranden en watersportbases.',
+      b:'Sinds <strong>31 juli</strong> is de Gironde teruggeschaald van noir naar rood, en dat niveau geldt vandaag nog steeds. De prefectuur verlengde het tot <strong>maandag 18 augustus 23:59</strong>, onder voorbehoud van wijziging — dat is dus bijna heel jullie verblijf. Reden: temperaturen rond 35 °C in de komende dagen en de staat van de vegetatie, die verder uitdroogt. Nog steeds verboden in heel het departement: onkruidbranders, groenafval verbranden, wensballonnen en vuurwerk. In bos en tot 200 m eromheen: open vuur, roken, hete resten wegwerpen, wild kamperen en bivak. In bosrijke gemeenten blijft elke aanwezigheid in blootgestelde zones verboden, behalve op aangeduide stranden en watersportbases.',
       me:'Geen barbecue met houtvuur, geen sigaret in de wijngaard, geen vuurkorf. Een gasbarbecue op het terras van het domein is doorgaans wel toegelaten — vraag het de eigenaars, want zij kennen de gemeentelijke uitzonderingen. Teuillac is geen bosrijke gemeente, dus het strengste deel raakt jullie niet. Reken erop dat het bosverbod jullie hele verblijf duurt.',
-      caveat:'De einddatum 18 augustus komt uit zoekresultaten van gironde.fr en een gemeentelijke herpublicatie; het besluit zelf op gironde.gouv.fr was niet bereikbaar. Behandel de datum als richtinggevend, niet als hard.' },
+      caveat:'De einddatum 18 augustus is vandaag door meerdere zoekresultaten bevestigd (gironde.fr, gironde.gouv.fr, gemeentelijke herpublicaties), maar ik kon het besluit zelf nog altijd niet openen. Eén bron vermeldt daarnaast een variant waarbij het bosverbod enkel tussen 14 en 22 u geldt; welke formulering nu van kracht is, kon ik niet uitmaken. Ga uit van de strengste lezing.' },
     { lvl:'warning', t:'Bossen dicht, maar Blasimon is deels heropend',
       b:'Besluit nr. 2026.1815.ARR sluit sinds <strong>30 juli</strong> de gevoelige natuurgebieden en alle bosmassieven in bosrijke gemeenten, "tot nader order". Elf natuurgebieden bleven volledig ontoegankelijk, waaronder Hostens – Gat Mort en Forêt de Migelane. <strong>Blasimon is sindsdien gedeeltelijk open</strong>: parking en recreatiezone — zwemmen, vissen, kamperen, horeca — zijn toegankelijk; de bewegwijzerde paden erbuiten blijven dicht. Bos betreden voor wandelen, fietsen of met de auto blijft verboden wegens dode bomen en extreme droogte.',
       me:'Dit is de beste wijziging voor jullie: de <strong>zwemzone van Blasimon</strong> (~54 km) is weer open en is precies wat werkt op een dag van 35 °C. Boswandelingen blijven van het menu. Terres d’Oiseaux is een moerasreservaat, geen bosmassief, en was open.' },
@@ -767,45 +785,84 @@
       b:'Het besluit van 29 juli verbiedt culturele en sportieve evenementen buiten op de <strong>linkeroever</strong> tot <strong>8 augustus 06:00</strong> — precies jullie aankomstdag. Op de <strong>rechteroever</strong> — waar Teuillac ligt — zijn ze <strong>toegelaten</strong>, buiten natuur-, bos- en groengebieden, zolang ze geen hulpdiensten vastleggen. Op de linkeroever kan een prefectorale afwijking worden aangevraagd. Ik heb vandaag opnieuw gezocht: er is <strong>nog geen verlenging na 8 augustus</strong> gepubliceerd.',
       me:'Dorpsfeesten, markten en de zomeragenda rond Blaye en Bourg lopen door. De lokale agenda toont evenementen die tot 21–27 augustus doorlopen: Activ’été in Blaye, Anim’été in Saint-André-de-Cubzac, exposities in Blaye en Bourg.' },
     { lvl:'critical', t:'Waterschaarste: bekken Moron–Virvée op niveau "crise"',
-      b:'Het hoogste van vier niveaus, van kracht sinds 2 juli 2026. Verboden: <strong>vullen van privézwembaden</strong>, autowassen bij particulieren, reinigen van gevels en terrassen. Tuin en serre begieten mag <strong>niet tussen 8 en 20 uur</strong>. Landbouwonttrekking ligt 3,5 dagen per week stil.',
-      me:'Teuillac ligt in het stroomgebied van de Moron. Bijvullen om peil te houden bij een bestaand zwembad is doorgaans een uitzondering, dus het zwembad van het domein zal vermoedelijk werken — maar bevestig dat bij de eigenaars. Verwacht een bruine tuin en vraag niet om de auto te wassen.',
-      caveat:'De officiële besluitpagina van de préfecture was niet bereikbaar tijdens deze controle. Het niveau "crise" voor Moron–Virvée is bevestigd via twee andere bronnen, maar de exacte gemeentelijst niet ingezien.' },
+      b:'Het hoogste van vier niveaus, van kracht sinds 2 juli 2026. Verboden: <strong>vullen van privézwembaden</strong>, autowassen bij particulieren, reinigen van gevels en terrassen. Tuin en serre begieten mag <strong>niet tussen 8 en 20 uur</strong>. Landbouwonttrekking ligt 3,5 dagen per week stil. Meerdere andere stroomgebieden staan eveneens op "crise"; sommige beken in de Gironde staan al helemaal droog.',
+      me:'Teuillac ligt in het stroomgebied van de Moron. <strong>Vandaag bevestigd:</strong> het verbod geldt uitdrukkelijk niet voor <em>bijvullen om peil te houden</em>, en evenmin voor een eerste vulling waarvan de werken vóór de restricties begonnen. Het zwembad van het domein mag dus normaal gezien werken — gisteren was dat nog een gok, nu staat het in de besluittekst. Bevestig het toch even bij de eigenaars. Verwacht een bruine tuin en vraag niet om de auto te wassen.',
+      caveat:'De officiële besluitpagina van de préfecture was ook vandaag niet te openen. Het niveau "crise" voor Moron–Virvée en de uitzondering voor bijvullen komen uit zoekresultaten van gironde.gouv.fr; de exacte gemeentelijst is niet ingezien.' },
     { lvl:'critical', t:'Hitte — dit is nu jullie hoofdrisico',
-      b:'De Gironde bleef eind juli op vigilance oranje canicule. Vandaag, 3 augustus, staan <strong>20 departementen</strong> op oranje hitte; of de Gironde erbij zit kon ik niet bevestigd krijgen. Brandrisico en hitte zijn twee losse schalen; verwar ze niet. Opeenvolgende hittegolven drogen de vegetatie verder uit, wat het brandrisico op rood houdt ook al is het vuur zelf gefixeerd.',
-      me:'Het model geeft <strong>12 tot 17 augustus onafgebroken 33,9 – 36,7 °C</strong>, met nachtminima van 21–23 °C. Reken dus op een nieuwe oranje periode midden in jullie verblijf. Bij oranje sluiten sommige gemeenten speelpleinen en verplaatsen ze activiteiten naar de vroege ochtend.' },
+      b:'De Gironde bleef eind juli op vigilance oranje canicule. Ook vandaag, 4 augustus, kreeg ik <strong>niet bevestigd</strong> of de Gironde op dit moment op oranje hitte staat — de vigilancekaart van Météo-France was niet te openen. Brandrisico en hitte zijn twee losse schalen; verwar ze niet. Opeenvolgende hittegolven drogen de vegetatie verder uit, wat het brandrisico op rood houdt ook al is het vuur zelf gefixeerd. De prefectuur noemt de verwachte 35 °C uitdrukkelijk als reden om vigilance rouge aan te houden.',
+      me:'De verwachting is op 4 augustus sterk gekalmeerd: nog <strong>één dag van 34 °C</strong> (11 augustus) in plaats van vijf, en 16–18 augustus zakt naar 23–25 °C. Reken toch nog op een mogelijke oranje periode midden in jullie verblijf. Bij oranje sluiten sommige gemeenten speelpleinen en verplaatsen ze activiteiten naar de vroege ochtend.' },
     { lvl:'warning', t:'Verkeer en trein',
       b:'De A63 tussen Bayonne en Bordeaux ging op 30 juli om 14:00 weer open na een sluiting van ~70 km. Treinverkeer <strong>zuidelijk van Bordeaux</strong> lag stil: Arcachon, Dax, Hendaye, Mont-de-Marsan, Pau, Tarbes. Parijse treinen eindigden in Bordeaux. Gratis omboeken of volledige terugbetaling.',
       me:'Jullie komen uit het noorden over de A10 en gaan er niet langs. De afrit Saint-André-de-Cubzac en de D-wegen naar Teuillac liggen buiten de brandzone. Een dagtrip per trein naar Arcachon is voorlopig geen optie.' }
   ];
 
   const ATTRACTIONS = [
-    { n:'Zwembad van het domein', km:0, st:'ok', stx:'Nabellen', fit:'Het antwoord op elke hete dag. Check of het gevuld is ondanks het waterverbod.', kid:'ideaal' },
-    { n:'Bourg-sur-Gironde — haven, wasplaats, bovenstad', km:5.8, st:'ok', stx:'Bevestigd', fit:'Klein, schaduwrijk, in tien minuten gedaan als het misloopt. Expo in Espace La Croix-Davids tot 24 aug.', kid:'goed' },
-    { n:'Grotte de Pair-non-Pair, Prignac-et-Marcamps', km:9.2, st:'ok', stx:'Bevestigd', fit:'Prehistorische grot, ~45 min gegidst, koel bij hitte. Donker en geen buggy — voor de 4,5-jarige leuk, de 3-jarige kan schrikken.', kid:'matig' },
-    { n:'Citadelle de Blaye (UNESCO)', km:9.9, st:'ok', stx:'Bevestigd', fit:'Beste optie van allemaal: enorme open vestingwallen om te lopen en te rennen, uitzicht over het estuarium, gratis toegankelijk. Ga vroeg — weinig schaduw.', kid:'ideaal' },
-    { n:'Terres d’Oiseaux, Braud-et-Saint-Louis', km:16.5, st:'ok', stx:'Bevestigd', fit:'120 ha moerasreservaat met vlakke paden en observatietorens. In augustus dagelijks 10–20 u, dus je kan om 18 u gaan als de hitte breekt.', kid:'ideaal' },
-    { n:'Bordeaux — Miroir d’eau &amp; Jardin Public', km:28.5, st:'ok', stx:'Bevestigd', fit:'De waterspiegel is precies wat kleuters willen bij 34 °C. Jardin Public heeft schaduw, een carrousel en een poppentheater. Bordeaux is volledig open.', kid:'ideaal' },
-    { n:'Saint-Émilion', km:38, st:'ok', stx:'Bevestigd', fit:'Mooi maar steil, kasseien en weinig schaduw. Met een 3-jarige in de hitte geen succes; bewaar het voor een koelere dag of laat het.', kid:'matig' },
-    { n:'Domaine de Blasimon — zwemvijver', km:54, st:'part', stx:'Deels open', fit:'Sinds eind juli weer open voor zwemmen, vissen, kamperen en horeca; alleen de bospaden blijven dicht. Zoetwaterstrand met zachte instap — de beste optie voor de hittedagen van 13–17 augustus.', kid:'ideaal' },
-    { n:'La Coccinelle &amp; Kid Parc, Gujan-Mestras', km:66, st:'ok', stx:'Bevestigd', fit:'Kinderboerderij en klein pretpark, exact deze leeftijd. Bevestigd open ondanks de brand. Wél 66 km en dicht bij de rookzone — kijk de wind na.', kid:'ideaal' },
-    { n:'Zoo de La Palmyre (Charente-Maritime)', km:82, st:'chk', stx:'Nabellen', fit:'Topper voor 3 en 4,5 jaar en buiten het departement Gironde, dus buiten alle besluiten. Ik vond geen recente statusbron — bel vooraf.', kid:'ideaal' },
-    { n:'Royan &amp; stranden Côte de Beauté', km:70, st:'chk', stx:'Nabellen', fit:'Ander departement, geen brand. Rook is er wel gezién eind juli. Zee koelt af als het binnenland kookt.', kid:'goed' },
-    { n:'Arcachon — stranden centrum, Moulleau, Pyla', km:69, st:'part', stx:'Deels open', fit:'Stranden van centrum, Moulleau en Pyla open; de Corniche dicht en varen in het westelijke bassin verboden. Zwembaden en Le Teich open. Ligt vlak bij de brand — alleen op een gunstige winddag.', kid:'matig' },
-    { n:'Musée et villas gallo-romaines de Plassac', km:12, st:'shut', stx:'Gesloten', fit:'Staat als gesloten op de toeristische agenda van de streek.', kid:'—' },
-    { n:'Dune du Pilat', km:77, st:'chk', stx:'Nabellen', fit:'Status onduidelijk geworden. De sluitingsmelding "tot nader order" staat er nog, maar er staat sinds ~1 augustus óók een heropeningsbericht op dezelfde site. Ik kon de pagina zelf niet openen om te zien welke de recentste is. Bel 05 56 22 12 85 voor je vertrekt; rij er niet op goed geluk naartoe.', kid:'—' },
-    { n:'Lacanau, Le Porge, Carcans, Cap-Ferret', km:43, st:'shut', stx:'Rampgebied', fit:'Sinds 3 augustus mogen de inwoners terug, maar dat is geen uitnodiging: verbrand landschap, in Le Porge alleen al ruim 150 vernielde woningen, campings nog dicht en in Le Ferron / Plein Soleil wordt nog naar granaten gezocht. Ga hier niet kijken.', kid:'—' }
+    { n:'Zwembad van het domein', km:0, t:'—', st:'chk', stx:'Nabellen', kid:'ideaal',
+      fit:'Het antwoord op elke hete dag. Vraag of het gevuld en in gebruik is ondanks het waterverbod.' },
+    { n:'Bourg-sur-Gironde', km:8, t:'10 min', st:'ok', stx:'Bevestigd', kid:'goed', u:'https://www.bbte.fr',
+      fit:'Haven, wasplaats en bovenstad. Klein en schaduwrijk, in tien minuten gedaan als het misloopt. Expo in Espace La Croix-Davids tot 24 aug.' },
+    { n:'Grotte de Pair-non-Pair', km:12, t:'15 min', st:'ok', stx:'Bevestigd', kid:'matig', u:'https://www.bbte.fr',
+      fit:'Prehistorische grot, ~45 min gegidst en lekker koel bij hitte. Donker en geen buggy — voor de 4,5-jarige boeiend, de 3-jarige kan schrikken.' },
+    { n:'Citadelle de Blaye (UNESCO)', km:13, t:'15 min', st:'ok', stx:'Bevestigd', kid:'ideaal', u:'https://www.bbte.fr',
+      fit:'Nog altijd de beste prijs-kwaliteit: enorme open vestingwallen om te rennen, uitzicht over het estuarium, gratis toegankelijk. Ga vroeg, er is weinig schaduw.' },
+    { n:'Natéa, Saint-Savin', km:16, t:'20 min', st:'ok', stx:'Bevestigd', kid:'matig', u:'https://nat-et-a.com',
+      fit:'Open elke dag 10–19 u zonder reservatie, 20 ha. <strong>Maar let op:</strong> het aanbod is accrobranche, tokkelbaan, paintball, lasergame en boogschieten — gericht op grotere kinderen en groepen. Bel eerst of er iets is voor een 3-jarige; anders is dit er eentje voor over vijf jaar.' },
+    { n:'Terres d’Oiseaux, Braud-et-Saint-Louis', km:22, t:'25 min', st:'ok', stx:'Bevestigd', kid:'ideaal', u:'https://www.terresdoiseaux.fr',
+      fit:'120 ha moeras met vlakke paden en observatietorens. In augustus dagelijks 10–20 u, dus je kan om 18 u vertrekken als de hitte breekt.' },
+    { n:'Zwembad Saint-Ciers-sur-Gironde', km:25, t:'25 min', st:'chk', stx:'Nabellen', kid:'goed',
+      fit:'Gemeentelijk bad met speelbassin en peuterbad. Dichtstbijzijnde echte zwemoptie buiten het domein. Ga op een weekdagochtend voor de drukte.' },
+    { n:'Bordeaux — Miroir d’eau, Jardin Public, Parc Bordelais', km:34, t:'35 min', st:'ok', stx:'Bevestigd', kid:'ideaal', u:'https://www.bordeaux-tourisme.com',
+      fit:'De waterspiegel is precies wat kleuters willen bij 32 °C. Jardin Public heeft schaduw, carrousel en poppentheater; Parc Bordelais een minidierentuin en speeltuinen, en is gratis. Bordeaux is volledig open, de zwembaden heropenden begin augustus.' },
+    { n:'Bassins des Lumières, Bordeaux', km:34, t:'35 min', st:'chk', stx:'Nabellen', kid:'goed', u:'https://www.bassins-lumieres.com',
+      fit:'Digitale kunst in een oude duikbootbunker — donker, koel en visueel overweldigend. Werkt verrassend goed voor kleuters, maar het geluid staat hard. Ideale regen- of hittedag.' },
+    { n:'Zoo de Bordeaux-Pessac', km:47, t:'45 min', st:'ok', stx:'Bevestigd', kid:'ideaal', u:'https://www.zoo-bordeaux-pessac.com',
+      fit:'Dagelijks 9:30–19 u t.e.m. 31 augustus, geen sluiting gemeld door de brand. Ligt op de rive gauche maar buiten de brandzone. Ga bij het openen — dieren én kinderen zijn dan op hun best.' },
+    { n:'Saint-Émilion', km:50, t:'45 min', st:'ok', stx:'Bevestigd', kid:'matig', u:'https://www.saint-emilion-tourisme.com',
+      fit:'Mooi maar steil, kasseien en weinig schaduw. Met een 3-jarige in de hitte geen succes; bewaar het voor een koele dag — die komen er nu wél aan.' },
+    { n:'Les Antilles de Jonzac', km:53, t:'50 min', st:'ok', stx:'Bevestigd', kid:'ideaal', u:'https://www.lesantillesdejonzac.com',
+      fit:'<strong>De beste vondst uit je lijst.</strong> In augustus dagelijks 10:30–18:30, beide zones open. Golfslagbad, glijbaan, zandstrand binnen, romeins bad op 35° en een waterspeeltuin voor 3–6 jaar. Overdekt, dus werkt bij hitte én bij de regen van 16 augustus. Ligt in Charente-Maritime, dus geen enkel Gironde-besluit is er van toepassing.' },
+    { n:'Domaine de Blasimon — zwemvijver', km:54, t:'55 min', st:'part', stx:'Deels open', kid:'ideaal',
+      fit:'Sinds eind juli weer open voor zwemmen, vissen en horeca; alleen de bospaden blijven dicht. Zoetwaterstrand met zachte instap.' },
+    { n:'Lacanau-Océan — strand', km:69, t:'1u10', st:'part', stx:'Deels open', kid:'goed', u:'https://www.medoc-atlantique.com',
+      fit:'De prefectuur gaf op 31 juli groen licht en de bewaakte stranden draaien weer normaal, met redders. Stranden die je alleen via bos bereikt, blijven wel dicht. Het dorp is zwaar getroffen geweest — houd er rekening mee dat je door herstelgebied rijdt.' },
+    { n:'Château des Énigmes, Pons', km:71, t:'1u', st:'chk', stx:'Nabellen', kid:'goed', u:'https://www.chateau-enigmes.com',
+      fit:'Schattenjacht met raadsels door een kasteelpark. De puzzels mikken op 6+, maar er is genoeg buitenruimte en er zijn dieren, dus de kleinste vermaakt zich ook. Grootouders vinden het leuk.' },
+    { n:'Paléosite, Saint-Césaire', km:81, t:'1u10', st:'chk', stx:'Nabellen', kid:'matig', u:'https://www.paleosite.fr',
+      fit:'Interactief neanderthalermuseum. Eerlijk: de inhoud mikt op 8+ en veel ervan gaat over hun hoofden heen. Het buitenparcours redt het bezoek.' },
+    { n:'Aqualand Bassin d’Arcachon, Gujan-Mestras', km:86, t:'1u15', st:'ok', stx:'Bevestigd', kid:'goed', u:'https://www.aqualand.fr/bassin-d-arcachon',
+      fit:'Bevestigd open ondanks de brand. Groot waterpark met aparte kinderzones. Voor een 3-jarige is het veel prikkels en veel volk — ga vroeg of kies Jonzac, dat rustiger is en half zo ver.' },
+    { n:'Parc de la Coccinelle, Gujan-Mestras', km:87, t:'1u15', st:'ok', stx:'Bevestigd', kid:'ideaal', u:'https://www.parcdelacoccinelle.fr',
+      fit:'Kinderboerderij plus klein pretpark, precies gebouwd voor 2 tot 8 jaar. Bevestigd open. De verste rit die ik voor deze leeftijd nog de moeite vind — en dan best combineren met een overnachting.' },
+    { n:'Kid Parc Île d’Aventures, Gujan-Mestras', km:87, t:'1u15', st:'ok', stx:'Bevestigd', kid:'ideaal', u:'https://www.kidparc.com',
+      fit:'Bevestigd open, mikt op 3 tot 8 jaar. Ligt op tien minuten van La Coccinelle, dus kies er één — twee op één dag wordt te veel.' },
+    { n:'Planet Exotica, Royan', km:92, t:'1u20', st:'chk', stx:'Nabellen', kid:'goed', u:'https://www.planet-exotica.com',
+      fit:'Reptielen, dino-decors en speeltuinen. Kleiner dan het lijkt; goed als tussenstop bij een dag aan zee, niet als hoofdbestemming.' },
+    { n:'Dune du Pilat', km:101, t:'1u20', st:'ok', stx:'Heropend 1 aug', kid:'goed', u:'https://www.ladunedupilat.com',
+      fit:'<strong>Weer open sinds 1 augustus</strong> — duin, parking en onthaal, samen met de oceaanstranden van La Teste en het meer van Cazaux. Het bos eromheen blijft verboden. De klim is 190 trappen: draag de 3-jarige of blijf onderaan.' },
+    { n:'Zoo de la Palmyre', km:108, t:'1u30', st:'chk', stx:'Nabellen', kid:'ideaal', u:'https://www.zoo-palmyre.fr',
+      fit:'Inhoudelijk de beste dierentuin van de streek voor deze leeftijd, en buiten het departement Gironde dus buiten alle besluiten. Maar drie uur rijden op één dag met een 3-jarige is zwaar — overweeg een nacht in Royan.' },
+    { n:'Château de Bridoire, Ribagnac', km:116, t:'1u25', st:'chk', stx:'Nabellen', kid:'goed', u:'https://www.chateaudebridoire.com',
+      fit:'"Kasteel van de 100 spellen" met reuzenspelen en een doolhof. Charmant, maar de rit is lang en het ligt in de Dordogne — enkel als je die kant toch op gaat.' },
+    { n:'Parc du Bournat, Le Bugue', km:155, t:'1u45', st:'chk', stx:'Nabellen', kid:'ideaal', u:'https://www.parclebournat.fr',
+      fit:'Historisch themapark met oude draaimolens en treintjes — inhoudelijk perfect voor deze leeftijd, maar 3,5 uur rijden heen en terug. Alleen zinvol als meerdaagse uitstap in de Dordogne.' },
+    { n:'Walygator Sud-Ouest, Agen', km:175, t:'2u', st:'chk', stx:'Nabellen', kid:'matig', u:'https://www.walygatorparc.com/sudouest',
+      fit:'Het enige grote pretpark van de regio, maar vier uur rijden op één dag voor twee kleuters die het meeste nog niet in mogen. Ik zou dit laten.' },
+    { n:'Musée et villas gallo-romaines de Plassac', km:15, t:'20 min', st:'shut', stx:'Gesloten', kid:'—',
+      fit:'Staat als gesloten op de toeristische agenda van de streek.' },
+    { n:'Le Porge en Lège-Cap-Ferret', km:80, t:'1u20', st:'shut', stx:'Beperkt', kid:'—',
+      fit:'Bewoners mochten pas op 3 augustus terug en campings en vrijetijdsparken zijn er nog niet heropend. In Le Porge zijn ruim 150 woningen vernield. Ga hier niet kijken.' }
   ];
 
   const SCENARIOS = [
-    { p:84, lvl:'good', t:'Gewone vakantie, gedomineerd door hitte',
-      b:'De brand blijft gefixeerd en speelt voor jullie geen rol meer. Bossen blijven dicht, dus geen boswandelingen, maar Blaye, Bourg, Bordeaux, het estuarium, Blasimon en het zwembad werken allemaal. De hitte bepaalt élke dag: vroege ochtenden, lange siësta, buiten pas na 19 u.',
-      w:'Het vuur is sinds 1 augustus "fixé", sinds 3 augustus zijn <strong>alle 23 gemeenten</strong> vrijgegeven en is het vervuilingsepisode opgeheven, en het departement schaalde terug van noir naar rood. De fijnstof boven Teuillac zit op 5–8 µg/m³ en de wind blaast de resterende rook 14 van de 16 dagen weg van jullie. Sinds gisteren is dit scenario twee punten waarschijnlijker geworden.' },
-    { p:11, lvl:'warning', t:'Nieuwe brand elders in het departement',
+    { p:86, lvl:'good', t:'Gewone vakantie, gedomineerd door hitte',
+      b:'De brand blijft gefixeerd en speelt voor jullie geen rol meer. Bossen blijven dicht, dus geen boswandelingen, maar Blaye, Bourg, Bordeaux, het estuarium, Blasimon, de Dune du Pilat en het zwembad werken allemaal. De hitte bepaalt élke dag: vroege ochtenden, lange siësta, buiten pas na 19 u.',
+      w:'Vandaag kwam er geen enkel slecht bericht bij: geen heropleving, geen nieuwe evacuatie, de oppervlakte staat stil op 42.000 ha, de Landes-zijde is "maîtrisé" en maandag viel er regen over de regio. Alle 23 gemeenten zijn vrijgegeven, het vervuilingsepisode is opgeheven en de Dune du Pilat blijkt heropend. De fijnstof boven Teuillac zit op 5–8 µg/m³ en de wind blaast de resterende rook bijna alle dagen weg van jullie. Twee punten hoger dan gisteren.' },
+    { p:10, lvl:'warning', t:'Nieuwe brand elders in het departement',
       b:'Gevolg voor jullie: strengere verboden, mogelijk terug naar vigilance noire, een geschrapte activiteit of een omleiding. Rook alleen als de wind ongunstig staat. Geen direct gevaar in Teuillac.',
-      w:'Er valt maar 6,3 mm regen in 16 dagen terwijl het zes dagen boven 34 °C gaat. De vegetatie droogt verder uit in plaats van te herstellen — precies waarom de prefectuur vigilance rouge naar verluidt tot 18 augustus verlengde, ook al is het vuur gefixeerd.' },
-    { p:4, lvl:'warning', t:'Rook draait toch jullie kant uit',
+      w:'Er valt maar 6,3 mm regen in de resterende voorspelde dagen terwijl het zes dagen boven 34 °C gaat. De regen van maandag was een eenmalige buitje, geen ommekeer: de vegetatie droogt verder uit in plaats van te herstellen — precies de reden die de prefectuur zelf geeft om vigilance rouge tot 18 augustus aan te houden, ook al is het vuur gefixeerd. Eén punt lager dan gisteren, maar dit blijft het scenario om in de gaten te houden.' },
+    { p:3, lvl:'warning', t:'Rook draait toch jullie kant uit',
       b:'Een heropleving bij Cap Ferret of Lacanau valt samen met zuidwestenwind. Lucht wordt wazig en het ruikt naar brand. Dan: ramen dicht, binnenblijven tussen 12 en 19 u, FFP2 als je toch moet. Hinderlijk, niet gevaarlijk voor gezonde kinderen op 30+ km.',
-      w:'Er zijn nog actieve haarden op het Cap-Ferret-schiereiland en in de duinen ten zuiden van Lacanau — daarom houden drie kustgemeenten verhoogde PM10 terwijl het regionale vervuilingsepisode op 2 augustus werd opgeheven. In de verwachting zitten twee randzone-dagen — 3 en 18 augustus — waarvan geen enkele de pluim echt op Teuillac legt. Eén punt lager dan gisteren.' },
+      w:'Er smeulen nog haarden ten noorden van het bassin van Arcachon — daarom houden drie kustgemeenten verhoogde PM10 terwijl het regionale vervuilingsepisode op 2 augustus werd opgeheven. De regen van maandag heeft een deel van de resterende rook neergeslagen. De modelrun van 4 augustus legt de pluimas op 12 en 16 augustus wel over Teuillac, waar gisteren nog geen enkele dag dat deed. Daarom een punt hoger dan gisteren — maar met een gefixeerde brand als bron blijft het beperkt.' },
     { p:1, lvl:'critical', t:'Jullie verblijf zelf komt in gevaar',
       b:'Hiervoor is een nieuwe, grote brand nodig in de Haute-Gironde zelf, met wind die hem naar Teuillac stuurt. Dan krijg je FR-Alert op je gsm en volg je de instructies onmiddellijk op — inpakken kan later.',
       w:'Teuillac ligt in wijnbouw- en landbouwgebied, niet in een aaneengesloten pijnbomenmassief. Wijngaarden zijn een slechte brandstof en werken zelfs als brandgang. Precies dat maakt de rechteroever fundamenteel veiliger dan de Landes de Gascogne.' }
@@ -822,15 +879,17 @@
   ];
 
   const NEWS = [
-    { t:'Nieuw — terugkeer toegelaten in Lège-Cap-Ferret en Le Porge', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Aout-2026/Incendie-de-Saumos-Reintegration-autorisee-dans-les-communes-de-Lege-Cap-Ferret-et-du-Porge', d:'Aangekondigd 2 augustus, van kracht 3 augustus 14:00 (dorpen) en 19:00 (schiereiland). Campings, lichte verblijven en de granatenzone in Le Porge blijven uitgesloten.' },
-    { t:'Nieuw — "Le retour des habitants se poursuit au Porge et à Lège-Cap-Ferret"', u:'https://rue89bordeaux.com/2026/08/incendies-en-gironde-le-retour-des-habitants-se-poursuit-au-porge-et-a-lege-cap-ferret/', d:'Rue89 Bordeaux — hoe de terugkeer op het terrein verloopt.' },
-    { t:'Nieuw — luchtkwaliteit: opvolging van de branden', u:'https://www.atmo-nouvelleaquitaine.org/actualite/incendies-en-gironde-et-dans-les-landes-suivi-de-la-qualite-de-lair', d:'Atmo Nouvelle-Aquitaine hief het vervuilingsepisode op voor 2 augustus; drie kustgemeenten houden verhoogde PM10.' },
+    { t:'Nieuw — heropening van de Dune du Pilat', u:'https://ladunedupilat.com/en/reopening-of-the-pilat-dune/', d:'Duin, parking en onthaalcentrum weer open sinds 1 augustus; vuur- en rookverbod, bos eromheen blijft dicht.' },
+    { t:'Nieuw — Bassin d\'Arcachon: stand van zaken toegang en activiteiten', u:'https://bassin-arcachon.com/en/point-de-situation/', d:'Wat er in het bassin weer open is: Dune du Pilat, oceaanstranden van La Teste, meer van Cazaux — bijgewerkt begin augustus.' },
+    { t:'Nieuw — luchtkwaliteit: evolutie van de impact', u:'https://www.atmo-nouvelleaquitaine.org/actualite/feux-de-foret-evolution-de-limpact-sur-la-qualite-de-lair', d:'Atmo hief het vervuilingsepisode op voor 2 augustus; regen en onweer op maandag 3 augustus verbeterden de lucht verder. Drie kustgemeenten houden verhoogde PM10.' },
+    { t:'Terugkeer toegelaten in Lège-Cap-Ferret en Le Porge', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Aout-2026/Incendie-de-Saumos-Reintegration-autorisee-dans-les-communes-de-Lege-Cap-Ferret-et-du-Porge', d:'Aangekondigd 2 augustus, van kracht 3 augustus 14:00 (dorpen) en 19:00 (schiereiland). Campings, lichte verblijven en de granatenzone in Le Porge blijven uitgesloten.' },
+    { t:'Terugkeer in 4 nieuwe gemeenten — Marcheprime, Arès, Saumos, Le Temple', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Aout-2026/Incendie-de-Saumos-Reintegration-autorisee-dans-4-nouvelles-communes', d:'1 augustus: 208.000 mensen mochten terug. In Lacanau ook de campings, vakantiedorpen en vrijetijdsparken.' },
     { t:'Situatiepunt Saumos — 1 augustus, 20:00', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Aout-2026/Incendie-de-Saumos-point-de-situation-ce-samedi-1er-aout-a-20h', d:'Laatste uitgebreide officiële stand: vuur gefixeerd maar niet geblust, 240 km vuurfront, 42.000 ha, haarden blijven.' },
     { t:'Vigilance rouge voor brandrisico (niveau 4/5)', u:'https://www.gironde.fr/actualites/vigilance-rouge-pour-le-risque-feux-de-foret', d:'Sinds 31 juli, terug van noir, verlengd tot 18 augustus 23:59 onder voorbehoud. Alle verboden op een rij.' },
     { t:'Terugschaling naar vigilance rouge vanaf 31 juli', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Juillet-2026/Risque-feux-de-foret-passage-en-vigilance-ROUGE-a-compter-du-31-juillet-en-Gironde', d:'Het besluit van de prefectuur zelf.' },
     { t:'FR-Alert voor evacuatie nieuwe gemeenten', u:'https://www.gironde.gouv.fr/Actualites/Communiques-de-presse/Communiques-de-presse-2026/Juillet-2026/Incendie-en-Gironde-declenchement-de-FR-Alert-pour-l-evacuation-des-nouvelles-communes', d:'Hoe het alarm werkt — dit is het signaal dat je wél onmiddellijk opvolgt.' },
     { t:'Overzicht van de branden 2026 in Gironde en de Landes', u:'https://fr.wikipedia.org/wiki/Feux_de_for%C3%AAt_de_2026_en_Gironde_et_dans_les_Landes', d:'Wikipedia — dagelijkse chronologie, goed bijgehouden.' },
-    { t:'Nieuws van de Dune du Pilat', u:'https://ladunedupilat.com/en/dune/news/', d:'Sluitings- én heropeningsberichten staan hier door elkaar. Kijk zelf welke de recentste is, of bel 05 56 22 12 85.' }
+    { t:'Nieuws van de Dune du Pilat', u:'https://ladunedupilat.com/en/dune/news/', d:'De oude sluitingsmelding staat er nog naast de heropening van 1 augustus. Bij twijfel op de dag zelf: 05 56 22 12 85.' }
   ];
 
   /* ============================================================
@@ -1078,9 +1137,24 @@
 
   function inStay(iso) { return iso >= STAY.from && iso <= STAY.to; }
 
+  /* Toonvenster: gepasseerde dagen vallen weg en alles na de terugreis ook,
+     zodat er naarmate 8 augustus nadert vanzelf enkel de vakantie overblijft.
+     Zakt het venster onder twee dagen, dan tonen we toch de volledige reeks
+     in plaats van een lege grafiek. */
+  let VIEW_DAYS = [], VIEW_AIR = [];
+  function windowed(arr) {
+    const t = todayISO();
+    const f = arr.filter(x => x.d >= t && x.d <= STAY.to);
+    return f.length >= 2 ? f : arr;
+  }
+  function recomputeView() {
+    VIEW_DAYS = windowed(DATA.days);
+    VIEW_AIR = windowed(DATA.air);
+  }
+
   function drawTempChart() {
     const box = document.getElementById('tempChart');
-    const d = DATA.days;
+    const d = VIEW_DAYS;
     const W = 960, H = 250, ML = 34, MR = 12, MT = 22, MB = 42;
     const iw = W - ML - MR, ih = H - MT - MB;
     const lo = 10, hi = 40;
@@ -1091,7 +1165,8 @@
     let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Verwachte dagelijkse minimum- en maximumtemperatuur in Teuillac van ${fmtDay(d[0].d)} tot ${fmtDay(d[d.length - 1].d)}">`;
 
     // verblijfsvenster
-    const si = d.findIndex(x => inStay(x.d));
+    // band alleen tonen zolang er ook dagen buiten het verblijf in beeld staan
+    const si = d.every(x => inStay(x.d)) ? -1 : d.findIndex(x => inStay(x.d));
     if (si >= 0) {
       const x0 = ML + si * bw;
       s += `<rect class="staywin" x="${x0.toFixed(1)}" y="${MT}" width="${(iw - si * bw).toFixed(1)}" height="${ih}" rx="3"/>`;
@@ -1129,7 +1204,7 @@
 
   function drawPmChart() {
     const box = document.getElementById('pmChart');
-    const a = DATA.air;
+    const a = VIEW_AIR;
     const W = 960, H = 220, ML = 40, MR = 12, MT = 22, MB = 42;
     const iw = W - ML - MR, ih = H - MT - MB;
     const hi = 60;
@@ -1173,7 +1248,7 @@
 
   function renderWindTable() {
     const tb = document.querySelector('#windTable tbody');
-    tb.innerHTML = DATA.days.map(r => {
+    tb.innerHTML = VIEW_DAYS.map(r => {
       const p = plumeState(r.dir);
       return `<tr${inStay(r.d) ? ' class="home"' : ''}>
         <td>${fmtDay(r.d)}</td>
@@ -1205,9 +1280,13 @@
       const fitChip = a.kid === 'ideaal' ? chip('good', 'Ideaal')
         : a.kid === 'goed' ? chip('good', 'Goed')
         : a.kid === 'matig' ? chip('warning', 'Matig') : '';
+      const naam = a.u
+        ? `<a href="${a.u}" target="_blank" rel="noopener noreferrer">${a.n}</a>`
+        : `<strong style="font-weight:600">${a.n}</strong>`;
       return `<tr${a.km === 0 ? ' class="home"' : ''}>
-        <td><strong style="font-weight:600">${a.n}</strong></td>
+        <td>${naam}</td>
         <td class="n">${a.km === 0 ? '—' : nl(a.km, 0)}</td>
+        <td class="n">${a.t}</td>
         <td>${chip(lvl, a.stx)}</td>
         <td><span class="small">${a.fit}</span>${fitChip ? '<br>' + fitChip : ''}</td>
       </tr>`;
@@ -1270,7 +1349,7 @@
   };
 
   function setDay(i) {
-    const r = DATA.days[i];
+    const r = VIEW_DAYS[i];
     if (!r) return;
     const p = plumeState(r.dir);
 
@@ -1304,7 +1383,7 @@
 
   // labels onder de schuifbalk volgen de data, zodat ze niet verouderen
   function syncRangeLabels() {
-    const d = DATA.days;
+    const d = VIEW_DAYS;
     if (!d.length) return;
     els.range.max = String(d.length - 1);
     const f = document.getElementById('rangeFrom'), t = document.getElementById('rangeTo');
@@ -1341,7 +1420,7 @@
     return out;
   }
 
-  const STAMP = '3 augustus, 16:45';
+  const STAMP = '4 augustus, 16:20';
 
   async function refresh() {
     btn.setAttribute('aria-busy', 'true');
@@ -1368,6 +1447,7 @@
       }));
 
       DATA.live = true;
+      recomputeView();
       syncRangeLabels();
       els.range.value = '0';
 
@@ -1381,8 +1461,9 @@
       setLive('auto',
         `Deze pagina wordt <strong>elke ochtend automatisch opnieuw opgebouwd</strong> met verse meteo, `
         + `luchtkwaliteit, brandstatus én besluiten — laatst op <strong>${STAMP}</strong>. `
-        + `Bij die laatste ronde raakte de meetserver niet bereikbaar, dus de cijfers in de grafieken `
-        + `dateren van 3 augustus 14:30; situatie en besluiten zijn wel bijgewerkt. `
+        + `Bij de laatste twee rondes raakte de meetserver niet bereikbaar, dus de cijfers in de grafieken `
+        + `dateren nog altijd van <strong>3 augustus 14:30</strong> en zijn dus een dag oud; `
+        + `situatie, besluiten en attracties zijn wél bijgewerkt. `
         + `Rechtstreeks ophalen vanuit de pagina zelf kan alleen in de lokale kopie; `
         + `wil je nú zelf iets checken, tik dan onderaan een bron aan.`);
     } finally {
@@ -1408,6 +1489,7 @@
      INIT
      ============================================================ */
 
+  recomputeView();
   buildMap();
   drawTempChart();
   drawPmChart();

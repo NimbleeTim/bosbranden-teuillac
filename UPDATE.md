@@ -32,11 +32,11 @@ curl -s --max-time 25 "https://api.open-meteo.com/v1/forecast?latitude=45.09289&
 curl -s --max-time 25 "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=45.09289&longitude=-0.54756&hourly=pm10,pm2_5,european_aqi,ozone&timezone=Europe%2FParis&past_days=7&forecast_days=5"
 ```
 
-> **Let op — dit faalde bij de testrun van 3 augustus.** De cloud-sandbox blokkeert
-> uitgaand verkeer vanuit Bash naar `api.open-meteo.com`. Krijg je een timeout of een
-> leeg antwoord, ga dan **niet** verder met verouderde cijfers, maar val terug op
-> **WebFetch** met exact dezelfde URL. WebFetch loopt langs een andere route en werkt
-> wel. Vraag in de prompt om de dagreeksen letterlijk terug te geven, bijvoorbeeld:
+> **Let op — dit faalde op 3 én 4 augustus.** De cloud-sandbox blokkeert uitgaand
+> verkeer vanuit Bash naar `api.open-meteo.com`. Krijg je een timeout of een leeg
+> antwoord, ga dan **niet** verder met verouderde cijfers, maar val terug op
+> **WebFetch** met exact dezelfde URL. Dat is op 4 augustus getest en het **werkt** —
+> WebFetch loopt langs een andere route dan de sandbox. Sla die stap niet over. Vraag in de prompt om de dagreeksen letterlijk terug te geven, bijvoorbeeld:
 > *"Give me the complete `daily` arrays as JSON: time, temperature_2m_max,
 > temperature_2m_min, precipitation_sum, precipitation_probability_max,
 > wind_speed_10m_max, wind_gusts_10m_max, wind_direction_10m_dominant. Return raw
@@ -81,6 +81,14 @@ Alles wat verandert zit in het `<script>`-blok, behalve de lopende tekst.
   Gebruik `chk` + "Nabellen" als je géén recente bron vond. Verzin geen open-status.
 - **`NEWS`** — vervang door de meest recente berichten met werkende URL's.
 - De verdict-tekst (`id="verdictBody"`) en de tegels erin, als het verhaal wezenlijk wijzigde.
+
+**Het toonvenster mag je niet weghalen.** De grafieken, de windtabel en de dagbalk
+tonen bewust alleen dagen vanaf vandaag tot en met 22 augustus (`windowed()` in het
+script). Gepasseerde dagen vallen weg, zodat er vanaf 8 augustus vanzelf enkel nog de
+vakantieperiode overblijft. Vul `DATA.days` en `DATA.air` dus gewoon met de volledige
+reeks uit de API — het filteren gebeurt bij het renderen. Let er wel op dat teksten
+over "hete dagen" of "regen in 16 dagen" over de **volledige** reeks gaan; herbereken
+die uit `DATA`, niet uit wat je op het scherm ziet.
 
 **De rookmeetkunde staat vast en mag je niet aanpassen:** Teuillac ligt op peiling **55°**
 vanaf het brandzwaartepunt (44.88 N, -0.98 O), 41 km. Rook bereikt Teuillac alleen bij wind
