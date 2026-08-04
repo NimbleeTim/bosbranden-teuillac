@@ -284,14 +284,52 @@
   .callout.warn { background: color-mix(in srgb, var(--warning) 11%, var(--surface)); border-color: color-mix(in srgb, var(--warning) 34%, transparent); }
   .callout svg { flex: none; margin-top: 2px; }
 
+  /* ---------- tabbladen ---------- */
+  .tabs { display: flex; gap: 4px; margin-bottom: 22px; border-bottom: 1px solid var(--rule); }
+  .tab {
+    font: inherit; font-weight: 600; font-size: .875rem; color: var(--ink-2);
+    background: none; border: 0; border-bottom: 2px solid transparent;
+    padding: 9px 15px; cursor: pointer; margin-bottom: -1px; border-radius: 6px 6px 0 0;
+  }
+  .tab:hover { color: var(--ink); background: var(--surface-2); }
+  .tab.on { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .planbar { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-bottom: 14px; }
+  .planbtn {
+    display: inline-flex; align-items: center; gap: 7px;
+    font: inherit; font-weight: 600; font-size: .812rem;
+    background: var(--accent); color: var(--surface);
+    border: 0; border-radius: 8px; padding: 8px 13px; cursor: pointer;
+  }
+  .planbtn:hover { filter: brightness(1.08); }
+  .planbtn.ghost { background: none; color: var(--ink-2); border: 1px solid var(--rule); }
+  .planbtn.ghost:hover { background: var(--surface-2); filter: none; }
+
+  .legendrow { display: flex; gap: 16px; flex-wrap: wrap; }
+  .legendrow .ln { width: 18px; height: 0; border-top: 2px solid var(--accent); display: inline-block; }
+  .legendrow .ln.dash { border-top: 2px dashed var(--muted); }
+
+  .acttick { display: flex; gap: 9px; align-items: flex-start; cursor: pointer; }
+  .acttick input { margin-top: 3px; flex: none; width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+  .acttick input:checked + span { opacity: .45; text-decoration: line-through; }
+
+  .uurbtn {
+    align-self: flex-start; font: inherit; font-size: .719rem; font-weight: 600;
+    color: var(--accent); background: none; border: 1px solid var(--rule);
+    border-radius: 6px; padding: 4px 9px; cursor: pointer;
+  }
+  .uurbtn:hover { border-color: var(--accent); background: var(--accent-2); }
+
   .dayplan { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
   .dayrow {
     display: flex; flex-direction: column; gap: 7px; text-align: left; width: 100%;
-    font: inherit; color: inherit; cursor: pointer;
+    font: inherit; color: inherit;
     background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
     padding: 14px; box-shadow: var(--shadow); transition: border-color .12s, transform .12s;
   }
   .dayrow:hover { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+  .dayrow.leeg { opacity: .6; border-style: dashed; }
+  .dayrow.reis { background: var(--surface-2); }
   .dayrow.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), var(--shadow); }
   .dayrow p { margin: 0; }
   .dayrow-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -362,6 +400,12 @@
     </div>
   </div>
 
+  <div class="tabs" role="tablist" aria-label="Onderdelen">
+    <button class="tab on" type="button" role="tab" id="tabbtn-status" aria-selected="true" aria-controls="tab-status" data-tab="status">Status</button>
+    <button class="tab" type="button" role="tab" id="tabbtn-planning" aria-selected="false" aria-controls="tab-planning" data-tab="planning">Planning</button>
+  </div>
+
+  <div id="tab-status" role="tabpanel" aria-labelledby="tabbtn-status">
   <!-- ============ MAP ============ -->
   <section id="kaart">
     <div class="sec-head">
@@ -519,7 +563,7 @@
     </div>
     <div class="card stack-lg">
       <div class="chartbox" id="tempChart"></div>
-      <div id="dayDetail" style="border-top:1px solid var(--rule-soft);padding-top:16px"></div>
+      <div class="dayDetail" style="border-top:1px solid var(--rule-soft);padding-top:16px"></div>
       <div class="grid3">
         <div class="stack" style="gap:4px">
           <span class="eyebrow">Hete dagen ≥ 34 °C</span>
@@ -544,16 +588,7 @@
     </div>
   </section>
 
-  <!-- ============ DAGINDELING ============ -->
-  <section id="dagindeling">
-    <div class="sec-head">
-      <span class="eyebrow">Dagindeling</span>
-      <h2>Wat te doen per dag, en wanneer jij kan rijden</h2>
-      <p class="small">Elke dag krijgt een type op basis van maximumtemperatuur, regen en weertype. Klik een dag om het uurverloop erboven te zien. Het fietsvenster is het beste aaneengesloten blok van minstens twee uur bij daglicht, gewogen op temperatuur, gevoelstemperatuur, wind, windstoten en buienkans.</p>
-    </div>
-    <div id="dayPlan" class="dayplan"></div>
-    <p class="tiny" style="margin-top:10px">Fietsscore boven 85 is prima weer, 60–85 bruikbaar, daaronder zou ik het laten. De score kijkt niet naar wegdek, verkeer of hoogtemeters — en niet naar of de kinderen je laten vertrekken.</p>
-  </section>
+  
 
   <!-- ============ FORECAST / PREDICTION ============ -->
   <section id="voorspelling">
@@ -608,33 +643,7 @@
     </div>
   </section>
 
-  <!-- ============ ATTRACTIONS ============ -->
-  <section id="attracties">
-    <div class="sec-head">
-      <span class="eyebrow">Bezienswaardigheden</span>
-      <h2>Wat kan met een 3-jarige en een 4,5-jarige</h2>
-      <p class="small">Afstanden en rijtijden bij benadering over de weg vanaf Teuillac, oplopend gesorteerd. Klik een naam voor de site. De statuskolom zegt of ik er een bron voor gezien heb of dat je zelf moet bellen — dat onderscheid is het belangrijkste in deze tabel.</p>
-    </div>
-    <div class="callout" style="margin-bottom:14px">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>
-      <div class="stack" style="gap:5px">
-        <strong style="font-weight:620">Als je maar vijf dingen doet</strong>
-        <p class="small"><strong>1. Citadelle de Blaye</strong> (13 km) — gratis, eindeloos rennen, elke ochtend inzetbaar. <strong>2. Les Antilles de Jonzac</strong> (53 km) — overdekt waterparadijs met een zone voor 3–6 jaar; de enige plek die zowel 34 °C als 8,7 mm regen opvangt. <strong>3. Terres d’Oiseaux</strong> (22 km) — vlakke paden, open tot 20 u, dus perfect voor na de hitte. <strong>4. Zoo de Bordeaux-Pessac</strong> (47 km) — bevestigd open, ga bij opening om 9:30. <strong>5. Miroir d’eau in Bordeaux</strong> (34 km) — gratis, en precies wat kleuters willen als het warm is.</p>
-        <p class="tiny">Alles boven ± 90 km zou ik met een 3-jarige laten vallen of aan een overnachting koppelen. La Palmyre, Le Bournat en Walygator zijn inhoudelijk prima, maar drie tot vier uur auto op één dag maakt de dag stuk.</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="tablewrap">
-        <table id="attrTable">
-          <thead>
-            <tr><th>Plek</th><th class="n">±km</th><th class="n">rijtijd</th><th>Status</th><th>Voor deze leeftijd</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <p class="tiny" style="margin-top:9px"><strong>Bevestigd</strong> = ik heb er een bron voor gezien bij de laatste update. <strong>Nabellen</strong> = geen recente bron gevonden; ga er niet blind naartoe. Situatie verandert dagelijks.</p>
-  </section>
+  
 
   <!-- ============ CHECKLIST ============ -->
   <section id="checklist">
@@ -691,6 +700,57 @@
       </div>
     </div>
   </section>
+
+  </div><!-- /tab-status -->
+
+  <div id="tab-planning" role="tabpanel" aria-labelledby="tabbtn-planning" hidden>
+<!-- ============ DAGINDELING ============ -->
+  <section id="dagindeling">
+    <div class="sec-head">
+      <span class="eyebrow">Dagindeling</span>
+      <h2>Wat te doen per dag, en wanneer jij kan rijden</h2>
+      <p class="small">Alleen de dagen dat jullie er zijn. Aankomst- en terugreisdag blijven bewust leeg. Elke dag krijgt een type op basis van maximumtemperatuur, regen en weertype, en één activiteit die nergens anders terugkomt. Vink af wat gedaan is, dan verdwijnt het uit de rest van de planning. <strong>Andere planning</strong> deelt alles opnieuw uit. Het fietsvenster is het beste aaneengesloten blok van minstens twee uur bij daglicht, gewogen op temperatuur, gevoelstemperatuur, wind, windstoten en buienkans.</p>
+    </div>
+    <div class="planbar">
+      <button class="planbtn" id="btnReplan" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3.2-6.9"/><path d="M21 3v6h-6"/></svg>
+        Andere planning
+      </button>
+      <button class="planbtn ghost" id="btnResetDone" type="button">Alle vinkjes wissen</button>
+      <span class="tiny" id="doneCount"></span>
+    </div>
+    <div id="dayPlan" class="dayplan"></div>
+    <div class="card dayDetail" style="margin-top:16px"></div>
+    <p class="tiny" style="margin-top:10px">Fietsscore boven 85 is prima weer, 60–85 bruikbaar, daaronder zou ik het laten. De score kijkt niet naar wegdek, verkeer of hoogtemeters — en niet naar of de kinderen je laten vertrekken.</p>
+  </section>
+<!-- ============ ATTRACTIONS ============ -->
+  <section id="attracties">
+    <div class="sec-head">
+      <span class="eyebrow">Bezienswaardigheden</span>
+      <h2>Wat kan met een 3-jarige en een 4,5-jarige</h2>
+      <p class="small">Afstanden en rijtijden bij benadering over de weg vanaf Teuillac, oplopend gesorteerd. Klik een naam voor de site. De statuskolom zegt of ik er een bron voor gezien heb of dat je zelf moet bellen — dat onderscheid is het belangrijkste in deze tabel.</p>
+    </div>
+    <div class="callout" style="margin-bottom:14px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>
+      <div class="stack" style="gap:5px">
+        <strong style="font-weight:620">Als je maar vijf dingen doet</strong>
+        <p class="small"><strong>1. Citadelle de Blaye</strong> (13 km) — gratis, eindeloos rennen, elke ochtend inzetbaar. <strong>2. Les Antilles de Jonzac</strong> (53 km) — overdekt waterparadijs met een zone voor 3–6 jaar; de enige plek die zowel 34 °C als 8,7 mm regen opvangt. <strong>3. Terres d’Oiseaux</strong> (22 km) — vlakke paden, open tot 20 u, dus perfect voor na de hitte. <strong>4. Zoo de Bordeaux-Pessac</strong> (47 km) — bevestigd open, ga bij opening om 9:30. <strong>5. Miroir d’eau in Bordeaux</strong> (34 km) — gratis, en precies wat kleuters willen als het warm is.</p>
+        <p class="tiny">Alles boven ± 90 km zou ik met een 3-jarige laten vallen of aan een overnachting koppelen. La Palmyre, Le Bournat en Walygator zijn inhoudelijk prima, maar drie tot vier uur auto op één dag maakt de dag stuk.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tablewrap">
+        <table id="attrTable">
+          <thead>
+            <tr><th>Plek</th><th class="n">±km</th><th class="n">rijtijd</th><th>Status</th><th>Voor deze leeftijd</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="tiny" style="margin-top:9px"><strong>Bevestigd</strong> = ik heb er een bron voor gezien bij de laatste update. <strong>Nabellen</strong> = geen recente bron gevonden; ga er niet blind naartoe. Situatie verandert dagelijks.</p>
+  </section>
+  </div><!-- /tab-planning -->
 
   <footer class="foot">
     <span class="eyebrow">Verantwoording</span>
@@ -1310,110 +1370,150 @@
 
   const PLAN = [
     { d:'2026-08-04', sr:6, ss:21, kind:'warm', code:'mist', bike:{van:7,tot:12,score:99,t:21.1,w:6.6},
-      th:[21.8,21.4,20.8,20.3,19.7,19.4,18.6,18.4,19.8,21.3,22.6,23.6,25.2,27.0,28.0,28.8,29.0,29.0,28.9,28.0,26.5,24.8,23.1,21.9], wh:[9,8,6,4,4,4,3,4,5,8,9,7,6,8,9,10,12,13,13,16,16,14,10,8], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[21.8,21.4,20.8,20.3,19.7,19.4,18.6,18.4,19.8,21.3,22.6,23.6,25.2,27.0,28.0,28.8,29.0,29.0,28.9,28.0,26.5,24.8,23.1,21.9], ah:[23.8,23.7,23.2,23.0,22.2,21.9,21.1,20.5,22.2,23.2,23.8,24.9,27.0,29.0,30.3,31.7,31.3,30.6,29.6,28.0,26.8,25.6,24.7,23.9], wh:[9,8,6,4,4,4,3,4,5,8,9,7,6,8,9,10,12,13,13,16,16,14,10,8], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-05', sr:6, ss:21, kind:'uitstap', code:'zwaarbewolkt', bike:{van:7,tot:11,score:99,t:21.5,w:4.3},
-      th:[20.9,20.2,20.0,20.1,20.1,20.3,20.3,20.3,21.0,21.9,23.0,24.1,25.4,26.0,26.8,27.4,27.5,27.2,26.7,25.6,24.3,22.9,21.1,20.1], wh:[6,6,6,5,4,4,2,3,3,5,5,9,12,11,12,13,15,16,17,17,16,14,12,11], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[20.9,20.2,20.0,20.1,20.1,20.3,20.3,20.3,21.0,21.9,23.0,24.1,25.4,26.0,26.8,27.4,27.5,27.2,26.7,25.6,24.3,22.9,21.1,20.1], ah:[23.4,22.6,22.5,22.7,23.0,23.1,23.4,23.3,24.1,24.8,25.8,26.1,26.8,27.3,27.4,27.7,28.0,27.0,26.2,25.2,23.8,22.2,21.4,20.6], wh:[6,6,6,5,4,4,2,3,3,5,5,9,12,11,12,13,15,16,17,17,16,14,12,11], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-06', sr:6, ss:21, kind:'uitstap', code:'zwaarbewolkt', bike:{van:7,tot:12,score:99,t:18.0,w:8.8},
-      th:[19.4,18.5,17.7,17.3,16.9,16.5,15.6,14.7,15.5,17.9,19.9,21.8,23.5,25.0,25.9,26.9,27.3,27.4,27.3,27.0,26.0,22.7,21.5,20.9], wh:[10,9,10,9,7,6,4,4,4,10,12,14,13,16,17,16,17,17,16,15,16,17,13,13], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[19.4,18.5,17.7,17.3,16.9,16.5,15.6,14.7,15.5,17.9,19.9,21.8,23.5,25.0,25.9,26.9,27.3,27.4,27.3,27.0,26.0,22.7,21.5,20.9], ah:[20.3,19.1,18.1,17.6,17.3,16.8,16.1,15.0,15.8,17.4,19.1,20.6,22.8,24.7,25.8,26.6,26.5,25.8,24.9,24.6,23.7,21.8,21.1,20.1], wh:[10,9,10,9,7,6,4,4,4,10,12,14,13,16,17,16,17,17,16,15,16,17,13,13], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-07', sr:6, ss:21, kind:'warm', code:'wisselend bewolkt', bike:{van:7,tot:12,score:99,t:18.9,w:9.4},
-      th:[20.2,19.1,18.4,18.1,17.5,16.8,16.3,15.8,16.2,18.2,20.9,23.6,25.7,27.2,28.6,29.7,30.5,31.0,31.3,31.2,30.4,28.3,25.4,23.0], wh:[10,7,7,9,8,8,8,7,8,10,11,11,13,11,9,9,8,8,8,7,6,5,4,4], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[20.2,19.1,18.4,18.1,17.5,16.8,16.3,15.8,16.2,18.2,20.9,23.6,25.7,27.2,28.6,29.7,30.5,31.0,31.3,31.2,30.4,28.3,25.4,23.0], ah:[19.2,18.1,17.0,16.3,15.8,15.1,14.6,14.1,14.6,16.3,19.0,22.0,24.3,26.5,28.1,29.3,30.0,29.9,29.4,28.8,28.1,26.4,23.7,21.5], wh:[10,7,7,9,8,8,8,7,8,10,11,11,13,11,9,9,8,8,8,7,6,5,4,4], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-08', sr:6, ss:21, kind:'binnen', code:'buien', bike:{van:7,tot:10,score:99,t:18.9,w:2.5},
-      th:[21.5,20.4,19.5,18.7,18.2,17.8,17.5,17.5,18.4,20.8,24.1,26.9,28.6,29.9,30.8,31.5,32.0,31.7,30.5,28.6,26.8,25.0,23.2,21.9], wh:[4,4,4,3,3,3,3,2,2,3,3,3,2,6,10,12,12,14,16,19,20,18,14,9], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.2,0.2] },
+      th:[21.5,20.4,19.5,18.7,18.2,17.8,17.5,17.5,18.4,20.8,24.1,26.9,28.6,29.9,30.8,31.5,32.0,31.7,30.5,28.6,26.8,25.0,23.2,21.9], ah:[20.2,19.2,18.5,17.8,17.4,17.2,17.0,17.2,18.1,20.6,23.8,26.5,28.8,30.2,31.0,31.7,32.1,31.4,29.6,27.4,25.5,24.5,23.7,23.3], wh:[4,4,4,3,3,3,3,2,2,3,3,3,2,6,10,12,12,14,16,19,20,18,14,9], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.2,0.2,0.2] },
     { d:'2026-08-09', sr:6, ss:21, kind:'binnen', code:'buien', bike:{van:7,tot:9,score:87,t:20.4,w:6.5},
-      th:[21.2,20.9,20.7,20.5,20.3,20.3,20.2,20.3,20.4,20.6,21.5,22.4,23.4,24.3,25.1,25.7,26.2,26.3,25.9,25.2,24.3,23.1,21.8,20.8], wh:[5,3,5,6,6,6,6,6,7,7,9,11,13,14,14,16,17,18,18,17,15,13,10,8], rh:[0.4,0.4,0.4,0.0,0.0,0.0,0.0,0.0,0.0,0.6,0.6,0.6,0.2,0.2,0.2,0.1,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[21.2,20.9,20.7,20.5,20.3,20.3,20.2,20.3,20.4,20.6,21.5,22.4,23.4,24.3,25.1,25.7,26.2,26.3,25.9,25.2,24.3,23.1,21.8,20.8], ah:[23.4,23.7,23.4,23.1,22.9,22.8,22.9,23.0,23.1,23.1,23.9,24.6,25.4,26.1,27.0,27.4,27.3,26.8,26.2,25.5,24.9,24.2,23.5,22.8], wh:[5,3,5,6,6,6,6,6,7,7,9,11,13,14,14,16,17,18,18,17,15,13,10,8], rh:[0.4,0.4,0.4,0.0,0.0,0.0,0.0,0.0,0.0,0.6,0.6,0.6,0.2,0.2,0.2,0.1,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-10', sr:6, ss:21, kind:'warm', code:'wisselend bewolkt', bike:{van:7,tot:12,score:96,t:18.8,w:4.0},
-      th:[20.3,20.1,19.9,19.4,18.9,18.4,17.7,16.9,16.9,18.2,20.1,22.0,23.6,25.0,26.2,27.3,28.3,28.8,28.8,28.5,27.7,26.1,24.1,22.3], wh:[7,6,6,5,5,4,3,3,3,3,5,6,6,6,6,7,9,11,12,13,13,13,12,11], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[20.3,20.1,19.9,19.4,18.9,18.4,17.7,16.9,16.9,18.2,20.1,22.0,23.6,25.0,26.2,27.3,28.3,28.8,28.8,28.5,27.7,26.1,24.1,22.3], ah:[22.5,22.3,22.0,21.5,21.0,20.4,19.6,18.8,18.7,19.9,21.5,23.0,25.1,26.8,28.2,29.2,29.7,29.6,28.6,27.9,27.0,25.8,24.0,22.6], wh:[7,6,6,5,5,4,3,3,3,3,5,6,6,6,6,7,9,11,12,13,13,13,12,11], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-11', sr:6, ss:21, kind:'water', code:'onbewolkt', bike:{van:7,tot:10,score:99,t:18.8,w:5.3},
-      th:[21.2,20.4,19.7,19.1,18.6,18.3,17.8,17.5,18.2,20.7,24.3,27.5,29.6,31.3,32.6,33.4,33.8,34.0,33.9,33.5,33.0,32.2,30.9,29.4], wh:[10,8,8,7,7,6,6,5,5,6,8,10,11,12,13,14,13,12,12,11,10,9,8,7], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[21.2,20.4,19.7,19.1,18.6,18.3,17.8,17.5,18.2,20.7,24.3,27.5,29.6,31.3,32.6,33.4,33.8,34.0,33.9,33.5,33.0,32.2,30.9,29.4], ah:[21.8,21.4,20.8,20.0,19.3,18.7,18.2,17.9,18.6,21.2,24.7,27.5,30.1,32.7,34.5,35.6,35.9,35.7,35.0,34.6,34.2,33.4,32.2,30.7], wh:[10,8,8,7,7,6,6,5,5,6,8,10,11,12,13,14,13,12,12,11,10,9,8,7], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-12', sr:7, ss:21, kind:'water', code:'onbewolkt', bike:{van:8,tot:10,score:97,t:23.4,w:10.0},
-      th:[27.8,26.4,25.3,24.5,23.7,23.1,22.7,22.6,22.9,24.0,25.7,27.7,29.8,31.4,32.3,32.4,32.0,31.2,30.1,29.0,28.0,27.0,25.8,24.6], wh:[7,8,8,8,8,9,10,10,10,10,9,10,11,14,16,17,17,17,17,16,16,16,15,14], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[27.8,26.4,25.3,24.5,23.7,23.1,22.7,22.6,22.9,24.0,25.7,27.7,29.8,31.4,32.3,32.4,32.0,31.2,30.1,29.0,28.0,27.0,25.8,24.6], ah:[29.1,27.6,26.5,25.8,25.2,24.7,24.4,24.5,25.0,26.2,28.0,29.9,32.3,34.0,34.8,35.1,34.1,32.4,30.4,29.2,28.2,27.3,26.4,25.5], wh:[7,8,8,8,8,9,10,10,10,10,9,10,11,14,16,17,17,17,17,16,16,16,15,14], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-13', sr:7, ss:21, kind:'warm', code:'wisselend bewolkt', bike:{van:8,tot:11,score:99,t:21.9,w:7.1},
-      th:[23.4,22.3,21.5,20.9,20.5,20.1,20.0,20.2,20.7,21.7,23.3,25.2,27.1,28.7,29.7,30.0,30.0,29.7,29.1,28.5,27.8,27.1,26.1,25.0], wh:[13,12,11,10,10,9,9,8,8,7,6,6,5,5,6,7,9,12,15,17,19,19,18,16], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[23.4,22.3,21.5,20.9,20.5,20.1,20.0,20.2,20.7,21.7,23.3,25.2,27.1,28.7,29.7,30.0,30.0,29.7,29.1,28.5,27.8,27.1,26.1,25.0], ah:[24.7,24.0,23.4,23.0,22.6,22.3,22.3,22.5,23.0,24.0,25.7,27.5,29.9,31.9,33.1,33.2,32.6,31.3,29.7,28.7,27.9,27.1,26.3,25.5], wh:[13,12,11,10,10,9,9,8,8,7,6,6,5,5,6,7,9,12,15,17,19,19,18,16], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-14', sr:7, ss:21, kind:'warm', code:'licht bewolkt', bike:{van:8,tot:10,score:100,t:21.4,w:8.4},
-      th:[23.9,22.9,22.2,21.6,21.0,20.6,20.3,20.4,20.9,22.0,23.8,25.9,28.0,29.7,30.7,30.9,30.6,29.9,29.1,28.1,27.2,26.3,25.2,24.0], wh:[14,13,12,11,10,10,9,9,9,8,8,7,7,7,7,7,9,11,13,15,17,17,16,15], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[23.9,22.9,22.2,21.6,21.0,20.6,20.3,20.4,20.9,22.0,23.8,25.9,28.0,29.7,30.7,30.9,30.6,29.9,29.1,28.1,27.2,26.3,25.2,24.0], ah:[24.7,24.1,23.5,23.0,22.6,22.2,22.1,22.2,22.7,23.9,25.7,27.8,30.5,32.7,34.0,34.0,33.0,31.2,29.1,27.7,26.5,25.7,24.7,24.0], wh:[14,13,12,11,10,10,9,9,9,8,8,7,7,7,7,7,9,11,13,15,17,17,16,15], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-15', sr:7, ss:21, kind:'warm', code:'motregen', bike:{van:8,tot:11,score:94,t:21.6,w:7.0},
-      th:[22.9,21.9,21.1,20.6,20.1,19.8,19.7,19.8,20.3,21.4,23.0,24.9,26.8,28.3,29.2,29.5,29.2,28.7,27.9,27.1,26.3,25.5,24.5,23.4], wh:[13,12,11,10,9,9,8,8,7,7,7,7,7,8,8,10,11,13,15,16,16,15,13,11], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.5,0.5] },
+      th:[22.9,21.9,21.1,20.6,20.1,19.8,19.7,19.8,20.3,21.4,23.0,24.9,26.8,28.3,29.2,29.5,29.2,28.7,27.9,27.1,26.3,25.5,24.5,23.4], ah:[23.2,22.6,22.2,21.8,21.5,21.3,21.4,21.6,22.1,23.0,24.6,26.3,28.2,30.1,31.1,31.4,30.6,29.3,27.9,27.0,26.3,25.8,25.4,24.9], wh:[13,12,11,10,9,9,8,8,7,7,7,7,7,8,8,10,11,13,15,16,16,15,13,11], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.5,0.5,0.5] },
     { d:'2026-08-16', sr:7, ss:21, kind:'binnen', code:'motregen', bike:{van:15,tot:17,score:34,t:23.1,w:24.2},
-      th:[22.3,21.4,20.7,20.3,20.0,19.9,19.9,20.0,20.1,20.5,21.0,21.7,22.4,22.9,23.2,23.2,23.1,22.9,22.5,22.1,21.7,21.1,20.4,19.7], wh:[9,9,10,10,11,12,13,14,15,15,16,18,20,22,24,24,24,24,24,24,23,21,18,15], rh:[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.6,0.6,0.6,0.6,0.6,0.6,0.1,0.1,0.1,0.1,0.1,0.1,0.0,0.0,0.0] },
+      th:[22.3,21.4,20.7,20.3,20.0,19.9,19.9,20.0,20.1,20.5,21.0,21.7,22.4,22.9,23.2,23.2,23.1,22.9,22.5,22.1,21.7,21.1,20.4,19.7], ah:[24.3,23.8,23.2,22.7,22.2,21.9,21.7,21.6,21.6,21.8,22.2,22.6,22.9,23.1,23.3,23.4,22.9,21.9,20.8,20.2,19.8,19.5,19.3,19.1], wh:[9,9,10,10,11,12,13,14,15,15,16,18,20,22,24,24,24,24,24,24,23,21,18,15], rh:[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.6,0.6,0.6,0.6,0.6,0.6,0.1,0.1,0.1,0.1,0.1,0.1,0.0,0.0,0.0] },
     { d:'2026-08-17', sr:7, ss:21, kind:'uitstap', code:'motregen', bike:{van:8,tot:13,score:97,t:19.3,w:8.5},
-      th:[18.9,18.2,17.7,17.3,17.0,16.7,16.5,16.6,17.0,17.8,19.1,20.6,22.0,23.2,23.9,24.1,23.9,23.4,22.7,22.0,21.3,20.6,19.6,18.6], wh:[11,9,7,6,6,6,6,6,6,6,8,10,12,14,16,16,17,17,17,16,16,14,13,11], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[18.9,18.2,17.7,17.3,17.0,16.7,16.5,16.6,17.0,17.8,19.1,20.6,22.0,23.2,23.9,24.1,23.9,23.4,22.7,22.0,21.3,20.6,19.6,18.6], ah:[19.0,18.9,18.7,18.4,18.2,17.9,17.7,17.8,18.1,18.7,19.7,20.7,21.6,22.8,23.5,23.7,23.2,22.2,21.1,20.4,19.8,19.3,18.7,18.1], wh:[11,9,7,6,6,6,6,6,6,6,8,10,12,14,16,16,17,17,17,16,16,14,13,11], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-18', sr:7, ss:21, kind:'uitstap', code:'onbewolkt', bike:{van:8,tot:13,score:96,t:18.7,w:3.1},
-      th:[17.7,16.8,16.3,15.9,15.7,15.6,15.6,15.9,16.4,17.2,18.5,19.9,21.3,22.6,23.5,24.2,24.7,25.0,25.1,25.0,24.6,23.8,22.5,21.0], wh:[8,6,5,4,3,3,3,3,3,3,3,3,4,5,5,6,6,7,8,8,9,9,9,8], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
+      th:[17.7,16.8,16.3,15.9,15.7,15.6,15.6,15.9,16.4,17.2,18.5,19.9,21.3,22.6,23.5,24.2,24.7,25.0,25.1,25.0,24.6,23.8,22.5,21.0], ah:[17.6,17.2,16.9,16.7,16.6,16.6,16.7,16.9,17.4,18.2,19.3,20.5,21.7,23.4,24.5,25.4,25.7,25.5,25.1,24.9,24.6,23.9,22.7,21.3], wh:[8,6,5,4,3,3,3,3,3,3,3,3,4,5,5,6,6,7,8,8,9,9,9,8], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-19', sr:7, ss:21, kind:'warm', code:'zwaarbewolkt', bike:{van:8,tot:11,score:100,t:20.8,w:6.1},
-      th:[18.9,17.7,17.4,17.6,17.9,18.2,18.3,18.3,19.0,20.6,22.8,24.7,26.0,26.9,27.6,28.0,28.1,27.7,26.7,25.2,23.4,21.1,18.5,16.5], wh:[9,9,9,9,9,8,6,4,4,6,9,12,14,15,17,20,22,24,23,21,20,18,16,14], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] }
+      th:[18.9,17.7,17.4,17.6,17.9,18.2,18.3,18.3,19.0,20.6,22.8,24.7,26.0,26.9,27.6,28.0,28.1,27.7,26.7,25.2,23.4,21.1,18.5,16.5], ah:[19.5,18.5,18.4,18.9,19.2,19.8,20.2,20.7,21.5,22.8,24.2,25.2,25.9,26.6,26.8,26.9,26.5,26.0,25.1,23.9,22.3,20.1,17.6,15.7], wh:[9,9,9,9,9,8,6,4,4,6,9,12,14,15,17,20,22,24,23,21,20,18,16,14], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] }
   ];
 
   /* ---------------- dagtypes ---------------- */
 
+  /* ---------------- activiteitenpool ---------------- */
+  /* Elke activiteit past bij een of meer dagtypes. De planner deelt ze uit over
+     de verblijfsdagen, slaat afgevinkte over en herhaalt er nooit een. */
+
+  const ACTIVITIES = [
+    { id:'zwembad',  n:'Zwembad van het domein',        past:['water','warm'],
+      tx:'Zwembad van het domein, en verder niets forceren. Lange siësta na de middag.' },
+    { id:'jonzac',   n:'Les Antilles de Jonzac',        past:['water','binnen','warm'],
+      tx:'<strong>Les Antilles de Jonzac</strong> (53 km) — overdekt waterparadijs met een speelzone voor 3–6 jaar. Werkt bij hitte én bij regen.' },
+    { id:'blasimon', n:'Zwemvijver van Blasimon',       past:['water','warm'],
+      tx:'Zwemvijver van <strong>Blasimon</strong> (54 km) — zoetwaterstrand met zachte instap, ’s ochtends het rustigst.' },
+    { id:'lacanau',  n:'Strand van Lacanau-Océan',      past:['water','uitstap'],
+      tx:'Strand van <strong>Lacanau-Océan</strong> (69 km) — bewaakt en weer normaal open. Vertrek vroeg, het is een uur rijden.' },
+    { id:'blaye',    n:'Citadelle de Blaye',            past:['warm','uitstap','fris'],
+      tx:'<strong>Citadelle de Blaye</strong> (13 km) bij het openen — vestingwallen om te rennen, gratis. Namiddag bij het zwembad.' },
+    { id:'oiseaux',  n:'Terres d’Oiseaux',              past:['warm','uitstap','fris'],
+      tx:'<strong>Terres d’Oiseaux</strong> (22 km) — ga pas om 18 u, ze zijn open tot 20 u en dan breekt de hitte.' },
+    { id:'miroir',   n:'Miroir d’eau &amp; Jardin Public', past:['warm','uitstap'],
+      tx:'<strong>Miroir d’eau</strong> in Bordeaux (34 km) plus het Jardin Public: carrousel, poppentheater en schaduw.' },
+    { id:'zoo',      n:'Zoo de Bordeaux-Pessac',        past:['warm','uitstap','fris'],
+      tx:'<strong>Zoo de Bordeaux-Pessac</strong> (47 km) bij de opening om 9:30 — dieren én kinderen zijn dan op hun best.' },
+    { id:'bourg',    n:'Bourg-sur-Gironde',             past:['warm','uitstap'],
+      tx:'<strong>Bourg-sur-Gironde</strong> (8 km) in de ochtend: haven en bovenstad, in tien minuten weer weg als het misloopt.' },
+    { id:'bordelais',n:'Parc Bordelais',                past:['uitstap','fris','warm'],
+      tx:'<strong>Parc Bordelais</strong> in Bordeaux (34 km) — minidierentuin, speeltuinen en veel schaduw, en gratis.' },
+    { id:'emilion',  n:'Saint-Émilion',                 past:['uitstap','fris'],
+      tx:'<strong>Saint-Émilion</strong> (50 km) — steil en kasseien, dus precies een dag als deze.' },
+    { id:'grotte',   n:'Grotte de Pair-non-Pair',       past:['binnen','fris','water'],
+      tx:'<strong>Grotte de Pair-non-Pair</strong> (9 km) — dichtbij, koel en volledig overdekt. Gegidst, ongeveer 45 minuten.' },
+    { id:'lumieres', n:'Bassins des Lumières',          past:['binnen','uitstap'],
+      tx:'<strong>Bassins des Lumières</strong> in Bordeaux (34 km) — donker, droog en visueel overweldigend.' },
+    { id:'enigmes',  n:'Château des Énigmes, Pons',     past:['binnen','uitstap','fris'],
+      tx:'<strong>Château des Énigmes</strong> in Pons (71 km) — schattenjacht in een kasteelpark, ook leuk voor de grootouders.' },
+    { id:'coccinelle',n:'Parc de la Coccinelle',        past:['uitstap','fris'],
+      tx:'<strong>Parc de la Coccinelle</strong> in Gujan-Mestras (87 km) — kinderboerderij plus klein pretpark, gebouwd voor deze leeftijd. Vertrek om 8 u.' },
+    { id:'palmyre',  n:'Zoo de la Palmyre',             past:['fris','uitstap'],
+      tx:'<strong>Zoo de la Palmyre</strong> (108 km) — de beste dierentuin van de streek, maar een lange dag. Alleen bij fris weer.' },
+    { id:'rust',     n:'Luie dag in het huisje',        past:['binnen','water','warm','uitstap','fris'],
+      tx:'Luie dag: spelletjes, boeken en het zwembad. Na een paar volle dagen is dit geen verloren dag maar een noodzakelijke.' }
+  ];
+
   const KIND = {
-    water: { lab:'Waterdag', lvl:'warning',
-      ritme:'Buiten alleen vóór 11 u en na 19 u. Tussen 12 en 19 u schaduw of water — dat is ook het ozonvenster.',
-      doen:[
-        'Zwembad van het domein, en verder niets forceren. Lange siësta na de middag.',
-        '<strong>Les Antilles de Jonzac</strong> (53 km) — overdekt, met een waterspeeltuin voor 3–6 jaar. De beste hittedagbestemming die je hebt.',
-        'Zwemvijver van <strong>Blasimon</strong> (54 km) — zoetwaterstrand met zachte instap, in de ochtend het rustigst.',
-        'Strand van <strong>Lacanau-Océan</strong> (69 km) — bewaakt en weer normaal open; vertrek vroeg, het is een uur rijden.' ] },
-    warm: { lab:'Warme dag', lvl:'warning',
-      ritme:'Vertrek vóór 9 u en wees rond 12 u terug. Namiddag binnen of in de schaduw.',
-      doen:[
-        '<strong>Citadelle de Blaye</strong> (13 km) bij het openen, namiddag bij het zwembad.',
-        '<strong>Terres d’Oiseaux</strong> (22 km) — ga pas om 18 u, ze zijn open tot 20 u en dan breekt de hitte.',
-        '<strong>Miroir d’eau</strong> in Bordeaux (34 km) plus het Jardin Public met carrousel en schaduw.',
-        '<strong>Zoo de Bordeaux-Pessac</strong> (47 km) bij de opening om 9:30 — dieren én kinderen zijn dan op hun best.',
-        '<strong>Bourg-sur-Gironde</strong> (8 km) in de ochtend: haven en bovenstad, in tien minuten weer weg als het misloopt.' ] },
-    uitstap: { lab:'Uitstapdag', lvl:'good',
-      ritme:'Hele dag bruikbaar. Toch smeren en om het uur laten drinken.',
-      doen:[
-        '<strong>Bordeaux</strong> (34 km): Miroir d’eau, Jardin Public en het Parc Bordelais met minidierentuin — gratis en schaduwrijk.',
-        '<strong>Zoo de Bordeaux-Pessac</strong> (47 km) — dagelijks 9:30–19 u, ruim de dag voor.',
-        '<strong>Saint-Émilion</strong> (50 km) — steil en kasseien, dus precies een dag als deze.',
-        '<strong>Terres d’Oiseaux</strong> (22 km) in de ochtend en de <strong>Citadelle de Blaye</strong> in de namiddag; die twee liggen op tien minuten van elkaar.' ] },
-    fris: { lab:'Frisse dag', lvl:'good',
-      ritme:'Geen beperking. Neem een extra laagje mee voor de kinderen.',
-      doen:[
-        '<strong>Saint-Émilion</strong> (50 km) te voet — bij dit weer eindelijk te doen met een 3-jarige.',
-        'De vestingwallen van <strong>Blaye</strong> plus de <strong>Grotte de Pair-non-Pair</strong> (9 km) — de grot is altijd 13 °C, dus vandaag geen verkoeling maar wel droog.',
-        'De dag om verder te rijden: <strong>Zoo de la Palmyre</strong> (108 km) of <strong>Parc de la Coccinelle</strong> (87 km). Vertrek dan wel om 8 u.' ] },
-    binnen: { lab:'Binnendag', lvl:'critical',
-      ritme:'Plan één binnenactiviteit en houd de rest van de dag vrij. Buien hier zijn kort maar hevig.',
-      doen:[
-        '<strong>Bassins des Lumières</strong> in Bordeaux (34 km) — donker, droog en visueel overweldigend.',
-        '<strong>Grotte de Pair-non-Pair</strong> (9 km) — dichtbij, koel en volledig overdekt. Gegidst, ~45 min.',
-        '<strong>Les Antilles de Jonzac</strong> (53 km) — een overdekt waterparadijs is precies wat een regendag vraagt.',
-        '<strong>Château des Énigmes</strong> in Pons (71 km) of gewoon een luie dag met spelletjes in het huisje.' ] }
+    water:   { lab:'Waterdag',   lvl:'warning', ritme:'Buiten alleen vóór 11 u en na 19 u. Tussen 12 en 19 u schaduw of water — dat is ook het ozonvenster.' },
+    warm:    { lab:'Warme dag',  lvl:'warning', ritme:'Vertrek vóór 9 u en wees rond 12 u terug. Namiddag binnen of in de schaduw.' },
+    uitstap: { lab:'Uitstapdag', lvl:'good',    ritme:'Hele dag bruikbaar. Toch smeren en om het uur laten drinken.' },
+    fris:    { lab:'Frisse dag', lvl:'good',    ritme:'Geen beperking. Neem een extra laagje mee voor de kinderen.' },
+    binnen:  { lab:'Binnendag',  lvl:'critical',ritme:'Plan één binnenactiviteit en houd de rest van de dag vrij. Buien hier zijn kort maar hevig.' }
   };
-  const ARRIVAL = STAY.from, DEPARTURE = STAY.to;
 
   const planFor = iso => PLAN.find(p => p.d === iso);
-  let selDay = 0;
+  let selDay = 0, planSeed = 0, doneIds = new Set();
 
-  /* ---------------- uurdetail van de gekozen dag ---------------- */
+  const STORE = 'teuillac-gedaan';
+  try { doneIds = new Set(JSON.parse(localStorage.getItem(STORE) || '[]')); } catch (e) { /* privémodus */ }
+  function saveDone() { try { localStorage.setItem(STORE, JSON.stringify([...doneIds])); } catch (e) { /* niet erg */ } }
+
+  /* Alle dagen van het verblijf, ook die waarvoor nog geen verwachting is. */
+  function stayDays() {
+    const out = [];
+    for (let d = parseISO(STAY.from); d <= parseISO(STAY.to); d.setDate(d.getDate() + 1)) {
+      const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      if (iso >= todayISO()) out.push(iso);
+    }
+    return out;
+  }
+
+  /* Deelt activiteiten uit: aankomst- en vertrekdag blijven leeg, afgevinkte
+     vallen weg, en niets komt twee keer voor. planSeed roteert de volgorde. */
+  function buildPlan() {
+    const used = new Set();
+    return stayDays().map(iso => {
+      const day = DATA.days.find(x => x.d === iso);
+      const p = planFor(iso);
+      const reis = iso === STAY.from ? 'aankomst' : iso === STAY.to ? 'vertrek' : null;
+      if (!p || !day) return { iso, day, p, reis, act: null, geen: 'verwachting' };
+      if (reis) return { iso, day, p, reis, act: null };
+      const pool = ACTIVITIES.filter(a => a.past.includes(p.kind) && !doneIds.has(a.id) && !used.has(a.id));
+      if (!pool.length) return { iso, day, p, reis, act: null, geen: 'op' };
+      const act = pool[planSeed % pool.length];
+      used.add(act.id);
+      return { iso, day, p, reis, act };
+    });
+  }
+
+  /* ---------------- uurdetail ---------------- */
 
   function drawDayDetail() {
-    const box = document.getElementById('dayDetail');
-    if (!box) return;
     const day = VIEW_DAYS[selDay];
     const p = day && planFor(day.d);
-    if (!p) { box.innerHTML = ''; return; }
+    const boxes = [...document.querySelectorAll('.dayDetail')];
+    if (!boxes.length) return;
+    if (!p) { boxes.forEach(b => b.innerHTML = ''); return; }
 
-    const W = 960, H = 210, ML = 34, MR = 12, MT = 18, MB = 62;
+    const W = 960, H = 300, ML = 40, MR = 14, MT = 26, MB = 96;
     const iw = W - ML - MR, ih = H - MT - MB;
-    const lo = Math.floor(Math.min(...p.th) - 2), hi = Math.ceil(Math.max(...p.th) + 2);
+    const all = p.th.concat(p.ah || p.th);
+    const lo = Math.floor(Math.min(...all) - 2), hi = Math.ceil(Math.max(...all) + 3);
     const x = h => ML + (h + 0.5) / 24 * iw;
     const y = v => MT + ih - (v - lo) / (hi - lo) * ih;
-    const maxR = Math.max(0.6, ...p.rh), maxW = Math.max(12, ...p.wh);
 
-    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Uurverloop van ${fmtDay(p.d)}: temperatuur, regen en wind">`;
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Uurverloop van ${fmtDay(p.d)}: temperatuur, gevoelstemperatuur, neerslag en wind">`;
 
-    // nacht buiten zonop/onder
-    s += `<rect x="${ML}" y="${MT}" width="${((p.sr) / 24 * iw).toFixed(1)}" height="${ih}" fill="var(--ink)" opacity=".05"/>`;
+    s += `<rect x="${ML}" y="${MT}" width="${(p.sr / 24 * iw).toFixed(1)}" height="${ih}" fill="var(--ink)" opacity=".05"/>`;
     s += `<rect x="${(ML + (p.ss + 1) / 24 * iw).toFixed(1)}" y="${MT}" width="${((23 - p.ss) / 24 * iw).toFixed(1)}" height="${ih}" fill="var(--ink)" opacity=".05"/>`;
 
-    // fietsvenster
     if (p.bike) {
       const bx = ML + p.bike.van / 24 * iw, bw2 = (p.bike.tot - p.bike.van) / 24 * iw;
-      s += `<rect x="${bx.toFixed(1)}" y="${MT}" width="${bw2.toFixed(1)}" height="${ih}" fill="var(--good)" opacity=".12" rx="3"/>`;
-      s += `<text x="${(bx + 5).toFixed(1)}" y="${MT + 12}" style="font-size:9.5px;font-weight:700;fill:var(--good);font-family:var(--f-body)">FIETSVENSTER</text>`;
+      s += `<rect x="${bx.toFixed(1)}" y="${MT}" width="${bw2.toFixed(1)}" height="${ih}" fill="var(--good)" opacity=".13" rx="3"/>`;
+      s += `<text x="${(bx + 5).toFixed(1)}" y="${MT - 8}" style="font-size:9.5px;font-weight:700;fill:var(--good);font-family:var(--f-body);letter-spacing:.05em">FIETSVENSTER</text>`;
     }
 
     for (let v = Math.ceil(lo / 5) * 5; v <= hi; v += 5) {
@@ -1421,43 +1521,67 @@
       s += `<text class="axlab" x="${ML - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${v}°</text>`;
     }
 
+    // gevoelstemperatuur eerst, gestreept en lichter — identiteit niet op kleur alleen
+    if (p.ah) s += `<polyline points="${p.ah.map((t, h) => `${x(h).toFixed(1)},${y(t).toFixed(1)}`).join(' ')}"
+        fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-dasharray="5 4" stroke-linejoin="round"/>`;
     s += `<polyline points="${p.th.map((t, h) => `${x(h).toFixed(1)},${y(t).toFixed(1)}`).join(' ')}"
-            fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+        fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`;
 
-    // regen- en windstrook: eigen schaal per strook, geen tweede y-as op de grafiek
-    const rowY = MT + ih + 14, rowH = 9;
+    // cijfers op de lijn, om de twee uur zodat het leesbaar blijft
+    p.th.forEach((t, h) => {
+      if (h % 2) return;
+      s += `<circle cx="${x(h).toFixed(1)}" cy="${y(t).toFixed(1)}" r="2.6" fill="var(--accent)"/>`;
+      s += `<text x="${x(h).toFixed(1)}" y="${(y(t) - 8).toFixed(1)}" text-anchor="middle"
+        style="font-size:9.5px;font-weight:650;fill:var(--ink-2);font-family:var(--f-data)"
+        paint-order="stroke" stroke="var(--surface)" stroke-width="3">${nl(t, 0)}</text>`;
+    });
+
+    // neerslag en wind als cijfers per uur
+    const r1 = MT + ih + 22, r2 = r1 + 24;
+    s += `<text class="axlab" x="${ML - 6}" y="${r1 + 3}" text-anchor="end">regen</text>`;
+    s += `<text class="axlab" x="${ML - 6}" y="${r2 + 3}" text-anchor="end">wind</text>`;
+    const maxR = Math.max(0.4, ...p.rh), maxW = Math.max(12, ...p.wh);
     p.rh.forEach((r, h) => {
-      const o = r <= 0 ? 0 : 0.22 + Math.min(1, r / maxR) * 0.78;
-      if (o) s += `<rect x="${(ML + h / 24 * iw).toFixed(1)}" y="${rowY}" width="${(iw / 24 - 1).toFixed(1)}" height="${rowH}" rx="2" fill="var(--accent)" opacity="${o.toFixed(2)}"/>`;
+      const cx = x(h), cw = iw / 24 - 2;
+      if (r > 0) s += `<rect x="${(cx - cw / 2).toFixed(1)}" y="${r1 - 9}" width="${cw.toFixed(1)}" height="14" rx="3"
+        fill="var(--accent)" opacity="${(0.14 + Math.min(1, r / maxR) * 0.4).toFixed(2)}"/>`;
+      s += `<text x="${cx.toFixed(1)}" y="${r1 + 3}" text-anchor="middle"
+        style="font-size:9px;font-family:var(--f-data);fill:${r > 0 ? 'var(--ink)' : 'var(--muted)'};opacity:${r > 0 ? 1 : .45}">${r > 0 ? nl(r) : '·'}</text>`;
     });
     p.wh.forEach((w, h) => {
-      const o = 0.15 + Math.min(1, w / maxW) * 0.85;
-      s += `<rect x="${(ML + h / 24 * iw).toFixed(1)}" y="${rowY + rowH + 5}" width="${(iw / 24 - 1).toFixed(1)}" height="${rowH}" rx="2" fill="var(--muted)" opacity="${o.toFixed(2)}"/>`;
+      const cx = x(h), cw = iw / 24 - 2;
+      if (w >= 20) s += `<rect x="${(cx - cw / 2).toFixed(1)}" y="${r2 - 9}" width="${cw.toFixed(1)}" height="14" rx="3"
+        fill="var(--warning)" opacity="${(0.12 + Math.min(1, w / maxW) * 0.35).toFixed(2)}"/>`;
+      s += `<text x="${cx.toFixed(1)}" y="${r2 + 3}" text-anchor="middle"
+        style="font-size:9px;font-family:var(--f-data);fill:var(--ink-2)">${w}</text>`;
     });
-    s += `<text class="axlab" x="${ML - 6}" y="${rowY + 8}" text-anchor="end">regen</text>`;
-    s += `<text class="axlab" x="${ML - 6}" y="${rowY + rowH + 13}" text-anchor="end">wind</text>`;
 
-    for (let h = 0; h < 24; h += 3)
-      s += `<text class="axlab" x="${x(h).toFixed(1)}" y="${H - 4}" text-anchor="middle">${String(h).padStart(2, '0')}u</text>`;
-
+    for (let h = 0; h < 24; h += 2)
+      s += `<text class="axlab" x="${x(h).toFixed(1)}" y="${H - 6}" text-anchor="middle">${String(h).padStart(2, '0')}</text>`;
     s += `</svg>`;
 
     const b = p.bike;
-    const bikeTxt = !b ? '<span class="chip critical">' + ICON.critical + 'Geen berijdbaar venster</span>'
+    const bikeTxt = !b ? `<span class="chip critical">${ICON.critical}Geen berijdbaar venster</span>`
       : chip(b.score >= 85 ? 'good' : b.score >= 60 ? 'warning' : 'critical',
-             `${String(b.van).padStart(2, '0')}–${String(b.tot).padStart(2, '0')} u · ${nl(b.t)} °C · ${nl(b.w, 0)} km/h wind`);
+             `${String(b.van).padStart(2, '0')}–${String(b.tot).padStart(2, '0')} u · ${nl(b.t)} °C · ${nl(b.w, 0)} km/h`);
 
-    box.innerHTML = `
+    const html = `
       <div class="stack" style="gap:10px">
         <div class="scrub-row">
           <span class="scrub-day">${fmtDay(p.d)}</span>
           <span class="tiny">${p.code} · zon ${p.sr}–${p.ss} u</span>
+        </div>
+        <div class="legendrow">
+          <span class="lg"><span class="ln solid"></span>temperatuur</span>
+          <span class="lg"><span class="ln dash"></span>gevoelstemperatuur</span>
+          <span class="lg" style="color:var(--muted)">regen in mm · wind in km/h · tijd in uren</span>
         </div>
         <div class="chartbox">${s}</div>
         <div class="scrub-row" style="flex-wrap:wrap;gap:8px">
           <span class="tiny">Koersfiets, beste venster:</span> ${bikeTxt}
         </div>
       </div>`;
+    boxes.forEach(bx => bx.innerHTML = html);
   }
 
   /* ---------------- dagindeling ---------------- */
@@ -1465,42 +1589,76 @@
   function renderDayPlan() {
     const box = document.getElementById('dayPlan');
     if (!box) return;
-    const seen = {};
-    box.innerHTML = VIEW_DAYS.map((day, i) => {
-      const p = planFor(day.d);
-      if (!p) return '';
-      const k = KIND[p.kind];
-      seen[p.kind] = (seen[p.kind] || 0);
-      const doen = k.doen[seen[p.kind]++ % k.doen.length];
-      const mark = day.d === ARRIVAL ? chip('good', 'Aankomstdag')
-        : day.d === DEPARTURE ? chip('neutral', 'Terugreis') : '';
-      const b = p.bike;
+    const rows = buildPlan();
+    box.innerHTML = rows.map(r => {
+      const idx = VIEW_DAYS.findIndex(d => d.d === r.iso);
+      const kop = `<span class="dayrow-date">${fmtDay(r.iso)}</span>`;
+
+      // reisdag gaat voor: ook zonder verwachting blijft het een reisdag
+      if (r.reis) {
+        const w = r.day ? `<span class="num tiny">${nl(r.day.tmax, 0)}° / ${nl(r.day.tmin, 0)}°${r.day.rain > 0 ? ' · ' + nl(r.day.rain) + ' mm' : ''}</span>` : '';
+        const b2 = r.p && r.p.bike;
+        return `
+        <div class="dayrow reis">
+          <div class="dayrow-head">${kop}${chip('neutral', r.reis === 'aankomst' ? 'Aankomst' : 'Terugreis')}${w}</div>
+          <p class="small"><strong>${r.reis === 'aankomst' ? 'Aankomstdag' : 'Terugreisdag'}.</strong> Bewust niets ingepland — ${r.reis === 'aankomst' ? 'rijden, uitpakken en het domein verkennen is genoeg voor twee kleuters.' : 'inpakken, poetsen en de rit naar huis.'}</p>
+          ${r.p ? `<p class="tiny">Weer: ${r.p.code}.</p>` : '<p class="tiny">Nog geen verwachting voor deze dag.</p>'}
+          ${b2 ? `<span class="tiny">Fietsen zou kunnen ${String(b2.van).padStart(2, '0')}–${String(b2.tot).padStart(2, '0')} u, maar reken op een volle reisdag.</span>` : ''}
+          ${idx >= 0 ? `<button class="uurbtn" type="button" data-i="${idx}">Uurverloop tonen</button>` : ''}
+        </div>`;
+      }
+
+      if (r.geen === 'verwachting') return `
+        <div class="dayrow leeg">
+          <div class="dayrow-head">${kop}${chip('neutral', 'Nog geen verwachting')}</div>
+          <p class="tiny">Het weermodel reikt nog niet tot deze dag. Verschijnt vanzelf zodra hij binnen zestien dagen valt.</p>
+        </div>`;
+
+      const k = KIND[r.p.kind], b = r.p.bike;
       const bikeLine = !b
         ? '<span class="tiny" style="color:var(--critical)">Fietsen: geen venster — rustdag.</span>'
         : `<span class="tiny"><strong style="color:${b.score >= 85 ? 'var(--good)' : b.score >= 60 ? 'var(--warning)' : 'var(--critical)'}">Fietsen ${String(b.van).padStart(2, '0')}–${String(b.tot).padStart(2, '0')} u</strong> · ${nl(b.t)} °C · ${nl(b.w, 0)} km/h${b.score < 60 ? ' — matig' : ''}</span>`;
+      const meta = `<span class="num tiny">${nl(r.day.tmax, 0)}° / ${nl(r.day.tmin, 0)}°${r.day.rain > 0 ? ' · ' + nl(r.day.rain) + ' mm' : ''}</span>`;
+
+      const body = r.act
+          ? `<label class="acttick"><input type="checkbox" data-act="${r.act.id}" ${doneIds.has(r.act.id) ? 'checked' : ''} aria-label="${esc(r.act.n)} afvinken zodat hij niet opnieuw ingepland wordt"><span class="small">${r.act.tx}</span></label>`
+          : `<p class="small">Alle passende activiteiten zijn afgevinkt. Vraag een andere planning of vink er eentje uit.</p>`;
+
       return `
-        <button class="dayrow" type="button" data-i="${i}" aria-label="Toon uurdetail van ${fmtDay(day.d)}">
-          <div class="dayrow-head">
-            <span class="dayrow-date">${fmtDay(day.d)}</span>
-            ${chip(k.lvl, k.lab)}${mark}
-            <span class="num tiny">${nl(day.tmax, 0)}° / ${nl(day.tmin, 0)}°${day.rain > 0 ? ' · ' + nl(day.rain) + ' mm' : ''}</span>
-          </div>
-          <p class="small">${doen}</p>
+        <div class="dayrow${idx === selDay ? ' on' : ''}" data-i="${idx}">
+          <div class="dayrow-head">${kop}${chip(k.lvl, k.lab)}${meta}</div>
+          ${body}
           <p class="tiny">${k.ritme}</p>
           ${bikeLine}
-        </button>`;
+          ${idx >= 0 ? `<button class="uurbtn" type="button" data-i="${idx}">Uurverloop tonen</button>` : ''}
+        </div>`;
     }).join('');
-    box.querySelectorAll('.dayrow').forEach(el => {
-      el.addEventListener('click', () => selectDay(+el.dataset.i));
-    });
+
+    box.querySelectorAll('.uurbtn').forEach(el =>
+      el.addEventListener('click', () => selectDay(+el.dataset.i)));
+    box.querySelectorAll('input[data-act]').forEach(el =>
+      el.addEventListener('change', () => {
+        el.checked ? doneIds.add(el.dataset.act) : doneIds.delete(el.dataset.act);
+        saveDone(); renderDayPlan(); updateDoneCount();
+      }));
+  }
+
+  function updateDoneCount() {
+    const el = document.getElementById('doneCount');
+    if (!el) return;
+    const n = doneIds.size;
+    el.textContent = n === 0 ? 'Niets afgevinkt.'
+      : n === 1 ? '1 activiteit afgevinkt — die komt niet meer terug.'
+      : `${n} activiteiten afgevinkt — die komen niet meer terug.`;
   }
 
   function selectDay(i) {
     selDay = Math.max(0, Math.min(i, VIEW_DAYS.length - 1));
     drawTempChart();
     drawDayDetail();
-    document.querySelectorAll('.dayrow').forEach(el =>
-      el.classList.toggle('on', +el.dataset.i === selDay));
+    renderDayPlan();
+    const d = document.querySelector('.dayDetail');
+    if (d && d.scrollIntoView) d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   function renderAttractions() {
@@ -1729,6 +1887,23 @@
   renderAttractions();
   renderDayPlan();
   drawDayDetail();
+  updateDoneCount();
+
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(o => {
+      const on = o === t;
+      o.classList.toggle('on', on);
+      o.setAttribute('aria-selected', String(on));
+      document.getElementById('tab-' + o.dataset.tab).hidden = !on;
+    });
+  }));
+
+  document.getElementById('btnReplan').addEventListener('click', () => {
+    planSeed++; renderDayPlan();
+  });
+  document.getElementById('btnResetDone').addEventListener('click', () => {
+    doneIds.clear(); saveDone(); renderDayPlan(); updateDoneCount();
+  });
   renderScenarios();
   renderLinks();
   updateTiles();

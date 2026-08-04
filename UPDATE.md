@@ -110,6 +110,22 @@ Alles wat verandert zit in het `<script>`-blok, behalve de lopende tekst.
   kandidaat, dan zakt de keuze stap voor stap weg naar een lang, matig venster.
   Dat was een echte bug op 4 augustus.
 
+**De planner niet vereenvoudigen.** Het tabblad *Planning* deelt activiteiten uit over
+de verblijfsdagen. Regels die moeten blijven gelden:
+
+- Alleen dagen van **8 t.e.m. 22 augustus**, en alleen vanaf vandaag.
+- Op de **aankomstdag (8 aug)** en de **terugreisdag (22 aug)** wordt niets ingepland.
+  Dat is een expliciete wens van Tim, geen omissie.
+- Dagen waarvoor het model nog niet reikt, tonen "Nog geen verwachting" — geen
+  verzonnen invulling.
+- Elke activiteit komt **maximaal één keer** in de hele planning voor.
+- Afgevinkte activiteiten (`localStorage`-sleutel `teuillac-gedaan`) vallen weg uit de
+  planning. Raak die sleutel niet aan; die is van Tim.
+- De knop **Andere planning** verhoogt `planSeed` en deelt opnieuw uit.
+
+Wil je activiteiten toevoegen, doe dat in de `ACTIVITIES`-pool met een `past`-lijst van
+dagtypes waarvoor ze deugen. Voeg niets toe dat je niet in een bron hebt gezien.
+
 **Het toonvenster mag je niet weghalen.** De grafieken, de windtabel en de dagbalk
 tonen bewust alleen dagen vanaf vandaag tot en met 22 augustus (`windowed()` in het
 script). Gepasseerde dagen vallen weg, zodat er vanaf 8 augustus vanzelf enkel nog de
