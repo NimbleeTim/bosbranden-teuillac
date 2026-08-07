@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex">
+<title>Vakantiestatus — Teuillac, Gironde</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%94%A5</text></svg>">
+<style>
+  /* De dashboardpagina zet zelf haar volledige opmaak (reset, body, achtergrond).
+     Dit bestand doet niets anders dan haar inladen — hier alleen de noodmelding. */
+  body { margin: 0; }
+  #laadfout {
+    margin: 0; padding: 18px 16px; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  #laadfout a { color: inherit; }
+</style>
+</head>
+<body>
+
+<p id="laadfout" hidden></p>
+
+<noscript>
+  <p style="padding:18px 16px;font:16px/1.5 system-ui,sans-serif">
+    Deze pagina heeft JavaScript nodig.
+    <a href="vakantie-status-teuillac.html">Open het dashboard rechtstreeks.</a>
+  </p>
+</noscript>
+
+<script>
+/* De artifact-versie van deze pagina staat in vakantie-status-teuillac.html, zonder
+   <!doctype>/<html>/<body> — het publicatieplatform wikkelt dat er zelf omheen.
+   Hier doen wij hetzelfde: één bestand als bron van waarheid, geen tweede kopie
+   die uit de pas kan lopen. */
+(function () {
+  var BRON = 'vakantie-status-teuillac.html';
+
+  function faal(reden) {
+    var p = document.getElementById('laadfout');
+    p.hidden = false;
+    p.innerHTML = 'Het dashboard kon niet geladen worden (' + reden + '). ' +
+      '<a href="' + BRON + '">Probeer het rechtstreeks te openen.</a>';
+  }
+
+  /* Minuut-granulariteit: verse inhoud zonder de CDN-cache helemaal te slopen. */
+  fetch(BRON + '?t=' + Math.floor(Date.now() / 60000), { cache: 'no-store' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function (src) {
+      var doc = new DOMParser().parseFromString(src, 'text/html');
+      var nodes = [].slice.call(doc.head.childNodes)
+        .concat([].slice.call(doc.body.childNodes));
+      var scripts = [];
+
+      /* Eerst alle opmaak en inhoud plaatsen... */
+      nodes.forEach(function (n) {
+        if (n.nodeName === 'SCRIPT') { scripts.push(n); return; }
+        if (n.nodeName === 'TITLE') { document.title = n.textContent; return; }
+        document.body.appendChild(document.importNode(n, true));
+      });
+
+      /* ...en pas dan de scripts, zodat ze een volledige DOM aantreffen.
+         innerHTML voert scripts niet uit; een nieuw element wél. */
+      scripts.forEach(function (n) {
+        var s = document.createElement('script');
+        s.textContent = n.textContent;
+        document.body.appendChild(s);
+      });
+
+      if (!scripts.length) faal('geen script gevonden');
+    })
+    .catch(function (e) { faal(e.message || e); });
+})();
+</script>
+
+</body>
+</html>

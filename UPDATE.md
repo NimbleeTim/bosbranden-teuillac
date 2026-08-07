@@ -169,7 +169,14 @@ Gebruik de Artifact-tool met **exact** deze parameters:
 De `url` is verplicht — zonder die parameter maak je een nieuwe link aan en dan raakt Tim
 het dashboard kwijt dat hij op zijn gsm heeft staan.
 
-### 6. Commit terug (mag mislukken)
+**Over het delen: raak het Share-menu niet aan.** Een publiek gedeeld artifact wordt
+vastgepind op de versie van het moment van delen; `Latest` kiezen is geblokkeerd zolang de
+toegang publiek staat, en de Artifact-tool heeft geen parameter om dat recht te zetten. Het
+artifact is daarom alleen nog Tims eigen weergave — hij is eigenaar en ziet altijd de
+nieuwste versie. **De publieke link loopt via GitHub Pages** (stap 6), en die is de reden
+dat de push nu wél moet lukken.
+
+### 6. Push — dit is de publieke link
 
 ```bash
 git add -A
@@ -177,11 +184,33 @@ git commit -m "Dagelijkse update: <datum>"
 git push
 ```
 
-Bij de testrun van 3 augustus lukte de `push` niet — de cloud-sessie heeft de repo
-alleen-lezen. **Dat is niet erg en geen reden om iets over te doen:** de gepubliceerde
-artifact is de echte uitkomst, en jij bouwt elke dag opnieuw op vanaf deze template
-met verse research. Faalt de push, meld dat dan in één zin in je samenvatting en stop.
-Ga niet forceren en probeer geen andere remote.
+**Deze stap mag niet stilzwijgend mislukken.** De repo staat op GitHub Pages:
+
+- Publieke link: <https://nimbleetim.github.io/bosbranden-teuillac/>
+- Bron: branch `main`, map `/` van `NimbleeTim/bosbranden-teuillac`
+
+`index.html` is een vaste laadschil die `vakantie-status-teuillac.html` ophaalt en
+uitvoert. **Jij hoeft `index.html` niet aan te raken** — één bronbestand, geen tweede
+kopie die uit de pas kan lopen. Alleen jouw push maakt de publieke pagina vers; zonder
+push blijft iedereen die de link opent op de vorige dag hangen.
+
+Bij de testruns van 3 en 4 augustus faalde de push — de cloud-sessie had de repo
+alleen-lezen. Lukt het nu weer niet, probeer dan in deze volgorde:
+
+```bash
+git push                                    # normaal
+gh auth status                              # heeft de sessie een token?
+gh api -X PUT repos/NimbleeTim/bosbranden-teuillac/contents/vakantie-status-teuillac.html \
+  -f message="Dagelijkse update: <datum>" \
+  -f branch=main \
+  -f sha="$(gh api repos/NimbleeTim/bosbranden-teuillac/contents/vakantie-status-teuillac.html --jq .sha)" \
+  -f content="$(base64 -i vakantie-status-teuillac.html | tr -d '\n')"
+```
+
+Lukt geen van beide, **zeg dan in je samenvatting met zoveel woorden dat de publieke
+pagina op de oude dag is blijven staan** en waarom. Dat is geen detail: dan klopt wat
+anderen zien niet met wat jij gepubliceerd hebt. Ga niet forceren en probeer geen
+andere remote.
 
 ## Toon
 
