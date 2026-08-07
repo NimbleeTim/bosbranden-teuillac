@@ -198,13 +198,26 @@ Bij de testruns van 3 en 4 augustus faalde de push — de cloud-sessie had de re
 alleen-lezen. Lukt het nu weer niet, probeer dan in deze volgorde:
 
 ```bash
-git push                                    # normaal
-gh auth status                              # heeft de sessie een token?
-gh api -X PUT repos/NimbleeTim/bosbranden-teuillac/contents/vakantie-status-teuillac.html \
-  -f message="Dagelijkse update: <datum>" \
-  -f branch=main \
-  -f sha="$(gh api repos/NimbleeTim/bosbranden-teuillac/contents/vakantie-status-teuillac.html --jq .sha)" \
-  -f content="$(base64 -i vakantie-status-teuillac.html | tr -d '\n')"
+git push          # eerst gewoon dit
+gh auth status    # geen push? kijk of de sessie überhaupt een token heeft
+```
+
+Heeft `gh` wél een token maar git niet, schrijf het bestand dan via de contents-API.
+Niet met `base64` op de commandoregel — dat loopt stuk op de lengte, en de `-i`-vlag
+betekent iets anders op Linux dan op macOS. Bouw de payload met `node`:
+
+```bash
+REPO=NimbleeTim/bosbranden-teuillac
+PAD=vakantie-status-teuillac.html
+node -e '
+const fs = require("fs");
+process.stdout.write(JSON.stringify({
+  message: "Dagelijkse update: " + process.argv[1],
+  branch: "main",
+  sha: process.argv[2],
+  content: fs.readFileSync(process.argv[3]).toString("base64"),
+}));' "<datum>" "$(gh api repos/$REPO/contents/$PAD --jq .sha)" "$PAD" > payload.json
+gh api -X PUT "repos/$REPO/contents/$PAD" --input payload.json
 ```
 
 Lukt geen van beide, **zeg dan in je samenvatting met zoveel woorden dat de publieke
