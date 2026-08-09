@@ -32,8 +32,9 @@ curl -s --max-time 25 "https://api.open-meteo.com/v1/forecast?latitude=45.09289&
 curl -s --max-time 25 "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=45.09289&longitude=-0.54756&hourly=pm10,pm2_5,european_aqi,ozone&timezone=Europe%2FParis&past_days=7&forecast_days=5"
 ```
 
-> **Let op — dit faalde op 3 én 4 augustus.** De cloud-sandbox blokkeert uitgaand
-> verkeer vanuit Bash naar `api.open-meteo.com`. Krijg je een timeout of een leeg
+> **Dit faalde op 3 én 4 augustus, maar wérkte op 9 augustus** — de sandbox blokkeert
+> `api.open-meteo.com` dus niet altijd. Probeer `curl` altijd eerst.
+> Krijg je een timeout of een leeg
 > antwoord, ga dan **niet** verder met verouderde cijfers, maar val terug op
 > **WebFetch** met exact dezelfde URL. Dat is op 4 augustus getest en het **werkt** —
 > WebFetch loopt langs een andere route dan de sandbox. Sla die stap niet over. Vraag in de prompt om de dagreeksen letterlijk terug te geven, bijvoorbeeld:
@@ -47,6 +48,19 @@ curl -s --max-time 25 "https://air-quality-api.open-meteo.com/v1/air-quality?lat
 > eerdere datum zijn.** Nooit stilzwijgend oude cijfers als nieuw presenteren.
 
 Voor luchtkwaliteit: neem per dag het **maximum** van elke uurreeks.
+
+> **De pagina ververst zichzelf (sinds 9 augustus).** `refresh()` draait nu bij elke
+> opening, en opnieuw zodra het tabblad weer zichtbaar wordt en de cijfers ouder zijn
+> dan een half uur. Open-Meteo stuurt `access-control-allow-origin: *`, dus dat werkt
+> gewoon op GitHub Pages — de oude bewering dat rechtstreeks ophalen alleen lokaal kon,
+> gold voor de artifact-versie en is geschrapt.
+>
+> Gevolg voor jou: `DATA.days`, `DATA.air` en `PLAN` zijn nog maar de **terugval** voor
+> wie offline zit. Ververs ze wel, maar het echte werk is de **lopende tekst** — die
+> haalt de pagina nergens vandaan. Op 9 augustus stond er nog "de hittegolf is uit het
+> model verdwenen" terwijl het model 40 °C gaf: de grafieken klopten, het verhaal
+> eromheen niet. Controleer daarom altijd of verdict, tegels, `RULES` en `SCENARIOS`
+> nog stroken met de verse cijfers.
 
 Haal daarnaast de **uurdata** op — die voedt de dagindeling en de fietsvensters:
 
