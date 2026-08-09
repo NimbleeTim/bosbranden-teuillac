@@ -1604,6 +1604,18 @@
       s += `<text class="axlab" x="${ML - 6}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${v}°</text>`;
     }
 
+    // Uurlijnen. Zonder deze moest je vanaf een punt op de curve de uren aftellen,
+    // want de uurlabels staan onder de regen- en windrij. De lijnen lopen door tot
+    // vlak boven die labels, zodat je van de curve in één keer naar het uur zakt.
+    const bodem = MT + ih + 80;
+    for (let h = 0; h < 24; h += 2) {
+      const kwart = h % 6 === 0;        // 00, 06, 12, 18 als ankers
+      // var(--ink) en niet var(--rule): --ink kantelt mee met het thema, dus de lijn
+      // blijft even zichtbaar op wit als op zwart. --rule verdween in lichte modus.
+      s += `<line x1="${x(h).toFixed(1)}" y1="${MT}" x2="${x(h).toFixed(1)}" y2="${bodem}"
+              stroke="var(--ink)" stroke-width="${kwart ? 1 : 0.6}" opacity="${kwart ? .20 : .10}"/>`;
+    }
+
     // gevoelstemperatuur eerst, gestreept en lichter — identiteit niet op kleur alleen
     if (p.ah) s += `<polyline points="${p.ah.map((t, h) => `${x(h).toFixed(1)},${y(t).toFixed(1)}`).join(' ')}"
         fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-dasharray="5 4" stroke-linejoin="round"/>`;
@@ -1639,8 +1651,23 @@
         style="font-size:9px;font-family:var(--f-data);fill:var(--ink-2)">${w}</text>`;
     });
 
-    for (let h = 0; h < 24; h += 2)
-      s += `<text class="axlab" x="${x(h).toFixed(1)}" y="${H - 6}" text-anchor="middle">${String(h).padStart(2, '0')}</text>`;
+    for (let h = 0; h < 24; h += 2) {
+      const kwart = h % 6 === 0;
+      s += `<text class="axlab" x="${x(h).toFixed(1)}" y="${H - 6}" text-anchor="middle"
+              style="${kwart ? 'font-weight:700;fill:var(--ink-2)' : ''}">${String(h).padStart(2, '0')}${kwart ? ' u' : ''}</text>`;
+    }
+
+    // Staat vandaag in beeld, dan een merkteken op het huidige uur — dat scheelt
+    // zoeken waar je zit in de dag.
+    if (p.d === todayISO()) {
+      const nu = new Date();
+      const uNu = nu.getHours() + nu.getMinutes() / 60;
+      const cx = ML + (uNu + 0.5) / 24 * iw;
+      s += `<line x1="${cx.toFixed(1)}" y1="${MT - 4}" x2="${cx.toFixed(1)}" y2="${bodem}"
+              stroke="var(--critical)" stroke-width="1.6" opacity=".85"/>`;
+      s += `<text x="${cx.toFixed(1)}" y="${MT - 9}" text-anchor="middle"
+              style="font-size:9.5px;font-weight:700;fill:var(--critical);font-family:var(--f-body);letter-spacing:.05em">NU</text>`;
+    }
     s += `</svg>`;
 
     const b = p.bike;
