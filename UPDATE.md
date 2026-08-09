@@ -37,27 +37,35 @@ python3 scripts/update-weer.py
 Het script schrijft niets als het niets kon ophalen — liever oude data die als oud
 gelabeld staat dan verzonnen data. Faalt het, meld dat dan gewoon.
 
-Twee bronnen, in deze voorrang:
+Drie bronnen, alle drie gratis en **zonder sleutel**, alle drie via
+`api.open-meteo.com`:
 
-| Bron | Rol | Sleutel |
+| Bron | Rol | Bereik |
 |---|---|---|
-| **Foreca** | de balken, zodra de secrets gezet zijn | `FORECA_USER` + `FORECA_PASSWORD` in de repo-secrets |
-| **Open-Meteo** | uurdata, lucht, en de balken zonder Foreca | geen |
-| **Météo-France** | controlelijn (~4 dagen vooruit) | geen |
+| **ECMWF IFS** | de balken en de uurdata | 15 dagen, 9 km, vier runs per dag |
+| **Météo-France** | controlelijn (AROME, 1,3 km) | ~4 dagen |
+| **Open-Meteo best match** | controlelijn, onafhankelijke tweede mening | 16 dagen |
 
-De sleutel hoort **niet** in de pagina: deze repo is publiek, dus alles in de
-JavaScript is leesbaar voor elke bezoeker. Daarom haalt de Action het weer op en
-niet de browser.
+ECMWF is het best presterende wereldmodel in onafhankelijke verificatie, en de dag-
+en uurcijfers komen uit dezelfde run — zo kunnen de dagbalk en het uurdetail eronder
+niet uit elkaar lopen.
+
+**Waarom er twee controlelijnen naast liggen.** Op 9 augustus 2026 liepen de modellen
+voor 17 t.e.m. 22 augustus **7 tot 10 °C** uiteen. Eén reeks tonen verbergt dat. De
+pagina schrijft zelf een regel onder de grafiek zodra een controlelijn meer dan 2 °C
+afwijkt; die tekst hoef je niet te maken.
+
+Geen sleutels dus, en geen secrets in deze repo. Dat is bewust: de repo is publiek,
+dus alles wat in de pagina staat is leesbaar voor elke bezoeker.
 
 > **De pagina ververst zichzelf ook nog (sinds 9 augustus).** `refresh()` draait bij
 > elke opening, en opnieuw zodra het tabblad weer zichtbaar wordt en de laatste
 > ophaling langer dan een half uur geleden is. Open-Meteo stuurt
-> `access-control-allow-origin: *`, dus dat werkt gewoon op GitHub Pages.
+> `access-control-allow-origin: *`, dus dat werkt gewoon op GitHub Pages. De browser
+> haalt dezelfde drie bronnen op als de dagelijkse job.
 >
-> Levert Foreca de balken, dan laat de browser die **met rust** en ververst hij enkel
-> de lucht en de controlelijnen. Ligt de dagelijkse job meer dan anderhalve dag stil,
-> dan neemt Open-Meteo de balken over en zegt de statusregel dat erbij — een verse
-> tweede keuze is beter dan een verouderde eerste.
+> De ingebakken cijfers zijn dus de **terugval**: voor wie offline zit, of wie de
+> pagina opent terwijl Open-Meteo plat ligt. Ze moeten wel kloppen — vandaar de job.
 
 **Jouw echte werk is de lopende tekst.** Die haalt de pagina nergens vandaan. Op
 9 augustus stond er nog "de hittegolf is uit het model verdwenen" terwijl het model
@@ -68,33 +76,6 @@ Deze vier rekenen zichzelf uit — laat ze met rust en zet er nooit vaste getall
 want precies die liepen achter: de piektemperatuur (`#tilePeak`), het
 fijnstofvooruitzicht (`#aqFcLabel/#aqFcVal/#aqFcNote`), de PM-tegel en de duiding
 onder de weergrafiek (`#mfNote`).
-
-#### Foreca aanzetten — eenmalig, door Tim
-
-Zolang de secrets niet gezet zijn draait alles op Open-Meteo; er gaat dus niets stuk
-als dit blijft liggen. Aanzetten gaat zo:
-
-1. Vraag toegang op **developer.foreca.com** (30 dagen gratis, 2000 requests/dag —
-   deze pagina doet er één per dag). Je krijgt een gebruikersnaam en wachtwoord.
-2. Zet ze in de repo als secrets, niet in een bestand:
-
-   ```bash
-   gh secret set FORECA_USER     --repo NimbleeTim/bosbranden-teuillac
-   gh secret set FORECA_PASSWORD --repo NimbleeTim/bosbranden-teuillac
-   ```
-
-   Of via GitHub: *Settings → Secrets and variables → Actions → New repository secret*.
-3. Start de job één keer met de hand om te zien of het pakt:
-
-   ```bash
-   gh workflow run "Dagelijkse weerupdate" --repo NimbleeTim/bosbranden-teuillac
-   gh run watch --repo NimbleeTim/bosbranden-teuillac
-   ```
-
-De log toont welke velden Foreca teruggaf. Wijken die af van wat `haal_foreca()`
-verwacht, dan valt het script terug op Open-Meteo en zegt dat in de log — dan moeten
-de veldnamen in `_pak(...)` bijgesteld worden. Zet de secrets **nooit** in de pagina
-of in een commit: deze repo is publiek.
 
 ### 2. Zoek de actuele situatie op
 

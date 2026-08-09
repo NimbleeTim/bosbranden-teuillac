@@ -3,10 +3,9 @@ name: Dagelijkse weerupdate
 # Draait elke ochtend om 07:30 Franse tijd en schrijft verse weercijfers in het
 # dashboard. Cron in GitHub Actions loopt op UTC, vandaar 05:30.
 #
-# De Foreca-sleutel staat in de repo-secrets FORECA_USER en FORECA_PASSWORD.
-# Die zijn versleuteld en niet leesbaar in deze publieke repo -- daarom haalt
-# deze job het weer op en niet de pagina zelf. Zijn de secrets niet gezet, dan
-# draait alles gewoon door op Open-Meteo.
+# Alle bronnen zijn gratis en zonder sleutel, dus hier hoeven geen secrets te staan.
+# De pagina ververst zichzelf ook in de browser; deze job zorgt dat de ingebakken
+# cijfers meelopen voor wie offline zit of JavaScript uit heeft.
 
 on:
   schedule:
@@ -31,9 +30,6 @@ jobs:
           python-version: '3.12'
 
       - name: Weercijfers ophalen en wegschrijven
-        env:
-          FORECA_USER: ${{ secrets.FORECA_USER }}
-          FORECA_PASSWORD: ${{ secrets.FORECA_PASSWORD }}
         run: python3 scripts/update-weer.py
 
       - name: Vastleggen als er iets veranderd is
