@@ -282,6 +282,7 @@
     background: var(--surface-2); border: 1px solid var(--rule); align-items: flex-start;
   }
   .callout.warn { background: color-mix(in srgb, var(--warning) 11%, var(--surface)); border-color: color-mix(in srgb, var(--warning) 34%, transparent); }
+  .callout.critical { background: color-mix(in srgb, var(--critical) 10%, var(--surface)); border-color: color-mix(in srgb, var(--critical) 38%, transparent); }
   .callout svg { flex: none; margin-top: 2px; }
 
   /* ---------- tabbladen ---------- */
@@ -508,7 +509,7 @@
         </div>
         <div class="callout warn">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 16.5v.5"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
-          <p class="small">Lees die twee dagen met de juiste maat. Deze kaart rekent nog met een pluim vanaf het zwaartepunt van de <em>oorspronkelijke</em> brandzone, maar het vuur is sinds 1 augustus <strong>"fixé"</strong> — er is geen groot actief front meer, alleen nasmeulende haarden. Op 16 augustus valt er bovendien 8,7 mm regen, die rook uit de lucht wast. Reken dus eerder op een vage brandlucht dan op een rookdag, en check op die twee ochtenden even Atmo voordat je iets buiten plant.</p>
+          <p class="small">Lees die dagen met de juiste maat. Deze kaart rekent nog met een pluim vanaf het zwaartepunt van de <em>oorspronkelijke</em> brandzone, maar het vuur is sinds 1 augustus <strong>"fixé"</strong> — er is geen groot actief front meer, alleen nasmeulende haarden. Op 10 en 16 augustus valt er bovendien regen (3,0 en 1,8 mm), die rook uit de lucht wast. Reken dus eerder op een vage brandlucht dan op een rookdag, en check op die ochtenden even Atmo voordat je iets buiten plant.</p>
         </div>
       </div>
       <div class="card stack">
@@ -620,9 +621,9 @@
         <h3>Wat dit voor jullie verblijf betekent</h3>
         <ul class="plain small">
           <li><strong>Aankomst 8 augustus is realistisch.</strong> De A10 vanuit het noorden en de afrit Saint-André-de-Cubzac raken de brandzone niet. Vermijd routes via de A63 en de rive gauche.</li>
-          <li><strong>Rook blijft klein, maar niet meer nul.</strong> De fijnstof zit op 5–8 µg/m³. Twee dagen — 12 en 16 augustus — draait de wind wel jullie kant uit; met een gefixeerde brand en 8,7 mm regen op de 16e is dat hinder, geen gevaar.</li>
+          <li><strong>Rook blijft klein, maar niet meer nul.</strong> De fijnstof zit op 8–12 µg/m³, onder de WHO-drempel. Twee dagen — <strong>10 en 16 augustus</strong> — draait de wind wel jullie kant uit; met een gefixeerde brand en regen op allebei die dagen is dat hinder, geen gevaar.</li>
           <li><strong>Bosbestemmingen blijven dicht.</strong> Zolang vigilance rood geldt, zijn bossen verboden terrein — ook de leuke. Maar de zwemzone van Blasimon is weer open. Plan rond dorpen, water en steden.</li>
-          <li><strong>Het weer bepaalt jullie dagindeling.</strong> Vijf dagen op rij ≥ 34 °C met twee kleuters vraagt echte planning: alles vóór 11 u of na 19 u, en de rest van de dag bij water of in de schaduw.</li>
+          <li><strong>Het weer bepaalt jullie dagindeling.</strong> Drie dagen op rij ≥ 34 °C — 12, 13 en 14 augustus, met 37,7 °C als piek — vraagt echte planning: alles vóór 11 u of na 19 u, en de rest van de dag bij water of in de schaduw.</li>
         </ul>
       </div>
     </div>
@@ -649,6 +650,65 @@
   </section>
 
   
+
+  <!-- ============ ZONSVERDUISTERING 12 AUG ============ -->
+  <section id="eclips">
+    <div class="sec-head">
+      <span class="eyebrow">Woensdag 12 augustus</span>
+      <h2>Zonsverduistering — 97 % bij jullie, maar níét totaal</h2>
+      <p class="small">De diepste verduistering boven Frankrijk sinds 1999, en ze valt precies in jullie verblijf. De totaliteit ligt wel in Noord-Spanje.</p>
+    </div>
+    <div class="card stack-lg">
+      <div class="grid3">
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Bedekking in Teuillac</span>
+          <span class="num" style="font-size:1.32rem">97,3 %</span>
+          <span class="tiny">In de Gironde 97,3 – 98,2 %. Bordeaux 97,5 %.</span>
+        </div>
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Maximum</span>
+          <span class="num" style="font-size:1.32rem">20:24</span>
+          <span class="tiny">Begint 19:29. Zon staat dan nog maar 7° hoog.</span>
+        </div>
+        <div class="stack" style="gap:4px">
+          <span class="eyebrow">Bewolking om 20 u</span>
+          <span class="num" style="font-size:1.32rem">0 %</span>
+          <span class="tiny">ECMWF, 19–21 u onbewolkt. Wel 34 °C.</span>
+        </div>
+      </div>
+
+      <div class="callout critical">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--critical)" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 8v5"/><path d="M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg>
+        <p class="small"><strong>De bril gaat geen enkel moment af.</strong> Dit is het gevaarlijke verschil met een totale eclips: dáár mag je tijdens de totaliteit kijken, hier nooit. Die resterende 2,7 % zon is nog altijd duizenden keren te fel en verbrandt het netvlies zonder dat je pijn voelt. Alleen brillen met <strong>ISO 12312-2</strong> én CE op het montuur; zonnebrillen, gelaste glazen, röntgenfoto’s en smartphonecamera’s zijn géén vervanging.</p>
+      </div>
+
+      <div class="grid2">
+        <div class="stack" style="gap:8px">
+          <h3>Waar haal je brillen</h3>
+          <ul class="plain small">
+            <li><strong>Krys, Blaye</strong> (15 min) en de opticiens op de <strong>Ecoparc in Saint-André-de-Cubzac</strong> (20 min): Afflelou, Générale d’Optique, Optical Center. Reken 3 – 5 € per stuk; sommige opticiens geven ze gratis weg zolang de voorraad strekt.</li>
+            <li><strong>Apotheken</strong> verkopen ze ook, en er is er één in bijna elk dorp hier.</li>
+            <li>Vraag het ook even bij het <strong>VVV in Blaye of Bourg</strong> — meerdere gemeenten delen ze uit.</li>
+            <li><strong>Niet online bestellen nu.</strong> Drie dagen voor de datum haal je het niet, en juist op marktplaatsen circuleren namaakbrillen zonder echte certificering.</li>
+          </ul>
+        </div>
+        <div class="stack" style="gap:8px">
+          <h3>Met een 3- en 4,5-jarige</h3>
+          <ul class="plain small">
+            <li><strong>Projecteren werkt beter dan brillen.</strong> Een vergiet of een kartonnetje met een gaatje werpt tientallen zonnesikkels op een wit blad. Volkomen veilig, niemand kijkt omhoog, en kleuters vinden het leuker dan een bril die toch afvalt.</li>
+            <li>Neem de brillen mee voor jullie zelf, en houd de kinderen bij het blad.</li>
+            <li>Het maximum om <strong>20:24</strong> is laat maar te doen; het wordt schemerig en merkbaar koeler.</li>
+            <li>De zon gaat hier onder om <strong>21:13</strong>, dus het einde van de eclips om 21:17 zien jullie niet meer.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>
+        <p class="small"><strong>Waar kijken:</strong> met de zon op 7° heb je een vrije westelijke horizon nodig — een rij bomen volstaat al om alles te verpesten. Het estuarium ligt precies in die richting. De <strong>wallen van de Citadelle de Blaye</strong> (15 min, gratis) en de <strong>kade van Bourg-sur-Gironde</strong> (10 min) kijken allebei vrij uit over het water. <em>Totaliteit halen kan alleen in Noord-Spanje — Bilbao om 20:28, zo’n 3,5 uur rijden — en duurt daar één à twee minuten. Met twee kleuters, 34 °C en een terugrit in het donker lijkt me dat geen goede ruil.</em></p>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ CHECKLIST ============ -->
   <section id="checklist">
@@ -740,7 +800,7 @@
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8v.5"/></svg>
       <div class="stack" style="gap:5px">
         <strong style="font-weight:620">Als je maar vijf dingen doet</strong>
-        <p class="small"><strong>1. Citadelle de Blaye</strong> (13 km) — gratis, eindeloos rennen, elke ochtend inzetbaar. <strong>2. Les Antilles de Jonzac</strong> (53 km) — overdekt waterparadijs met een zone voor 3–6 jaar; de enige plek die zowel 34 °C als 8,7 mm regen opvangt. <strong>3. Terres d’Oiseaux</strong> (22 km) — vlakke paden, open tot 20 u, dus perfect voor na de hitte. <strong>4. Zoo de Bordeaux-Pessac</strong> (47 km) — bevestigd open, ga bij opening om 9:30. <strong>5. Miroir d’eau in Bordeaux</strong> (34 km) — gratis, en precies wat kleuters willen als het warm is.</p>
+        <p class="small"><strong>1. Citadelle de Blaye</strong> (13 km) — gratis, eindeloos rennen, elke ochtend inzetbaar. <strong>2. Les Antilles de Jonzac</strong> (53 km) — overdekt waterparadijs met een zone voor 3–6 jaar; de enige plek die zowel 37 °C als een regendag opvangt. <strong>3. Terres d’Oiseaux</strong> (22 km) — vlakke paden, open tot 20 u, dus perfect voor na de hitte. <strong>4. Zoo de Bordeaux-Pessac</strong> (47 km) — bevestigd open, ga bij opening om 9:30. <strong>5. Miroir d’eau in Bordeaux</strong> (34 km) — gratis, en precies wat kleuters willen als het warm is.</p>
         <p class="tiny">Alles boven ± 90 km zou ik met een 3-jarige laten vallen of aan een overnachting koppelen. La Palmyre, Le Bournat en Walygator zijn inhoudelijk prima, maar drie tot vier uur auto op één dag maakt de dag stuk.</p>
       </div>
     </div>
@@ -988,7 +1048,7 @@
       w:'Er valt maar 6,3 mm regen in de resterende voorspelde dagen terwijl het zes dagen boven 34 °C gaat. De regen van maandag was een eenmalige buitje, geen ommekeer: de vegetatie droogt verder uit in plaats van te herstellen — precies de reden die de prefectuur zelf geeft om vigilance rouge tot 18 augustus aan te houden, ook al is het vuur gefixeerd. Eén punt lager dan gisteren, maar dit blijft het scenario om in de gaten te houden.' },
     { p:3, lvl:'warning', t:'Rook draait toch jullie kant uit',
       b:'Een heropleving bij Cap Ferret of Lacanau valt samen met zuidwestenwind. Lucht wordt wazig en het ruikt naar brand. Dan: ramen dicht, binnenblijven tussen 12 en 19 u, FFP2 als je toch moet. Hinderlijk, niet gevaarlijk voor gezonde kinderen op 30+ km.',
-      w:'Er smeulen nog haarden ten noorden van het bassin van Arcachon — daarom houden drie kustgemeenten verhoogde PM10 terwijl het regionale vervuilingsepisode op 2 augustus werd opgeheven. De regen van maandag heeft een deel van de resterende rook neergeslagen. De modelrun van 4 augustus legt de pluimas op 12 en 16 augustus wel over Teuillac, waar gisteren nog geen enkele dag dat deed. Daarom een punt hoger dan gisteren — maar met een gefixeerde brand als bron blijft het beperkt.' },
+      w:'Er smeulen nog haarden ten noorden van het bassin van Arcachon — daarom houden drie kustgemeenten verhoogde PM10 terwijl het regionale vervuilingsepisode op 2 augustus werd opgeheven. De regen van maandag heeft een deel van de resterende rook neergeslagen. De ECMWF-run van 9 augustus legt de pluimas op <strong>10 en 16 augustus</strong> over Teuillac; 15, 17 en 21 augustus zitten in de randzone. Daarom een punt hoger — maar met een gefixeerde brand als bron blijft het beperkt.' },
     { p:1, lvl:'critical', t:'Jullie verblijf zelf komt in gevaar',
       b:'Hiervoor is een nieuwe, grote brand nodig in de Haute-Gironde zelf, met wind die hem naar Teuillac stuurt. Dan krijg je FR-Alert op je gsm en volg je de instructies onmiddellijk op — inpakken kan later.',
       w:'Teuillac ligt in wijnbouw- en landbouwgebied, niet in een aaneengesloten pijnbomenmassief. Wijngaarden zijn een slechte brandstof en werken zelfs als brandgang. Precies dat maakt de rechteroever fundamenteel veiliger dan de Landes de Gascogne.' }
