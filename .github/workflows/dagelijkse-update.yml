@@ -1,0 +1,49 @@
+name: Dagelijkse weerupdate
+
+# Draait elke ochtend om 07:30 Franse tijd en schrijft verse weercijfers in het
+# dashboard. Cron in GitHub Actions loopt op UTC, vandaar 05:30.
+#
+# De Foreca-sleutel staat in de repo-secrets FORECA_USER en FORECA_PASSWORD.
+# Die zijn versleuteld en niet leesbaar in deze publieke repo -- daarom haalt
+# deze job het weer op en niet de pagina zelf. Zijn de secrets niet gezet, dan
+# draait alles gewoon door op Open-Meteo.
+
+on:
+  schedule:
+    - cron: '30 5 * * *'
+  workflow_dispatch:        # ook met de hand te starten via het Actions-tabblad
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weerupdate
+  cancel-in-progress: false
+
+jobs:
+  bijwerken:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Weercijfers ophalen en wegschrijven
+        env:
+          FORECA_USER: ${{ secrets.FORECA_USER }}
+          FORECA_PASSWORD: ${{ secrets.FORECA_PASSWORD }}
+        run: python3 scripts/update-weer.py
+
+      - name: Vastleggen als er iets veranderd is
+        run: |
+          if git diff --quiet -- vakantie-status-teuillac.html; then
+            echo "Geen wijziging -- niets te committen."
+            exit 0
+          fi
+          git config user.name  "Weerupdate"
+          git config user.email "actions@github.com"
+          git add vakantie-status-teuillac.html
+          git commit -m "Weercijfers bijgewerkt ($(TZ=Europe/Paris date '+%-d %B %Y, %H:%M'))"
+          git push

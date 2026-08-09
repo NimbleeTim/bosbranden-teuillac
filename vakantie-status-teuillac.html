@@ -783,7 +783,10 @@
   // Ingebakken reeks van 9 augustus 14:10. Dit is enkel de terugval: de pagina haalt bij
   // elke opening zelf verse cijfers op (zie LIVE REFRESH onderaan).
   const DATA = {
-    fetchedAt: '2026-08-09T14:10:00+02:00',
+    // Welk model de balken levert: 'foreca' zodra de dagelijkse job een sleutel heeft,
+    // anders 'open-meteo'. Bepaalt ook wat de pagina in de browser mag overschrijven.
+    source: 'open-meteo',
+    fetchedAt: '2026-08-09T19:57:10+02:00',
     updatedAt: '2026-08-04T07:45:00+02:00',   // moment van deze tekst- en besluitupdate
     live: false,
     days: [
@@ -802,8 +805,7 @@
       { d:'2026-08-21', tmax:28.0, tmin:17.9, rain:0.3, pop:14, wind:24.3, gust:45, dir:267 },
       { d:'2026-08-22', tmax:25.1, tmin:17.2, rain:0.3, pop:18, wind:15.3, gust:44, dir:296 },
       { d:'2026-08-23', tmax:32.5, tmin:14.9, rain:0.3, pop:0, wind:18.0, gust:36, dir:108 },
-      { d:'2026-08-24', tmax:23.7, tmin:17.0, rain:0.1, pop:0, wind:10.9, gust:28, dir:270 }
-
+      { d:'2026-08-24', tmax:23.7, tmin:17.0, rain:0.1, pop:0, wind:23.1, gust:28, dir:270 }
     ],
     // Météo-France AROME/ARPEGE, enkel het dagmaximum. Het Franse model rekent op
     // 1,3 km en ziet de estuariumlucht die een wereldmodel gladstrijkt — maar het
@@ -814,6 +816,11 @@
       { d:'2026-08-10', tmax:32.0 },
       { d:'2026-08-11', tmax:35.3 },
       { d:'2026-08-12', tmax:37.5 }
+    ],
+    // Open-Meteo als controlelijn. Blijft leeg zolang Open-Meteo zélf de balken
+    // levert -- een model met zichzelf vergelijken zegt niets.
+    om: [
+
     ],
     // Open-Meteo air quality, dagelijkse piek
     air: [
@@ -827,7 +834,6 @@
       { d:'2026-08-11', pm25:10.4, pm10:19.5, aqi:41, o3:102.0, past:false },
       { d:'2026-08-12', pm25:11.5, pm10:21.1, aqi:45, o3:108.0, past:false },
       { d:'2026-08-13', pm25:11.9, pm10:22.6, aqi:55, o3:123.0, past:false }
-
     ]
   };
 
@@ -1240,6 +1246,8 @@
      zodat er naarmate 8 augustus nadert vanzelf enkel de vakantie overblijft.
      Zakt het venster onder twee dagen, dan tonen we toch de volledige reeks
      in plaats van een lege grafiek. */
+  const BRON_NAAM = { foreca: 'Foreca', 'open-meteo': 'Open-Meteo' };
+
   let VIEW_DAYS = [], VIEW_AIR = [];
   function windowed(arr) {
     const t = todayISO();
@@ -1306,41 +1314,50 @@
       if (i % 2 === 0) s += `<text class="axlab" x="${cx.toFixed(1)}" y="${H - MB + 16}" text-anchor="middle">${fmtShort(r.d)}</text>`;
     });
 
-    // controlelijn van het Franse model, over de balken heen
-    const mf = (DATA.mf || [])
-      .map(m => ({ ...m, i: d.findIndex(x => x.d === m.d) }))
-      .filter(m => m.i >= 0);
-    let afwijking = 0;
-    if (mf.length >= 2) {
-      const pts = mf.map(m => `${(ML + m.i * bw + bw / 2).toFixed(1)},${y(m.tmax).toFixed(1)}`).join(' ');
-      s += `<polyline points="${pts}" fill="none" stroke="var(--ink-2)" stroke-width="1.7"
-              stroke-dasharray="5 3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>`;
-      mf.forEach(m => {
+    // controlelijnen van de andere modellen, over de balken heen
+    const LIJNEN = [
+      { naam: 'Météo-France', rijen: DATA.mf || [], streep: '5 3', kleur: 'var(--ink-2)' },
+      { naam: 'Open-Meteo', rijen: DATA.om || [], streep: '1.5 3', kleur: 'var(--muted)' }
+    ];
+    let afwijking = 0, afwijkNaam = '', getekend = [];
+
+    LIJNEN.forEach(L => {
+      const pt = L.rijen
+        .map(m => ({ ...m, i: d.findIndex(x => x.d === m.d) }))
+        .filter(m => m.i >= 0);
+      if (pt.length < 2) return;
+      getekend.push({ ...L, n: pt.length });
+
+      s += `<polyline points="${pt.map(m => `${(ML + m.i * bw + bw / 2).toFixed(1)},${y(m.tmax).toFixed(1)}`).join(' ')}"
+              fill="none" stroke="${L.kleur}" stroke-width="1.7" stroke-dasharray="${L.streep}"
+              stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>`;
+      pt.forEach(m => {
         const cx = ML + m.i * bw + bw / 2, verschil = m.tmax - d[m.i].tmax;
-        afwijking = Math.max(afwijking, Math.abs(verschil));
-        s += `<circle cx="${cx.toFixed(1)}" cy="${y(m.tmax).toFixed(1)}" r="2.8" fill="var(--ink-2)">`
-          + `<title>${fmtDay(m.d)} — Météo-France ${nl(m.tmax)}°, `
+        if (Math.abs(verschil) > afwijking) { afwijking = Math.abs(verschil); afwijkNaam = L.naam; }
+        s += `<circle cx="${cx.toFixed(1)}" cy="${y(m.tmax).toFixed(1)}" r="2.6" fill="${L.kleur}">`
+          + `<title>${fmtDay(m.d)} — ${L.naam} ${nl(m.tmax)}°, `
           + `${Math.abs(verschil) < 0.05 ? 'gelijk aan' : nl(Math.abs(verschil)) + '° ' + (verschil > 0 ? 'warmer dan' : 'koeler dan')}`
-          + ` de hoofdverwachting</title></circle>`;
+          + ` ${BRON_NAAM[DATA.source] || 'de hoofdverwachting'}</title></circle>`;
       });
-    }
+    });
 
     s += `<line class="baseline" x1="${ML}" y1="${(MT + ih).toFixed(1)}" x2="${W - MR}" y2="${(MT + ih).toFixed(1)}"/>`;
-    s += `<text class="axlab" x="${ML}" y="${H - 6}">balk = nachtminimum tot dagmaximum · geel = 34 °C of meer`
-      + `${mf.length >= 2 ? ' · stippellijn = Météo-France, reikt ' + mf.length + ' dagen' : ''}`
+    s += `<text class="axlab" x="${ML}" y="${H - 6}">balk = ${BRON_NAAM[DATA.source] || 'hoofdverwachting'}, nachtminimum tot dagmaximum · geel = 34 °C of meer`
+      + getekend.map(g => ` · ${g.streep === '5 3' ? 'streepjes' : 'stippen'} = ${g.naam} (${g.n} d)`).join('')
       + ` · klik een dag voor het uurverloop</text>`;
     s += `</svg>`;
     box.innerHTML = s;
 
-    // Eén regel duiding onder de grafiek: lopen de twee modellen uiteen, dan is dat
-    // het eerlijkste signaal dat de verwachting nog kan schuiven.
+    // Eén regel duiding onder de grafiek: lopen de modellen uiteen, dan is dat het
+    // eerlijkste signaal dat de verwachting nog kan schuiven.
     const duiding = document.getElementById('mfNote');
     if (duiding) {
-      duiding.innerHTML = mf.length < 2
-        ? `De controlelijn van <strong>Météo-France</strong> is even niet beschikbaar; de balken komen van de gecombineerde modellen.`
+      const hoofd = BRON_NAAM[DATA.source] || 'de hoofdverwachting';
+      duiding.innerHTML = !getekend.length
+        ? `De balken komen van <strong>${hoofd}</strong>. Er is nu geen tweede model om naast te leggen.`
         : afwijking >= 2
-        ? `<strong>Météo-France</strong> wijkt tot <strong>${nl(afwijking)} °C</strong> af van de hoofdverwachting. Zolang de twee zo uiteenlopen, is de temperatuur nog niet vast — neem de warmste van de twee als je iets buiten plant.`
-        : `<strong>Météo-France</strong> volgt de hoofdverwachting binnen ${nl(afwijking)} °C. De eerste dagen liggen dus redelijk vast.`;
+        ? `De balken komen van <strong>${hoofd}</strong>; <strong>${afwijkNaam}</strong> wijkt daar tot <strong>${nl(afwijking)} °C</strong> van af. Zolang de modellen zo uiteenlopen is de temperatuur nog niet vast — neem de warmste van de twee als je iets buiten plant.`
+        : `De balken komen van <strong>${hoofd}</strong>. ${getekend.length > 1 ? 'De andere modellen volgen' : afwijkNaam + ' volgt'} binnen ${nl(afwijking)} °C — de eerste dagen liggen dus redelijk vast.`;
     }
 
     box.querySelectorAll('.daybar').forEach(el => {
@@ -1451,9 +1468,8 @@
       th:[20.3,19.7,19.1,18.6,18.1,17.6,17.3,17.2,17.5,18.3,19.6,21.2,22.7,24.0,24.8,25.1,25.1,24.9,24.4,23.8,23.2,22.3,21.2,19.9], ah:[20.2,19.8,19.4,19.0,18.7,18.4,18.3,18.2,18.5,19.1,20.1,21.4,22.6,23.9,24.8,25.5,25.3,24.4,23.1,22.3,21.6,20.8,19.8,18.8], wh:[15,13,11,10,8,7,6,5,5,5,6,7,8,9,10,10,11,12,13,14,14,14,13,12], rh:[0.1,0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] },
     { d:'2026-08-23', sr:7, ss:20, kind:'water', code:'motregen', bike:{van:8,tot:11,score:96,t:17.9,w:11.9},
       th:[18.7,17.6,16.8,16.1,15.5,15.1,14.9,15.2,16.0,17.6,20.1,23.0,25.9,28.5,30.3,31.4,32.1,32.5,32.5,32.3,31.8,30.8,29.2,27.3], ah:[17.7,16.7,16.0,15.3,14.6,14.0,13.7,13.9,14.6,16.1,18.5,21.4,24.7,27.8,29.8,31.0,31.7,31.7,31.5,31.5,31.4,31.0,30.2,29.1], wh:[10,10,9,9,9,9,10,10,11,12,13,14,15,16,17,18,18,18,18,17,15,12,8,3], rh:[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.1] },
-    { d:'2026-08-24', sr:7, ss:20, kind:'fris', code:'motregen', bike:{van:15,tot:20,score:100,t:21.7,w:2.3},
-      th:[23.7,21.1,19.6,18.9,19.4,19.9,20.0,20.1,20.5,21.4,22.6,23.5,23.7,23.5,23.2,22.6,21.8,21.3,21.2,21.4,21.1,19.9,18.2,17.0], ah:[25.5,22.6,21.1,20.2,20.4,20.7,21.1,21.5,22.1,22.8,23.5,23.9,23.9,23.7,23.0,22.3,21.6,21.0,21.0,21.2,20.8,19.4,17.3,15.7], wh:[4,6,6,6,6,6,6,4,3,3,3,3,2,1,2,2,2,2,2,3,3,5,9,11], rh:[0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] }
-
+    { d:'2026-08-24', sr:7, ss:20, kind:'fris', code:'motregen', bike:{van:15,tot:20,score:99,t:21.7,w:7.0},
+      th:[23.7,21.1,19.6,18.9,19.4,19.9,20.0,20.1,20.5,21.4,22.6,23.5,23.7,23.5,23.2,22.6,21.8,21.3,21.2,21.4,21.1,19.9,18.2,17.0], ah:[25.3,22.1,20.1,18.8,18.8,19.0,19.2,19.6,20.1,20.5,20.9,21.0,20.9,20.7,20.6,20.7,20.9,20.8,20.7,20.5,20.0,19.0,17.5,16.3], wh:[5,10,13,15,17,18,18,17,17,18,21,23,23,21,18,13,7,4,4,7,9,8,7,7], rh:[0.1,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0] }
   ];
 
   /* ---------------- dagtypes ---------------- */
@@ -1865,7 +1881,15 @@
     return out;
   }
 
-  const STAMP = '9 augustus, 14:10';
+  const STAMP = '9 augustus, 19:57';
+
+  // Twee losse klokken, bewust gescheiden:
+  //   DATA.fetchedAt  — wanneer de dagelijkse job de hoofdreeks schreef. Alleen die
+  //                     job zet hem; overschrijft de browser hem, dan kan hij nooit
+  //                     meer zien dat Foreca verlopen is.
+  //   laatsteLive     — wanneer de browser zelf voor het laatst ophaalde.
+  let laatsteLive = 0;
+  let forecaVerlopen = false;
 
   async function refresh() {
     btn.setAttribute('aria-busy', 'true');
@@ -1876,13 +1900,28 @@
       const fc = await fcR.json(), aq = await aqR.json();
 
       const D = fc.daily;
-      DATA.days = D.time.map((t, i) => ({
+      const omDagen = D.time.map((t, i) => ({
         d: t,
         tmax: D.temperature_2m_max[i], tmin: D.temperature_2m_min[i],
         rain: D.precipitation_sum[i] ?? 0, pop: D.precipitation_probability_max[i] ?? 0,
         wind: D.wind_speed_10m_max[i], gust: Math.round(D.wind_gusts_10m_max[i]),
         dir: Math.round(D.wind_direction_10m_dominant[i])
-      }));
+      })).filter(r => r.tmax != null);
+
+      // Foreca komt van de dagelijkse job en kan hier niet opgehaald worden — de
+      // sleutel hoort niet in een publieke pagina. Zolang die reeks vers genoeg is,
+      // blijft ze de balken leveren en gaat Open-Meteo als controlelijn ernaast.
+      // Loopt de job meer dan anderhalve dag achter, dan neemt Open-Meteo het over:
+      // een verse tweede keuze is beter dan een verouderde eerste.
+      const forecaOud = (Date.now() - new Date(DATA.fetchedAt)) > 36 * 3600e3;
+      if (DATA.source === 'foreca' && !forecaOud) {
+        DATA.om = omDagen.map(r => ({ d: r.d, tmax: r.tmax }));
+      } else {
+        if (DATA.source === 'foreca') forecaVerlopen = true;
+        DATA.days = omDagen;
+        DATA.om = [];
+        DATA.source = 'open-meteo';
+      }
 
       const pm25 = dailyMax(aq.hourly, 'pm2_5'), pm10 = dailyMax(aq.hourly, 'pm10'),
             aqi = dailyMax(aq.hourly, 'european_aqi'), o3 = dailyMax(aq.hourly, 'ozone');
@@ -1905,7 +1944,10 @@
       } catch (_) { /* controlelijn is optioneel */ }
 
       DATA.live = true;
-      DATA.fetchedAt = new Date().toISOString();   // ouderdom klopt zo altijd met wat er staat
+      laatsteLive = Date.now();
+      // Alleen als Open-Meteo nú de balken levert, is dít het moment waarop de
+      // hoofdreeks vers werd. Draait Foreca, dan blijft de stempel van de job staan.
+      if (DATA.source === 'open-meteo') DATA.fetchedAt = new Date().toISOString();
       recomputeView();
       syncRangeLabels();
       els.range.value = '0';
@@ -1914,7 +1956,16 @@
       drawTempChart(); drawPmChart(); renderWindTable(); renderDayPlan(); drawDayDetail(); setDay(0); updateTiles();
 
       const now = new Date();
-      setLive('live', `<strong>Live</strong> — weer en luchtkwaliteit rechtstreeks opgehaald om ${now.toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' })}. Brandstatus, regels en attracties dateren van ${STAMP}.`);
+      const klok = now.toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' });
+      const jobUur = Math.max(0, Math.round((Date.now() - new Date(DATA.fetchedAt)) / 36e5));
+      setLive('live', DATA.source === 'foreca'
+        ? `<strong>Live</strong> — de verwachting komt van <strong>Foreca</strong>, ${jobUur < 1 ? 'net' : jobUur + ' uur geleden'} opgehaald door de dagelijkse update. `
+          + `Luchtkwaliteit en de controlelijnen zijn zonet ververst om ${klok}. Brandstatus, regels en attracties dateren van ${STAMP}.`
+        : `<strong>Live</strong> — weer en luchtkwaliteit rechtstreeks opgehaald bij <strong>Open-Meteo</strong> om ${klok}.`
+          + (forecaVerlopen
+              ? ` De Foreca-reeks liep meer dan anderhalve dag achter, dus die is opzijgezet — een verse tweede keuze is beter dan een verouderde eerste.`
+              : ``)
+          + ` Brandstatus, regels en attracties dateren van ${STAMP}.`);
     } catch (err) {
       // Geen verbinding: we tonen de ingebakken reeks, maar zeggen er eerlijk bij
       // hoe oud die is. De ouderdom komt uit DATA.fetchedAt, niet uit een vaste tekst —
@@ -2030,7 +2081,7 @@
   // dagenlang openstaan met de stand van toen.
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState !== 'visible') return;
-    if (Date.now() - new Date(DATA.fetchedAt) > 30 * 60 * 1000) refresh();
+    if (Date.now() - laatsteLive > 30 * 60 * 1000) refresh();
   });
 })();
 </script>

@@ -22,59 +22,79 @@ publiceer niets, commit niets, en meld enkel dat de vakantie voorbij is.
 
 ## Stappen
 
-### 1. Haal verse meetdata op
+### 1. Het weer — dit doe je niet meer met de hand
 
-Probeer eerst `curl` vanuit Bash:
-
-```bash
-curl -s --max-time 25 "https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Europe%2FParis&forecast_days=16"
-
-curl -s --max-time 25 "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=45.09289&longitude=-0.54756&hourly=pm10,pm2_5,european_aqi,ozone&timezone=Europe%2FParis&past_days=7&forecast_days=5"
-```
-
-> **Dit faalde op 3 én 4 augustus, maar wérkte op 9 augustus** — de sandbox blokkeert
-> `api.open-meteo.com` dus niet altijd. Probeer `curl` altijd eerst.
-> Krijg je een timeout of een leeg
-> antwoord, ga dan **niet** verder met verouderde cijfers, maar val terug op
-> **WebFetch** met exact dezelfde URL. Dat is op 4 augustus getest en het **werkt** —
-> WebFetch loopt langs een andere route dan de sandbox. Sla die stap niet over. Vraag in de prompt om de dagreeksen letterlijk terug te geven, bijvoorbeeld:
-> *"Give me the complete `daily` arrays as JSON: time, temperature_2m_max,
-> temperature_2m_min, precipitation_sum, precipitation_probability_max,
-> wind_speed_10m_max, wind_gusts_10m_max, wind_direction_10m_dominant. Return raw
-> numbers, all 16 days, no commentary."*
->
-> Lukt ook dat niet, laat `DATA.days` en `DATA.air` dan ongemoeid en **zeg
-> uitdrukkelijk in de statusregel én in je samenvatting dat de meetcijfers van een
-> eerdere datum zijn.** Nooit stilzwijgend oude cijfers als nieuw presenteren.
-
-Voor luchtkwaliteit: neem per dag het **maximum** van elke uurreeks.
-
-> **De pagina ververst zichzelf (sinds 9 augustus).** `refresh()` draait nu bij elke
-> opening, en opnieuw zodra het tabblad weer zichtbaar wordt en de cijfers ouder zijn
-> dan een half uur. Open-Meteo stuurt `access-control-allow-origin: *`, dus dat werkt
-> gewoon op GitHub Pages — de oude bewering dat rechtstreeks ophalen alleen lokaal kon,
-> gold voor de artifact-versie en is geschrapt.
->
-> Gevolg voor jou: `DATA.days`, `DATA.air` en `PLAN` zijn nog maar de **terugval** voor
-> wie offline zit. Ververs ze wel, maar het echte werk is de **lopende tekst** — die
-> haalt de pagina nergens vandaan. Op 9 augustus stond er nog "de hittegolf is uit het
-> model verdwenen" terwijl het model 40 °C gaf: de grafieken klopten, het verhaal
-> eromheen niet. Controleer daarom altijd of verdict, tegels, `RULES` en `SCENARIOS`
-> nog stroken met de verse cijfers.
->
-> Vier tegels rekenen zichzelf intussen uit en mag je met rust laten: de piektempe-
-> ratuur (`#tilePeak`), het fijnstofvooruitzicht (`#aqFcLabel/#aqFcVal/#aqFcNote`),
-> de PM-tegel en de duiding onder de weergrafiek (`#mfNote`). Zet daar geen vaste
-> getallen meer in — precies die liepen achter.
-
-Haal daarnaast de **uurdata** op — die voedt de dagindeling en de fietsvensters:
+Sinds 9 augustus draait `.github/workflows/dagelijkse-update.yml` elke ochtend om
+07:30 Franse tijd. Die roept `scripts/update-weer.py` aan, dat `DATA.days`, `DATA.mf`,
+`DATA.om`, `DATA.air`, `PLAN`, `fetchedAt`, `source` en `STAMP` bijwerkt en commit.
+**Herbereken die blokken dus niet zelf.** Wil je toch verse cijfers vóór je aan de
+tekst begint:
 
 ```bash
-curl -s --max-time 25 "https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756&hourly=temperature_2m,apparent_temperature,precipitation,precipitation_probability,wind_speed_10m,wind_gusts_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,sunrise,sunset,weather_code&timezone=Europe%2FParis&forecast_days=16"
+python3 scripts/update-weer.py
 ```
 
-Gebruik **deze ene call** voor zowel `DATA.days` als `PLAN`, zodat dag- en uurcijfers
-uit dezelfde modelrun komen. Velden kunnen `null` zijn in de laatste dagen — vang dat af.
+Het script schrijft niets als het niets kon ophalen — liever oude data die als oud
+gelabeld staat dan verzonnen data. Faalt het, meld dat dan gewoon.
+
+Twee bronnen, in deze voorrang:
+
+| Bron | Rol | Sleutel |
+|---|---|---|
+| **Foreca** | de balken, zodra de secrets gezet zijn | `FORECA_USER` + `FORECA_PASSWORD` in de repo-secrets |
+| **Open-Meteo** | uurdata, lucht, en de balken zonder Foreca | geen |
+| **Météo-France** | controlelijn (~4 dagen vooruit) | geen |
+
+De sleutel hoort **niet** in de pagina: deze repo is publiek, dus alles in de
+JavaScript is leesbaar voor elke bezoeker. Daarom haalt de Action het weer op en
+niet de browser.
+
+> **De pagina ververst zichzelf ook nog (sinds 9 augustus).** `refresh()` draait bij
+> elke opening, en opnieuw zodra het tabblad weer zichtbaar wordt en de laatste
+> ophaling langer dan een half uur geleden is. Open-Meteo stuurt
+> `access-control-allow-origin: *`, dus dat werkt gewoon op GitHub Pages.
+>
+> Levert Foreca de balken, dan laat de browser die **met rust** en ververst hij enkel
+> de lucht en de controlelijnen. Ligt de dagelijkse job meer dan anderhalve dag stil,
+> dan neemt Open-Meteo de balken over en zegt de statusregel dat erbij — een verse
+> tweede keuze is beter dan een verouderde eerste.
+
+**Jouw echte werk is de lopende tekst.** Die haalt de pagina nergens vandaan. Op
+9 augustus stond er nog "de hittegolf is uit het model verdwenen" terwijl het model
+40 °C gaf: de grafieken klopten, het verhaal eromheen niet. Controleer dus altijd of
+het verdict, `RULES` en `SCENARIOS` nog stroken met de cijfers die er nú staan.
+
+Deze vier rekenen zichzelf uit — laat ze met rust en zet er nooit vaste getallen in,
+want precies die liepen achter: de piektemperatuur (`#tilePeak`), het
+fijnstofvooruitzicht (`#aqFcLabel/#aqFcVal/#aqFcNote`), de PM-tegel en de duiding
+onder de weergrafiek (`#mfNote`).
+
+#### Foreca aanzetten — eenmalig, door Tim
+
+Zolang de secrets niet gezet zijn draait alles op Open-Meteo; er gaat dus niets stuk
+als dit blijft liggen. Aanzetten gaat zo:
+
+1. Vraag toegang op **developer.foreca.com** (30 dagen gratis, 2000 requests/dag —
+   deze pagina doet er één per dag). Je krijgt een gebruikersnaam en wachtwoord.
+2. Zet ze in de repo als secrets, niet in een bestand:
+
+   ```bash
+   gh secret set FORECA_USER     --repo NimbleeTim/bosbranden-teuillac
+   gh secret set FORECA_PASSWORD --repo NimbleeTim/bosbranden-teuillac
+   ```
+
+   Of via GitHub: *Settings → Secrets and variables → Actions → New repository secret*.
+3. Start de job één keer met de hand om te zien of het pakt:
+
+   ```bash
+   gh workflow run "Dagelijkse weerupdate" --repo NimbleeTim/bosbranden-teuillac
+   gh run watch --repo NimbleeTim/bosbranden-teuillac
+   ```
+
+De log toont welke velden Foreca teruggaf. Wijken die af van wat `haal_foreca()`
+verwacht, dan valt het script terug op Open-Meteo en zegt dat in de log — dan moeten
+de veldnamen in `_pak(...)` bijgesteld worden. Zet de secrets **nooit** in de pagina
+of in een commit: deze repo is publiek.
 
 ### 2. Zoek de actuele situatie op
 
@@ -96,23 +116,15 @@ en **zet een expliciet voorbehoud in de pagina** als je iets niet kon verifiëre
 
 Alles wat verandert zit in het `<script>`-blok, behalve de lopende tekst.
 
-- **`DATA.days`** — de 16 dagen uit de forecast-API. Velden: `d, tmax, tmin, rain, pop, wind, gust, dir`.
-- **`DATA.mf`** — de controlelijn van Météo-France. Velden: enkel `d, tmax`. Zelfde
-  host, alleen `&models=meteofrance_seamless` erbij en `daily=temperature_2m_max`:
+**Van het script, niet van jou.** `DATA.days`, `DATA.mf`, `DATA.om`, `DATA.air`,
+`PLAN`, `DATA.source`, `DATA.fetchedAt` en `const STAMP` worden geschreven door
+`scripts/update-weer.py`. Raak ze niet met de hand aan; draai het script.
+De velden staan in het script zelf gedocumenteerd, en de regels voor `kind` en
+`bike` staan hieronder omdat ze de bedoeling vastleggen — niet omdat je ze moet
+narekenen.
 
-  ```bash
-  curl -s --max-time 25 "https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756&daily=temperature_2m_max&timezone=Europe%2FParis&forecast_days=16&models=meteofrance_seamless"
-  ```
+**Van jou:**
 
-  Het Franse model reikt maar een dag of vier; laat `null`-dagen gewoon weg. Wijkt het
-  meer dan 2 °C af van `DATA.days`, dan zegt de pagina er zelf bij dat de verwachting
-  nog kan schuiven — die tekst hoef je niet te schrijven.
-- **`DATA.air`** — dagelijkse maxima. Velden: `d, pm25, pm10, aqi, o3, past`.
-  `past: true` voor dagen vóór vandaag.
-- **`DATA.fetchedAt`** — ISO-tijdstip van deze update.
-- **`const STAMP`** — leesbare stempel, bv. `'7 augustus, 07:30'`. Komt in de statusregel
-  en in de fallback-melding van de refresh-knop.
-- De statusregel in de header (`id="liveTxt"`) — zelfde datum als STAMP.
 - **`RULES`** — als het vigilance-niveau of een besluit wijzigde.
 - **`SCENARIOS`** — herweeg de percentages. **Ze moeten samen exact 100 zijn.**
 - **`ATTRACTIONS`** — status `ok` / `part` / `chk` / `shut`; `stx` is het label.
@@ -120,11 +132,12 @@ Alles wat verandert zit in het `<script>`-blok, behalve de lopende tekst.
 - **`NEWS`** — vervang door de meest recente berichten met werkende URL's.
 - De verdict-tekst (`id="verdictBody"`) en de tegels erin, als het verhaal wezenlijk wijzigde.
 
-- **`PLAN`** — één record per dag, voedt de dagindeling en het uurdetail. Velden:
-  `d`, `sr`/`ss` (uur van zonop/onder), `kind`, `code` (weertype in het Nederlands),
-  `bike`, en de uurreeksen `th` (temperatuur), `wh` (wind), `rh` (regen), elk 24 lang.
+**De regels achter `PLAN`** (het script rekent ze uit; hier staan ze zodat de bedoeling
+niet verloren gaat). Eén record per dag, met `d`, `sr`/`ss` (uur van zonop/onder),
+`kind`, `code` (weertype in het Nederlands), `bike`, en de uurreeksen `th`, `ah`, `wh`,
+`rh`, elk 24 lang.
 
-  `kind` bepaal je zo, in deze volgorde: `binnen` als regen ≥ 3 mm of weather_code in
+  `kind` gaat zo, in deze volgorde: `binnen` als regen ≥ 3 mm of weather_code in
   61/63/65/80/81/82/95/96/99; anders `water` bij tmax ≥ 32; `warm` bij ≥ 28;
   `fris` bij < 24; anders `uitstap`.
 
