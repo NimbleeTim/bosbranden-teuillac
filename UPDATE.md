@@ -61,6 +61,11 @@ Voor luchtkwaliteit: neem per dag het **maximum** van elke uurreeks.
 > model verdwenen" terwijl het model 40 °C gaf: de grafieken klopten, het verhaal
 > eromheen niet. Controleer daarom altijd of verdict, tegels, `RULES` en `SCENARIOS`
 > nog stroken met de verse cijfers.
+>
+> Vier tegels rekenen zichzelf intussen uit en mag je met rust laten: de piektempe-
+> ratuur (`#tilePeak`), het fijnstofvooruitzicht (`#aqFcLabel/#aqFcVal/#aqFcNote`),
+> de PM-tegel en de duiding onder de weergrafiek (`#mfNote`). Zet daar geen vaste
+> getallen meer in — precies die liepen achter.
 
 Haal daarnaast de **uurdata** op — die voedt de dagindeling en de fietsvensters:
 
@@ -92,6 +97,16 @@ en **zet een expliciet voorbehoud in de pagina** als je iets niet kon verifiëre
 Alles wat verandert zit in het `<script>`-blok, behalve de lopende tekst.
 
 - **`DATA.days`** — de 16 dagen uit de forecast-API. Velden: `d, tmax, tmin, rain, pop, wind, gust, dir`.
+- **`DATA.mf`** — de controlelijn van Météo-France. Velden: enkel `d, tmax`. Zelfde
+  host, alleen `&models=meteofrance_seamless` erbij en `daily=temperature_2m_max`:
+
+  ```bash
+  curl -s --max-time 25 "https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756&daily=temperature_2m_max&timezone=Europe%2FParis&forecast_days=16&models=meteofrance_seamless"
+  ```
+
+  Het Franse model reikt maar een dag of vier; laat `null`-dagen gewoon weg. Wijkt het
+  meer dan 2 °C af van `DATA.days`, dan zegt de pagina er zelf bij dat de verwachting
+  nog kan schuiven — die tekst hoef je niet te schrijven.
 - **`DATA.air`** — dagelijkse maxima. Velden: `d, pm25, pm10, aqi, o3, past`.
   `past: true` voor dagen vóór vandaag.
 - **`DATA.fetchedAt`** — ISO-tijdstip van deze update.

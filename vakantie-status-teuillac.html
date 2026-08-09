@@ -397,7 +397,7 @@
       <div class="tile">
         <span class="eyebrow">Grootste risico voor jullie</span>
         <span class="tile-val">Hitte</span>
-        <span class="chip warning"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 3v2"/><path d="M12 19v2"/><path d="M5 12H3"/><path d="M21 12h-2"/><circle cx="12" cy="12" r="4"/></svg>Piek 34,0 °C</span>
+        <span class="chip warning" id="tilePeak"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 3v2"/><path d="M12 19v2"/><path d="M5 12H3"/><path d="M21 12h-2"/><circle cx="12" cy="12" r="4"/></svg>Piek —</span>
       </div>
     </div>
   </div>
@@ -544,9 +544,9 @@
           <span class="tiny">Bijna gehalveerd sinds 30 juli. Ruim onder de WHO-norm.</span>
         </div>
         <div class="stack" style="gap:4px">
-          <span class="eyebrow">Verwacht 4 – 7 aug</span>
-          <span class="num" style="font-size:1.32rem">5 – 8 µg/m³</span>
-          <span class="tiny">Index "goed". Rook speelt praktisch geen rol meer.</span>
+          <span class="eyebrow" id="aqFcLabel">Verwacht</span>
+          <span class="num" style="font-size:1.32rem" id="aqFcVal">—</span>
+          <span class="tiny" id="aqFcNote">Rook speelt praktisch geen rol meer.</span>
         </div>
       </div>
       <div class="callout">
@@ -565,6 +565,7 @@
     </div>
     <div class="card stack-lg">
       <div class="chartbox" id="tempChart"></div>
+      <p class="tiny" id="mfNote" style="margin:-4px 0 0"></p>
       <div class="dayDetail" style="border-top:1px solid var(--rule-soft);padding-top:16px"></div>
       <div class="grid3">
         <div class="stack" style="gap:4px">
@@ -803,6 +804,16 @@
       { d:'2026-08-23', tmax:32.5, tmin:14.9, rain:0.3, pop:0, wind:18.0, gust:36, dir:108 },
       { d:'2026-08-24', tmax:23.7, tmin:17.0, rain:0.1, pop:0, wind:10.9, gust:28, dir:270 }
 
+    ],
+    // Météo-France AROME/ARPEGE, enkel het dagmaximum. Het Franse model rekent op
+    // 1,3 km en ziet de estuariumlucht die een wereldmodel gladstrijkt — maar het
+    // reikt maar een dag of vier. Daarom een controlelijn naast de balken, niet in
+    // de plaats ervan: lopen ze uiteen, dan is de verwachting onzeker.
+    mf: [
+      { d:'2026-08-09', tmax:35.2 },
+      { d:'2026-08-10', tmax:32.0 },
+      { d:'2026-08-11', tmax:35.3 },
+      { d:'2026-08-12', tmax:37.5 }
     ],
     // Open-Meteo air quality, dagelijkse piek
     air: [
@@ -1266,9 +1277,15 @@
       s += `<line class="gridline" x1="${ML}" y1="${y(v).toFixed(1)}" x2="${W - MR}" y2="${y(v).toFixed(1)}"/>`;
       s += `<text class="axlab" x="${ML - 7}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end">${v}°</text>`;
     }
-    // hittedrempel — label links, waar de eerste balken onder de lijn blijven
+    // hittedrempel — het label gaat naar de kant waar de minste balken tegen de
+    // lijn komen, zodat het niet over de balken of de controlelijn valt
     s += `<line class="thresh" x1="${ML}" y1="${y(32).toFixed(1)}" x2="${W - MR}" y2="${y(32).toFixed(1)}" stroke="var(--warning)"/>`;
-    s += `<text class="threshlab" x="${ML + 5}" y="${(y(32) - 6).toFixed(1)}" fill="var(--warning)">32° — grens voor kleuters</text>`;
+    const helft = Math.ceil(d.length / 2);
+    const drukLinks = d.slice(0, helft).filter(x => x.tmax >= 30).length;
+    const drukRechts = d.slice(helft).filter(x => x.tmax >= 30).length;
+    s += drukRechts <= drukLinks
+      ? `<text class="threshlab" x="${W - MR - 5}" y="${(y(32) - 6).toFixed(1)}" text-anchor="end" fill="var(--warning)">32° — grens voor kleuters</text>`
+      : `<text class="threshlab" x="${ML + 5}" y="${(y(32) - 6).toFixed(1)}" fill="var(--warning)">32° — grens voor kleuters</text>`;
 
     d.forEach((r, i) => {
       const cx = ML + i * bw + bw / 2;
@@ -1289,10 +1306,43 @@
       if (i % 2 === 0) s += `<text class="axlab" x="${cx.toFixed(1)}" y="${H - MB + 16}" text-anchor="middle">${fmtShort(r.d)}</text>`;
     });
 
+    // controlelijn van het Franse model, over de balken heen
+    const mf = (DATA.mf || [])
+      .map(m => ({ ...m, i: d.findIndex(x => x.d === m.d) }))
+      .filter(m => m.i >= 0);
+    let afwijking = 0;
+    if (mf.length >= 2) {
+      const pts = mf.map(m => `${(ML + m.i * bw + bw / 2).toFixed(1)},${y(m.tmax).toFixed(1)}`).join(' ');
+      s += `<polyline points="${pts}" fill="none" stroke="var(--ink-2)" stroke-width="1.7"
+              stroke-dasharray="5 3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>`;
+      mf.forEach(m => {
+        const cx = ML + m.i * bw + bw / 2, verschil = m.tmax - d[m.i].tmax;
+        afwijking = Math.max(afwijking, Math.abs(verschil));
+        s += `<circle cx="${cx.toFixed(1)}" cy="${y(m.tmax).toFixed(1)}" r="2.8" fill="var(--ink-2)">`
+          + `<title>${fmtDay(m.d)} — Météo-France ${nl(m.tmax)}°, `
+          + `${Math.abs(verschil) < 0.05 ? 'gelijk aan' : nl(Math.abs(verschil)) + '° ' + (verschil > 0 ? 'warmer dan' : 'koeler dan')}`
+          + ` de hoofdverwachting</title></circle>`;
+      });
+    }
+
     s += `<line class="baseline" x1="${ML}" y1="${(MT + ih).toFixed(1)}" x2="${W - MR}" y2="${(MT + ih).toFixed(1)}"/>`;
-    s += `<text class="axlab" x="${ML}" y="${H - 6}">balk = nachtminimum tot dagmaximum · geel = 34 °C of meer · klik een dag voor het uurverloop</text>`;
+    s += `<text class="axlab" x="${ML}" y="${H - 6}">balk = nachtminimum tot dagmaximum · geel = 34 °C of meer`
+      + `${mf.length >= 2 ? ' · stippellijn = Météo-France, reikt ' + mf.length + ' dagen' : ''}`
+      + ` · klik een dag voor het uurverloop</text>`;
     s += `</svg>`;
     box.innerHTML = s;
+
+    // Eén regel duiding onder de grafiek: lopen de twee modellen uiteen, dan is dat
+    // het eerlijkste signaal dat de verwachting nog kan schuiven.
+    const duiding = document.getElementById('mfNote');
+    if (duiding) {
+      duiding.innerHTML = mf.length < 2
+        ? `De controlelijn van <strong>Météo-France</strong> is even niet beschikbaar; de balken komen van de gecombineerde modellen.`
+        : afwijking >= 2
+        ? `<strong>Météo-France</strong> wijkt tot <strong>${nl(afwijking)} °C</strong> af van de hoofdverwachting. Zolang de twee zo uiteenlopen, is de temperatuur nog niet vast — neem de warmste van de twee als je iets buiten plant.`
+        : `<strong>Météo-France</strong> volgt de hoofdverwachting binnen ${nl(afwijking)} °C. De eerste dagen liggen dus redelijk vast.`;
+    }
+
     box.querySelectorAll('.daybar').forEach(el => {
       el.addEventListener('click', () => selectDay(+el.dataset.i));
       el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectDay(+el.dataset.i); } });
@@ -1791,6 +1841,10 @@
     + 'wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Europe%2FParis&forecast_days=16';
   const AQ_URL = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=45.09289&longitude=-0.54756'
     + '&hourly=pm10,pm2_5,european_aqi,ozone&timezone=Europe%2FParis&past_days=5&forecast_days=5';
+  // Tweede mening: het Franse model. Zelfde host, alleen een andere modelkeuze —
+  // dus geen sleutel, geen limiet en geen extra afhankelijkheid.
+  const MF_URL = 'https://api.open-meteo.com/v1/forecast?latitude=45.09289&longitude=-0.54756'
+    + '&daily=temperature_2m_max&timezone=Europe%2FParis&forecast_days=16&models=meteofrance_seamless';
 
   const liveStat = document.getElementById('liveStat');
   const liveTxt = document.getElementById('liveTxt');
@@ -1837,6 +1891,19 @@
         d, pm25: pm25[d], pm10: pm10[d] ?? 0, aqi: Math.round(aqi[d] ?? 0), o3: o3[d] ?? 0, past: d < today
       }));
 
+      // Het Franse model is een extraatje: valt het weg, dan houden we de vorige
+      // lijn en gaat de rest van de verversing gewoon door.
+      try {
+        const mfR = await fetch(MF_URL);
+        if (mfR.ok) {
+          const M = (await mfR.json()).daily;
+          const rij = M.time
+            .map((t, i) => ({ d: t, tmax: M.temperature_2m_max[i] }))
+            .filter(x => x.tmax != null);
+          if (rij.length) DATA.mf = rij;
+        }
+      } catch (_) { /* controlelijn is optioneel */ }
+
       DATA.live = true;
       DATA.fetchedAt = new Date().toISOString();   // ouderdom klopt zo altijd met wat er staat
       recomputeView();
@@ -1873,6 +1940,34 @@
 
   function updateTiles() {
     const t = todayISO();
+
+    // Piektemperatuur uit de data zelf, over de dagen die nog komen. Stond hier
+    // vroeger hardgecodeerd en liep daardoor achter op de grafiek eronder.
+    const komend = DATA.days.filter(r => r.d >= t && r.d <= STAY.to);
+    const piek = (komend.length ? komend : DATA.days).reduce((a, b) => b.tmax > a.tmax ? b : a, { tmax: -99 });
+    const pe = document.getElementById('tilePeak');
+    if (pe && piek.tmax > -99) {
+      pe.className = 'chip ' + (piek.tmax >= 35 ? 'critical' : piek.tmax >= 30 ? 'warning' : 'good');
+      pe.innerHTML = pe.innerHTML.replace(/Piek[^<]*$/, `Piek ${nl(piek.tmax)} °C`);
+    }
+
+    // Fijnstofvooruitzicht: bereik en periode uit de data, niet uit een vaste tekst.
+    const vw = DATA.air.filter(a => !a.past && a.d >= t);
+    const lab = document.getElementById('aqFcLabel'), val = document.getElementById('aqFcVal'),
+          note = document.getElementById('aqFcNote');
+    if (lab && val && vw.length) {
+      const laag = Math.min(...vw.map(a => a.pm25)), hoog = Math.max(...vw.map(a => a.pm25));
+      lab.textContent = vw.length === 1
+        ? `Verwacht ${fmtShort(vw[0].d)}`
+        : `Verwacht ${fmtShort(vw[0].d)} – ${fmtShort(vw[vw.length - 1].d)}`;
+      val.textContent = `${nl(laag, 0)} – ${nl(hoog, 0)} µg/m³`;
+      if (note) note.textContent = hoog <= 15
+        ? 'Onder de WHO-dagrichtwaarde. Rook speelt praktisch geen rol meer.'
+        : hoog <= 35
+        ? 'Tijdelijk verhoogd. Gevoelige longen: namiddag rustig aan.'
+        : 'Slecht. Binnen blijven tussen 12 en 19 u en Atmo checken.';
+    }
+
     const rec = DATA.air.find(a => a.d === t) || DATA.air.find(a => !a.past) || DATA.air[DATA.air.length - 1];
     if (!rec) return;
     document.getElementById('tilePm').innerHTML = `${nl(rec.pm25, 0)}<span class="unit">µg/m³</span>`;
